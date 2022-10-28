@@ -2,11 +2,11 @@
 
 ## Summary
 
-This is the shared library for ddd project, you can use it inside microservice project, too
+This is the shared library for my personal ddd project, you can use it inside microservice project, too
 
 ## How to Use
 
-Just install this private npm, and you it as normal npm package
+If you want to use these, just inspect the repos, every file is a base class for the idea of ddd
 
 ## License
 
