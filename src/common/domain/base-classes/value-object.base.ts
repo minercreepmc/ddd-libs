@@ -8,7 +8,6 @@ type ValueObjectProps<T> = T extends Primitive | Date ? DomainPrimitive<T> : T;
 
 export abstract class ValueObject<T> implements Guard<void> {
   protected readonly props: ValueObjectProps<T>;
-  abstract get value(): unknown;
 
   protected constructor(props: ValueObjectProps<T>) {
     this.props = props;
