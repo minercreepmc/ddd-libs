@@ -1,7 +1,5 @@
-import { AggregateRoot } from '@core/domain/base-classes/aggregate-root.base';
-import { CreateEntityProps } from '@core/domain/base-classes/entity.base';
-import { DateVO } from '@core/domain/value-objects/date';
-import { UUID } from '@core/domain/value-objects/id';
+import { AggregateRoot, CreateEntityProps } from '@domain/base-classes';
+import { DateVO, UUID } from '@domain/value-objects';
 import { TypeOrmEntityBase } from './typeorm.entity.base';
 
 export type OrmEntityProps<OrmEntity> = Omit<
@@ -12,15 +10,15 @@ export type OrmEntityProps<OrmEntity> = Omit<
 export abstract class OrmMapper<
   Entity extends AggregateRoot<unknown>,
   EntityProps,
-  OrmEntity extends TypeOrmEntityBase,
+  OrmEntity extends TypeOrmEntityBase
 > {
   constructor(
     readonly entityConstructor: new (props: CreateEntityProps<any>) => Entity,
-    readonly ormEntityConstructor: new (props: any) => OrmEntity,
+    readonly ormEntityConstructor: new (props: any) => OrmEntity
   ) {}
 
   protected abstract toPersistanceProps(
-    entity: Entity,
+    entity: Entity
   ): OrmEntityProps<OrmEntity>;
   protected abstract toDomainProps(ormEntity: OrmEntity): EntityProps;
 

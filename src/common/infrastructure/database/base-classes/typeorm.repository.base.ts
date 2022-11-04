@@ -1,14 +1,11 @@
-import { AggregateRoot } from '@core/domain/base-classes/aggregate-root.base';
+import { AggregateRoot } from '@domain/base-classes';
+import { QueryParams, RepositoryPort } from '@domain/driven-adapters';
+import { ID } from '@domain/value-objects';
+import { EventEmitter } from '@domain/events';
 import { Repository, FindOptionsWhere, ObjectLiteral } from 'typeorm';
 import { OrmMapper } from './orm-mapper.base';
-import {
-  QueryParams,
-  RepositoryPort,
-} from '@core/domain/ports/repository.port';
 import { TypeOrmEntityBase } from './typeorm.entity.base';
-import { ID } from '@core/domain/value-objects/id';
 import { Logger } from '@nestjs/common';
-import { EventEmitter } from '@core/domain/events/event-emitter';
 
 export type WhereClause<OrmEntity> =
   | FindOptionsWhere<OrmEntity>
@@ -19,14 +16,13 @@ export type WhereClause<OrmEntity> =
 export abstract class TypeormRepositoryBase<
   Aggregate extends AggregateRoot<unknown>,
   AggregateProps,
-  OrmEntity extends TypeOrmEntityBase,
-> implements RepositoryPort<Aggregate>
-{
+  OrmEntity extends TypeOrmEntityBase
+> implements RepositoryPort<Aggregate> {
   protected constructor(
     protected readonly repository: Repository<OrmEntity>,
     protected readonly mapper: OrmMapper<Aggregate, AggregateProps, OrmEntity>,
     protected readonly eventEmitter: EventEmitter,
-    protected readonly logger: Logger,
+    protected readonly logger: Logger
   ) {}
 
   /**
@@ -36,7 +32,7 @@ export abstract class TypeormRepositoryBase<
   protected abstract relations: string[];
 
   abstract whereQuery(
-    params: QueryParams<AggregateProps>,
+    params: QueryParams<AggregateProps>
   ): WhereClause<OrmEntity>;
 
   async save(entity: Aggregate): Promise<Aggregate> {

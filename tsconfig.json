@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
     "paths": {
-      "@common/*": [
-        "./src/common/*"
+      "@application/*": [
+        "./src/common/application/*"
+      ],
+      "@domain/*": [
+        "./src/common/domain/*"
+      ],
+      "@infrastructure/*": [
+        "./src/common/infrastructure/*"
+      ],
+      "@utils/*": [
+        "./src/common/utils/*"
       ],
       "@types": [
         "./src/types"
-      ],
-      "@types/*": [
-        "./src/types/*"
       ]
     },
     "module": "commonjs",

@@ -1,5 +1,5 @@
-import { ValueObject } from '@core/domain/base-classes/value-object.base';
 import { ArgumentInvalidExeception } from '@exceptions';
+import { ValueObject } from '@domain/base-classes';
 
 export type DateVOValue = Date | string | number;
 

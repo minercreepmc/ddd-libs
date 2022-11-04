@@ -1,6 +1,5 @@
-import { Guard } from '@core/guard';
-import { ID } from '../value-objects/id';
-import { DateVO } from '../value-objects/date';
+import { Guard } from '@utils/guard';
+import { ID, DateVO } from '../value-objects';
 
 export interface BaseEntityProps {
   id: ID;

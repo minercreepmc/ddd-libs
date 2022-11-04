@@ -1,4 +1,4 @@
-import { Guard } from '@core/guard';
+import { Guard } from '@utils/guard';
 
 type Primitive = string | boolean | number;
 export interface DomainPrimitive<T extends Primitive | Date> {
@@ -17,7 +17,6 @@ export abstract class ValueObject<T> implements Guard<void> {
 
   public equals(vo?: ValueObject<T>): boolean {
     if (vo === null || vo === undefined) return false;
-
     return JSON.stringify(vo) === JSON.stringify(this);
   }
 
@@ -28,7 +27,7 @@ export abstract class ValueObject<T> implements Guard<void> {
   }
 
   private isDomainPrimitive(
-    obj: unknown,
+    obj: unknown
   ): obj is DomainPrimitive<T & (Primitive | Date)> {
     if (Object.prototype.hasOwnProperty.call(obj, 'value')) {
       return true;
