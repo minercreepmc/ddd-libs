@@ -1,5 +1,5 @@
 {
-  "name": "@tinphamm/ddd-libs",
+  "name": "base-classes-utils",
   "version": "1.0.1",
   "main": "./build/index.js",
   "license": "MIT",
