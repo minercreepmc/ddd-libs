@@ -15,22 +15,22 @@ export interface CreateEntityProps<T> {
 }
 
 export abstract class Entity<EntityProps> implements Guard<void> {
-  protected abstract _id: ID;
+  protected _id: ID;
   private readonly _createdAt: DateVO;
   protected _updatedAt: DateVO;
   protected readonly props: EntityProps;
 
   public abstract guard(): void;
 
-  get id() {
+  get id(): ID {
     return this._id;
   }
 
-  get createdAt() {
+  get createdAt(): DateVO {
     return this._createdAt;
   }
 
-  get updatedAt() {
+  get updatedAt(): DateVO {
     return this._updatedAt;
   }
 
