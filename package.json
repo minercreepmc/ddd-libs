@@ -1,6 +1,6 @@
 {
   "name": "base-classes-utils",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "./build/index.js",
   "license": "MIT",
   "devDependencies": {
@@ -29,6 +29,8 @@
   "homepage": "https://github.com/minercreepmc/ddd-libs#readme",
   "dependencies": {
     "@nestjs/common": "^9.1.6",
+    "@nestjs/cqrs": "^9.0.1",
+    "@tinphamm/common-exceptions": "^1.0.0",
     "common-errors": "^1.2.0",
     "is-empty": "^1.2.0",
     "typeorm": "^0.3.10"

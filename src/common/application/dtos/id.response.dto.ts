@@ -1,7 +1,3 @@
-export interface Id {
-  id: string;
-}
-
-export class IdResponse implements Id {
+export class IdResponse{
   constructor(public readonly id: string) {}
 }

@@ -1,5 +1,5 @@
-import { GuardUtils } from '@core/guard';
-import { ArgumentNotProvidedException } from '@exceptions';
+import { GuardUtils } from '@utils/guard';
+import { ArgumentNotProvidedException } from '@tinphamm/common-exceptions';
 import { UUID } from '../value-objects/id';
 
 export type DomainEventProps<T> = Omit<T, 'id' | 'dateOccurred'> & {

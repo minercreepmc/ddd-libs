@@ -1,4 +1,4 @@
-import { ArgumentInvalidExeception } from '@exceptions';
+import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
 import { ValueObject } from '@domain/base-classes';
 
 export type DateVOValue = Date | string | number;

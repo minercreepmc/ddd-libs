@@ -4,7 +4,7 @@
 
 This is the shared library for my personal project, you can use it inside microservice project, too
 
-Because this is for personal use, it not actually complete, it missing a tons of things, i will add it later depend on my personal project
+Because this is for personal use, it not actually complete and having a doc, it missing a tons of things, i will add it later depend on my personal project
 
 ## How to Use
 

@@ -1,5 +1,5 @@
 import { ID } from './id.value-object';
-import { ArgumentInvalidExeception } from '@exceptions';
+import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
 import { v4 as uuidV4, validate as uuidValidate } from 'uuid';
 
 export class UUID extends ID {

@@ -1,4 +1,4 @@
-import { ValueObject } from '@core/domain/base-classes/value-object.base';
+import { ValueObject } from '@domain/base-classes';
 
 export abstract class ID extends ValueObject<string> {
   get value(): string {
