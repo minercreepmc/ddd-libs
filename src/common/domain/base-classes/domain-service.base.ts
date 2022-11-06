@@ -1,5 +1,5 @@
 import { RepositoryPort } from '@domain/driven-adapters';
 
-export abstract class DomainService<T> {
-  protected constructor(protected readonly repository: RepositoryPort<T>) {}
+export abstract class DomainService<Entity> {
+  abstract readonly repository: RepositoryPort<Entity>;
 }
