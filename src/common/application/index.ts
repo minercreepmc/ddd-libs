@@ -1,2 +1,2 @@
 export * from './dtos';
-export * from './command';
+export * from './base-classes';
