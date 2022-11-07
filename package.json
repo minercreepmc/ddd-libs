@@ -1,6 +1,6 @@
 {
   "name": "common-base-classes",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "./main/index.js",
   "license": "MIT",
   "files": [
