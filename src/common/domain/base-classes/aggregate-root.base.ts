@@ -1,15 +1,15 @@
-import { IDomainEvent } from '../events';
+import { DomainEvent } from '../events';
 import { EventEmitter } from '../events/event-emitter';
 import { Entity } from '.';
 
 export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {
-  private _domainEvents: IDomainEvent[] = [];
+  private _domainEvents: DomainEvent[] = [];
 
-  get domainEvents(): IDomainEvent[] {
+  get domainEvents(): DomainEvent[] {
     return this._domainEvents;
   }
 
-  protected addEvent(domainEvent: IDomainEvent): void {
+  protected addEvent(domainEvent: DomainEvent): void {
     this._domainEvents.push(domainEvent);
     EventEmitter.prepareForPublish(this);
   }

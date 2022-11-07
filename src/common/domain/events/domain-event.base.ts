@@ -9,7 +9,7 @@ export type DomainEventProps<T> = Omit<T, 'id' | 'dateOccurred'> & {
 
 export type DomainEventClass = new (args: any) => DomainEvent;
 
-export class IDomainEvent {
+export class DomainEvent {
   public readonly id: string;
   public readonly aggregateId: string;
   public readonly dateOccurred: number;

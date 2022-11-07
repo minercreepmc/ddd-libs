@@ -19,7 +19,7 @@ export abstract class ValueObject<T> implements Guard<void> {
     return JSON.stringify(vo) === JSON.stringify(this);
   }
 
-  public unpack() {
+  public unpack(): T {
     if (this.isDomainPrimitive(this.props)) {
       return this.props.value;
     }
