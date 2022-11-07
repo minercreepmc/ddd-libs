@@ -1,15 +1,15 @@
 import { Guard } from '@utils/guard';
 
 type Primitive = string | boolean | number;
+
 export interface DomainPrimitive<T extends Primitive | Date> {
   value: T;
 }
-type ValueObjectProps<T> = T extends Primitive | Date ? DomainPrimitive<T> : T;
 
 export abstract class ValueObject<T> implements Guard<void> {
-  protected readonly props: ValueObjectProps<T>;
+  protected readonly props: T;
 
-  protected constructor(props: ValueObjectProps<T>) {
+  protected constructor(props: T) {
     this.props = props;
     this.guard();
   }
@@ -19,7 +19,7 @@ export abstract class ValueObject<T> implements Guard<void> {
     return JSON.stringify(vo) === JSON.stringify(this);
   }
 
-  public unpack(): T {
+  public unpack() {
     if (this.isDomainPrimitive(this.props)) {
       return this.props.value;
     }
