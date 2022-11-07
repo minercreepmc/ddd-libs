@@ -27,9 +27,9 @@ export abstract class OrmMapper<
 
     return new this.ormEntityConstructor({
       ...props,
-      id: entity.id.value,
-      createdAt: entity.createdAt.value,
-      updatedAt: entity.updatedAt.value,
+      id: entity.id.unpack(),
+      createdAt: entity.createdAt.unpack(),
+      updatedAt: entity.updatedAt.unpack(),
     });
   }
 

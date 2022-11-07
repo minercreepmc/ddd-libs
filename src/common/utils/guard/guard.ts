@@ -1,16 +1,16 @@
 import {
   ArgumentInvalidExeception,
   ArgumentNotProvidedException,
-} from '@exceptions';
+} from '@tinphamm/common-exceptions';
 
 export class GuardUtils {
-  static isEmptyOrThrow(value: any) {
+  static isEmptyOrThrow(value: any): void {
     this.notNullOrUndefinedOrThrow(value);
     this.notEmptyStringOrThrow(value);
     this.notArrayEmptyOrThrow(value);
   }
 
-  static isEmpty(value: any) {
+  static isEmpty(value: any): boolean {
     return (
       this.isNullOrUndefined(value) &&
       this.isEmptyString(value) &&
@@ -22,12 +22,12 @@ export class GuardUtils {
   static notNullOrUndefinedOrThrow(value: any): void {
     if (this.isNullOrUndefined(value)) {
       throw new ArgumentNotProvidedException(
-        'Argument cannot null or undefined',
+        'Argument cannot null or undefined'
       );
     }
   }
 
-  static isNullOrUndefined(value: any) {
+  static isNullOrUndefined(value: any): boolean {
     return typeof value === undefined || typeof value === null;
   }
 
@@ -38,7 +38,7 @@ export class GuardUtils {
       }
       if (this.isArrayContainEmpty(value)) {
         throw new ArgumentInvalidExeception(
-          'Item of array cannot contain null or undefined',
+          'Item of array cannot contain null or undefined'
         );
       }
     }

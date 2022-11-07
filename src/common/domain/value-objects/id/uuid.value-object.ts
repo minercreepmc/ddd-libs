@@ -8,18 +8,18 @@ export class UUID extends ID {
     return uuid;
   }
 
-  public guard() {
+  public guard(): void {
     if (!UUID.isValid(this)) {
       throw new ArgumentInvalidExeception('UUID was not valid');
     }
   }
 
-  public static isValid(candidate: string | UUID) {
+  public static isValid(candidate: string | UUID): boolean {
     let candidateFormetted: string;
     if (typeof candidate === 'string') {
       candidateFormetted = candidate.trim();
     } else if (candidate instanceof UUID) {
-      candidateFormetted = candidate.value;
+      candidateFormetted = candidate.unpack();
     } else {
       return false;
     }

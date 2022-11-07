@@ -47,14 +47,16 @@ export abstract class TypeormRepositoryBase<
   async delete(entity: Aggregate): Promise<boolean> {
     const ormEntity = this.mapper.toPersistance(entity);
     const deleted = await this.repository.remove(ormEntity);
-    this.logger.debug(`[Repository]: deleted ${entity.id.value}`);
+    this.logger.debug(`[Repository]: deleted ${entity.id.unpack()}`);
     return Boolean(deleted);
   }
 
   async findOneById(id: ID | string): Promise<Aggregate | undefined> {
     const found = await this.repository
       .createQueryBuilder('collections')
-      .where('collections.id = :id', { id: id instanceof ID ? id.value : id })
+      .where('collections.id = :id', {
+        id: id instanceof ID ? id.unpack() : id,
+      })
       .getOne();
 
     if (found) {
