@@ -1,11 +1,10 @@
 import { AggregateRoot } from '@domain';
 import { QueryParams, RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
-import { DomainEventPublisher } from '@domain/domain-events';
 import { Repository, FindOptionsWhere, ObjectLiteral } from 'typeorm';
 import { OrmMapper } from '@infrastructure/driven-adapters/database/mapper';
 import { TypeOrmModel } from '@infrastructure/driven-adapters/database/model';
-import { Logger } from '@nestjs/common';
+import { LoggerPort } from '@infrastructure/driven-ports';
 
 export type WhereClause<OrmModel> =
   | FindOptionsWhere<OrmModel>
@@ -21,8 +20,7 @@ export abstract class TypeormRepository<
   protected constructor(
     protected readonly repository: Repository<OrmModel>,
     protected readonly mapper: OrmMapper<Aggregate, AggregateProps, OrmModel>,
-    protected readonly eventEmitter: DomainEventPublisher,
-    protected readonly logger: Logger
+    protected readonly logger: LoggerPort
   ) {}
 
   /**
@@ -40,7 +38,6 @@ export abstract class TypeormRepository<
     const created = await this.repository.save(ormEntity);
 
     this.logger.debug(`[Repository]: created ${created.id}`);
-    await this.eventEmitter.publishEvents(entity.id, this.logger);
     return this.mapper.toDomain(created);
   }
 
