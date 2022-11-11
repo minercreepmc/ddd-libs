@@ -3,7 +3,7 @@ import { CreateEntityProps } from '@domain/entity.abstract';
 import { DateVO, UUID } from '@domain/value-objects';
 import { TypeOrmModel } from '../model';
 
-export type OrmEntityProps<OrmEntity> = Omit<
+export type OrmModelProps<OrmEntity> = Omit<
   OrmEntity,
   'id' | 'createdAt' | 'updatedAt'
 >;
@@ -20,7 +20,7 @@ export abstract class OrmMapper<
 
   protected abstract toPersistanceProps(
     entity: Entity
-  ): OrmEntityProps<OrmModel>;
+  ): OrmModelProps<OrmModel>;
   protected abstract toDomainProps(ormEntity: OrmModel): EntityProps;
 
   toPersistance(entity: Entity): OrmModel {
