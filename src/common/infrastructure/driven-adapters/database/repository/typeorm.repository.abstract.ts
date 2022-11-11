@@ -4,7 +4,7 @@ import { ID } from '@domain/value-objects';
 import { Repository, FindOptionsWhere, ObjectLiteral } from 'typeorm';
 import { OrmMapper } from '@infrastructure/driven-adapters/database/mapper';
 import { TypeOrmModel } from '@infrastructure/driven-adapters/database/model';
-import { LoggerPort } from '@infrastructure/driven-ports';
+import { ILogger } from '@infrastructure/interfaces';
 
 export type WhereClause<OrmModel> =
   | FindOptionsWhere<OrmModel>
@@ -20,7 +20,7 @@ export abstract class TypeormRepository<
   protected constructor(
     protected readonly repository: Repository<OrmModel>,
     protected readonly mapper: OrmMapper<Aggregate, AggregateProps, OrmModel>,
-    protected readonly logger: LoggerPort
+    protected readonly logger: ILogger
   ) {}
 
   /**

@@ -9,32 +9,34 @@ export type OrmModelProps<OrmEntity> = Omit<
 >;
 
 export abstract class OrmMapper<
-  Entity extends AggregateRoot<unknown>,
-  EntityProps,
+  Aggregate extends AggregateRoot<unknown>,
+  AggregateProps,
   OrmModel extends TypeOrmModel
 > {
   constructor(
-    readonly entityConstructor: new (props: CreateEntityProps<any>) => Entity,
-    readonly ormModelConstructor: new (props: any) => OrmModel
+    private readonly entityConstructor: new (
+      props: CreateEntityProps<any>
+    ) => Aggregate,
+    private readonly ormModelConstructor: new (props: any) => OrmModel
   ) {}
 
   protected abstract toPersistanceProps(
-    entity: Entity
+    aggregate: Aggregate
   ): OrmModelProps<OrmModel>;
-  protected abstract toDomainProps(ormEntity: OrmModel): EntityProps;
+  protected abstract toDomainProps(ormEntity: OrmModel): AggregateProps;
 
-  toPersistance(entity: Entity): OrmModel {
-    const props = this.toPersistanceProps(entity);
+  toPersistance(aggregate: Aggregate): OrmModel {
+    const props = this.toPersistanceProps(aggregate);
 
     return new this.ormModelConstructor({
       ...props,
-      id: entity.id.unpack(),
-      createdAt: entity.createdAt.unpack(),
-      updatedAt: entity.updatedAt.unpack(),
+      id: aggregate.id.unpack(),
+      createdAt: aggregate.createdAt.unpack(),
+      updatedAt: aggregate.updatedAt.unpack(),
     });
   }
 
-  toDomain(ormEntity: OrmModel): Entity {
+  toDomain(ormEntity: OrmModel): Aggregate {
     const props = this.toDomainProps(ormEntity);
     const id = UUID.create(ormEntity.id);
     const createdAt = DateVO.create(ormEntity.createdAt);
