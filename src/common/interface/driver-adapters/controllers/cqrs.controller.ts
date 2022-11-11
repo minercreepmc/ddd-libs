@@ -1,5 +1,5 @@
 import { CommandBus } from '@nestjs/cqrs';
 
-export class CqrsController {
-  protected readonly commandBus: CommandBus;
+export abstract class CqrsController {
+  protected abstract readonly commandBus: CommandBus;
 }
