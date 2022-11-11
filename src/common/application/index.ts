@@ -1,2 +1,1 @@
-export * from './dtos';
-export * from './base-classes';
+export * from './use-case.interface';

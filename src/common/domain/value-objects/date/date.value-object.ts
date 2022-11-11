@@ -1,5 +1,5 @@
+import { ValueObject } from '@domain/value-object.abstract';
 import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
-import { ValueObject } from '@domain/base-classes';
 
 export type DateVOValue = Date | string | number;
 

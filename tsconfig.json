@@ -7,6 +7,9 @@
       "@domain/*": [
         "./src/common/domain/*"
       ],
+      "@domain": [
+        "./src/common/domain"
+      ],
       "@infrastructure/*": [
         "./src/common/infrastructure/*"
       ],
