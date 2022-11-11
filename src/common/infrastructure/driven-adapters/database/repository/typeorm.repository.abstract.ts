@@ -13,7 +13,7 @@ export type WhereClause<OrmModel> =
   | ObjectLiteral
   | string;
 
-export abstract class TypeormRepositoryBase<
+export abstract class TypeormRepository<
   Aggregate extends AggregateRoot<unknown>,
   AggregateProps,
   OrmModel extends TypeOrmModel
