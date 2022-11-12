@@ -1,4 +1,4 @@
-import { AggregateRoot, BaseEntityProps } from '@domain';
+import { AggregateRoot } from '@domain';
 import { RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
 import { Repository } from 'typeorm';
@@ -22,12 +22,6 @@ export abstract class TypeormRepository<
     protected readonly queryMapper: QueryMapper<AggregateProps, OrmModel>,
     protected readonly logger: ILogger
   ) {}
-
-  /**
-   * Specify relations to other tables.
-   * For example: `relations = ['user', ...]`
-   */
-  protected abstract relations: string[];
 
   async save(entity: Aggregate): Promise<Aggregate> {
     const ormEntity = this.typeOrmMapper.toPersistance(entity);
@@ -65,7 +59,6 @@ export abstract class TypeormRepository<
     const where = this.queryMapper.toQuery(params);
     const found = await this.typeOrmRepository.findOne({
       where,
-      relations: this.relations,
     });
 
     return found ? this.typeOrmMapper.toDomain(found) : undefined;
