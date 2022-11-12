@@ -1,8 +1,7 @@
 import { BaseEntityProps } from '@domain/entity.abstract';
-import { DeepPartial } from '@types';
-import { FindOptionsWhere, ObjectLiteral } from 'typeorm';
+import { FindOptionsWhere } from 'typeorm';
 
-export type QueryParams<AggregateProps> = DeepPartial<
+export type QueryParams<AggregateProps> = Partial<
   BaseEntityProps & AggregateProps
 >;
 
