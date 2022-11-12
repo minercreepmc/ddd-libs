@@ -1,28 +1,24 @@
-import { DeepPartial } from '@types';
+import { QueryParams } from '@infrastructure/driven-adapters/database/mapper';
 import { ID } from '../value-objects';
-import { BaseEntityProps } from '..';
 
-export type QueryParams<EntityProps> = DeepPartial<
-  BaseEntityProps & EntityProps
->;
-
-// export interface FindOne<Entity, EntityProps> {
-//   findOne(params: QueryParams<EntityProps>): Promise<Entity | null>;
-// }
-
-export interface FindOneById<Entity> {
-  findOneById(id: ID | string): Promise<Entity | undefined>;
+export interface FindOne<Aggregate, AggregateProps> {
+  findOne(params: QueryParams<AggregateProps>): Promise<Aggregate | undefined>;
 }
 
-export interface Save<Entity> {
-  save(entity: Entity): Promise<Entity>;
+export interface FindOneById<Aggregate> {
+  findOneById(id: ID | string): Promise<Aggregate | undefined>;
 }
 
-export interface Delete<Entity> {
-  delete(entity: Entity): Promise<boolean>;
+export interface Save<Aggregate> {
+  save(entity: Aggregate): Promise<Aggregate>;
 }
 
-export interface RepositoryPort<Entity>
-  extends Save<Entity>,
-    Delete<Entity>,
-    FindOneById<Entity> {}
+export interface Delete<Aggregate> {
+  delete(entity: Aggregate): Promise<boolean>;
+}
+
+export interface RepositoryPort<Aggregate, AggregateProps>
+  extends Save<Aggregate>,
+    Delete<Aggregate>,
+    FindOneById<Aggregate>,
+    FindOne<Aggregate, AggregateProps> {}

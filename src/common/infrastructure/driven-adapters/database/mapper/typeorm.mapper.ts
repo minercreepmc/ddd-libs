@@ -3,8 +3,8 @@ import { CreateEntityProps } from '@domain/entity.abstract';
 import { DateVO, UUID } from '@domain/value-objects';
 import { TypeOrmModel } from '../model';
 
-export type OrmModelProps<OrmEntity> = Omit<
-  OrmEntity,
+export type OrmModelProps<OrmModel> = Omit<
+  OrmModel,
   'id' | 'createdAt' | 'updatedAt'
 >;
 
@@ -27,7 +27,7 @@ export abstract class OrmMapper<
   protected abstract toPersistanceProps(
     aggregate: Aggregate
   ): OrmModelProps<OrmModel>;
-  protected abstract toDomainProps(ormEntity: OrmModel): AggregateProps;
+  protected abstract toDomainProps(ormModel: OrmModel): AggregateProps;
 
   toPersistance(aggregate: Aggregate): OrmModel {
     const props = this.toPersistanceProps(aggregate);
@@ -40,11 +40,11 @@ export abstract class OrmMapper<
     });
   }
 
-  toDomain(ormEntity: OrmModel): Aggregate {
-    const props = this.toDomainProps(ormEntity);
-    const id = UUID.create(ormEntity.id);
-    const createdAt = DateVO.create(ormEntity.createdAt);
-    const updatedAt = DateVO.create(ormEntity.updatedAt);
+  toDomain(ormModel: OrmModel): Aggregate {
+    const props = this.toDomainProps(ormModel);
+    const id = UUID.create(ormModel.id);
+    const createdAt = DateVO.create(ormModel.createdAt);
+    const updatedAt = DateVO.create(ormModel.updatedAt);
 
     return new this.aggregateConstructor({
       id,
