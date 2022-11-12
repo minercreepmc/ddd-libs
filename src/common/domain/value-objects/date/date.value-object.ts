@@ -3,33 +3,29 @@ import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
 
 export type DateVOValue = Date | string | number;
 
-export class DateVO extends ValueObject<DateVOValue> {
-  public get value(): DateVOValue {
-    return this.props.value;
-  }
-
+export class DateVO extends ValueObject<Date> {
   public static create(value: DateVOValue): DateVO {
     const dateVo = new DateVO(value);
     return dateVo;
   }
 
-  public guard() {
+  public guard(): void {
     if (!DateVO.isValid(this)) {
       throw new ArgumentInvalidExeception('Incorrect date');
     }
   }
 
-  public static isValid(candidate: DateVOValue | DateVO) {
+  public static isValid(candidate: DateVO | string): boolean {
     let parsedCandidate: DateVOValue;
     if (typeof candidate === 'string') {
       parsedCandidate = Date.parse(candidate.trim());
     } else if (candidate instanceof DateVO) {
-      parsedCandidate = Date.parse(candidate.value.toString());
+      parsedCandidate = Date.parse(candidate.unpack().toString());
     }
     return Boolean(!Number.isNaN(parsedCandidate));
   }
 
-  public static now() {
+  public static now(): DateVO {
     return new DateVO(Date.now());
   }
 
