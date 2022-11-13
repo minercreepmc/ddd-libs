@@ -81,7 +81,7 @@
   resolved "https://registry.npmjs.org/@sqltools/formatter/-/formatter-1.2.5.tgz"
   integrity sha512-Uy0+khmZqUrUGm5dmMqVlnvufZRSK0FbYzVgp0UMstm+F5+W2/jnEEQyc9vo1ZR/E5ZI/B1WjjoTqBqwJL6Krw==
 
-"@tinphamm/common-exceptions@^1.0.0":
+"@tinphamm/common-exceptions@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@tinphamm/common-exceptions/-/common-exceptions-1.0.1.tgz#e541974a89e2f5e03c6493f819e84f9179d1eb81"
   integrity sha512-yfiXlGf0sL6iAlfyNID6BbX6ycABzmjQdVdRWNsJnXEDgxchV0TtFu258EhjJpyKay47tm+U3lgb09rlYSnFBw==

@@ -1,6 +1,7 @@
 {
   "name": "common-base-classes",
-  "version": "0.2.7",
+  "version": "0.2.8",
+  "type": "commonjs",
   "main": "./dist/src/index.js",
   "exports": {
     ".": "./dist/src/index.js"
@@ -41,7 +42,7 @@
   "dependencies": {
     "@nestjs/common": "^9.1.6",
     "@nestjs/cqrs": "^9.0.1",
-    "@tinphamm/common-exceptions": "^1.0.0",
+    "@tinphamm/common-exceptions": "1.0.1",
     "common-errors": "^1.2.0",
     "is-empty": "^1.2.0",
     "typeorm": "^0.3.10"
