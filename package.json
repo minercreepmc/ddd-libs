@@ -1,6 +1,6 @@
 {
   "name": "common-base-classes",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "type": "module",
   "source": "./src/index.ts",
   "main": "./dist/bundle.umd.js",
@@ -52,7 +52,6 @@
     "@nestjs/cqrs": "^9.0.1",
     "@tinphamm/common-exceptions": "2.0.1",
     "common-errors": "^1.2.0",
-    "core-js": "^3.26.1",
     "is-empty": "^1.2.0",
     "typeorm": "^0.3.10"
   }
