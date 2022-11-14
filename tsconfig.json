@@ -25,7 +25,10 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "target": "ES5",
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "declaration": true,
     "sourceMap": true,
     "baseUrl": "./",
     "rootDir": "./",
@@ -35,8 +38,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
-    "allowJs": true,
-    "moduleResolution": "node"
+    "allowJs": true
   },
   "include": [
     "./src",
