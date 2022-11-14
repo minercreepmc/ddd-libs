@@ -1,5 +1,5 @@
-import { DomainEvent, DomainEventClass } from '.';
-import { DomainEventPublisher } from '.';
+import { DomainEvent, DomainEventClass } from './domain-event.abstract';
+import { DomainEventPublisher } from './implementation';
 
 export type DomainEventHandlerClass = new (arg: any) => DomainEventHandler;
 

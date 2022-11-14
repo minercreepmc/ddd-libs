@@ -1,4 +1,5 @@
-import { AggregateType, ID, DomainEvent } from '..';
+import { AggregateType, ID } from '..';
+import { DomainEvent } from './domain-event.abstract';
 
 export interface IDomainEventPublisher {
   publish(

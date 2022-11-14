@@ -30,7 +30,6 @@
     "baseUrl": "./",
     "rootDir": "./",
     "incremental": true,
-    "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": true,
     "strictBindCallApply": false,

@@ -1,9 +1,16 @@
 {
   "name": "common-base-classes",
-  "version": "0.2.12",
-  "main": "./dist/cjs/src/index.js",
-  "module": "./dist/esm/src/index.js",
-  "types": "./dist/types/src/index.d.ts",
+  "version": "0.2.13",
+  "type": "module",
+  "source": "./src/index.ts",
+  "main": "./dist/bundle.umd.js",
+  "module": "./dist/bundle.module.mjs",
+  "exports": {
+    "types": "./dist/bundle.d.ts",
+    "require": "./dist/bundle.cjs",
+    "default": "./dist/bundle.modern.mjs"
+  },
+  "types": "./dist/bundle.d.ts",
   "license": "MIT",
   "files": [
     "dist/**/*"
@@ -19,16 +26,14 @@
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.2.0",
+    "microbundle": "^0.15.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "tsc-alias": "^1.7.1",
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && npm run build:types",
-    "build:cjs": "rimraf ./dist/cjs && tsc -p ./configs/tsconfig.cjs.json && tsc-alias -p ./configs/tsconfig.cjs.json",
-    "build:esm": "rimraf ./dist/esm && tsc -p ./configs/tsconfig.esm.json && tsc-alias -p ./configs/tsconfig.esm.json",
-    "build:types": "rimraf ./dist/types && tsc -p ./configs/tsconfig.types.json && tsc-alias -p ./configs/tsconfig.types.json",
+    "build": "microbundle",
     "clean": "rimraf ./dist",
     "package": "npm run build && npm pack",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
@@ -43,10 +48,11 @@
   },
   "homepage": "https://github.com/minercreepmc/ddd-libs#readme",
   "dependencies": {
-    "@nestjs/common": "^9.1.6",
+    "@nestjs/common": "^9.2.0",
     "@nestjs/cqrs": "^9.0.1",
     "@tinphamm/common-exceptions": "2.0.1",
     "common-errors": "^1.2.0",
+    "core-js": "^3.26.1",
     "is-empty": "^1.2.0",
     "typeorm": "^0.3.10"
   }

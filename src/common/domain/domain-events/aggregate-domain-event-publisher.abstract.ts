@@ -1,5 +1,6 @@
 import { AggregateType, AggregateRoot, ID } from '..';
-import { DomainEvent, IDomainEventPublisher } from '.';
+import { DomainEvent } from './domain-event.abstract';
+import { IDomainEventPublisher } from './domain-event-publisher.interface';
 
 export abstract class AbstractAggregateDomainEventPublisher<
   Aggregate extends AggregateRoot<any>,
