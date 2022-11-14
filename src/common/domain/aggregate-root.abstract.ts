@@ -1,5 +1,5 @@
 import { DomainEvent } from '@domain/domain-events/domain-event.abstract';
-import { Entity } from '.';
+import { Entity } from './entity.abstract';
 
 export type AggregateType<A> = new (args: any) => AggregateRoot<A>;
 
