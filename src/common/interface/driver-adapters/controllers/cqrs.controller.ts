@@ -1,5 +1,7 @@
-import { CommandBus } from '@nestjs/cqrs';
+export interface ICommandBus<ICommand> {
+  execute(command: ICommand): Promise<any>;
+}
 
-export abstract class CqrsController {
-  protected abstract readonly commandBus: CommandBus;
+export abstract class CqrsController<ICommand> {
+  protected abstract readonly commandBus: ICommandBus<ICommand>;
 }
