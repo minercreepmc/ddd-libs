@@ -10,8 +10,11 @@
       "@domain": [
         "./src/common/domain"
       ],
-      "@infrastructure/*": [
-        "./src/common/infrastructure/*"
+      "@driven-adapters/*": [
+        "./src/common/adapters/driven-adapters/*"
+      ],
+      "@driver-adapters/*": [
+        "./src/common/adapters/driver-adapters/*"
       ],
       "@utils/*": [
         "./src/common/utils/*"

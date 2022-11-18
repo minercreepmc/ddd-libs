@@ -1,3 +1,3 @@
-export * from './driven-adapters';
+export * from './database';
 export * from './interfaces';
 export * from './technologies';

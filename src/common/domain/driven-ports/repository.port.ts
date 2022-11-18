@@ -1,4 +1,4 @@
-import { QueryParams } from '@infrastructure/driven-adapters/database/mapper';
+import { QueryParams } from '@driven-adapters/database';
 import { ID } from '../value-objects';
 
 export interface FindOne<Aggregate, AggregateProps> {

@@ -2,10 +2,10 @@ import { AggregateRoot } from '@domain';
 import { RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
 import { Repository } from 'typeorm';
-import { OrmMapper } from '@infrastructure/driven-adapters/database/mapper';
-import { TypeOrmModel } from '@infrastructure/driven-adapters/database/model';
-import { ILogger } from '@infrastructure/interfaces';
 import { QueryMapper, QueryParams } from '../mapper/query.mapper';
+import { TypeOrmModel } from '../model';
+import { OrmMapper } from '../mapper';
+import { ILogger } from '@driven-adapters/interfaces';
 
 export abstract class TypeormRepository<
   Aggregate extends AggregateRoot<unknown>,
