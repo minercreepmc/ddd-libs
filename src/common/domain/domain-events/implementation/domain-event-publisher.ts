@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@domain/aggregate-root.abstract';
 import { ID } from '@domain/value-objects';
-import { Logger } from '@nestjs/common';
+import { ILogger } from '@driven-adapters/interfaces';
 import { DomainEventHandler } from '../domain-event-handler.abstract';
 import { DomainEvent, DomainEventClass } from '../domain-event.abstract';
 
@@ -27,7 +27,7 @@ export class DomainEventPublisher {
   }
 
   // =======Publish=======
-  async publishEvents(id: ID, logger: Logger): Promise<void> {
+  async publishEvents(id: ID, logger: ILogger): Promise<void> {
     const aggregate = DomainEventPublisher.findAggregateById(id);
 
     if (aggregate) {
