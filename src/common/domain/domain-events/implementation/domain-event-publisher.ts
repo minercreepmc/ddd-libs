@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@domain/aggregate-root.abstract';
+import { AggregateRoot } from '@domain/aggregates';
 import { ID } from '@domain/value-objects';
 import { ILogger } from '@driven-adapters/interfaces';
 import { DomainEventHandler } from '../domain-event-handler.abstract';

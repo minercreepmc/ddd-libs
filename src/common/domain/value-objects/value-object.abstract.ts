@@ -1,4 +1,4 @@
-import { Guard } from '@utils/guard';
+import { IValueObject } from './value-object.interface';
 
 type Primitive = string | boolean | number;
 export interface DomainPrimitive<T extends Primitive | Date> {
@@ -6,7 +6,7 @@ export interface DomainPrimitive<T extends Primitive | Date> {
 }
 type ValueObjectProps<T> = T extends Primitive | Date ? DomainPrimitive<T> : T;
 
-export abstract class ValueObject<T> implements Guard<void> {
+export abstract class AbstractValueObject<T> implements IValueObject<T> {
   protected readonly props: ValueObjectProps<T>;
 
   protected constructor(props: ValueObjectProps<T>) {
@@ -14,7 +14,7 @@ export abstract class ValueObject<T> implements Guard<void> {
     this.guard();
   }
 
-  public equals(vo?: ValueObject<T>): boolean {
+  public equals(vo?: AbstractValueObject<T>): boolean {
     if (vo === null || vo === undefined) return false;
     return JSON.stringify(vo) === JSON.stringify(this);
   }

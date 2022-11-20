@@ -11,7 +11,8 @@ export abstract class TypeormRepository<
   Aggregate extends AggregateRoot<unknown>,
   AggregateProps,
   OrmModel extends TypeOrmModel
-> implements RepositoryPort<Aggregate, AggregateProps> {
+> implements RepositoryPort<Aggregate, AggregateProps>
+{
   protected constructor(
     protected readonly typeOrmRepository: Repository<OrmModel>,
     protected readonly typeOrmMapper: OrmMapper<

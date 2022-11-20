@@ -1,11 +1,6 @@
-import { Guard } from '@utils/guard';
-import { ID, DateVO } from './value-objects';
-
-export interface BaseEntityProps {
-  id: ID;
-  createdAt: DateVO;
-  updatedAt: DateVO;
-}
+import { ID } from '../value-objects/id';
+import { DateVO } from '../value-objects/date';
+import { BaseEntityProps, IEntity } from './entity.interface';
 
 export interface CreateEntityProps<T> {
   id: ID;
@@ -14,7 +9,9 @@ export interface CreateEntityProps<T> {
   updatedAt?: DateVO;
 }
 
-export abstract class Entity<EntityProps> implements Guard<void> {
+export abstract class AbstractEntity<EntityProps>
+  implements IEntity<EntityProps>
+{
   protected _id: ID;
   private readonly _createdAt: DateVO;
   protected _updatedAt: DateVO;
@@ -38,7 +35,7 @@ export abstract class Entity<EntityProps> implements Guard<void> {
    *  Check if two entities are the same Entity. Checks using ID field.
    * @param object Entity
    */
-  public equals(object?: Entity<EntityProps>): boolean {
+  public equals(object?: AbstractEntity<EntityProps>): boolean {
     if (object === null || object === undefined) {
       return false;
     }
@@ -47,15 +44,15 @@ export abstract class Entity<EntityProps> implements Guard<void> {
       return true;
     }
 
-    if (!Entity.isEntity(object)) {
+    if (!AbstractEntity.isEntity(object)) {
       return false;
     }
 
     return this.id ? this.id.equals(object.id) : false;
   }
 
-  static isEntity(entity: unknown): entity is Entity<unknown> {
-    return entity instanceof Entity;
+  static isEntity(entity: unknown): entity is AbstractEntity<unknown> {
+    return entity instanceof AbstractEntity;
   }
 
   public getPropsCopy(): EntityProps {

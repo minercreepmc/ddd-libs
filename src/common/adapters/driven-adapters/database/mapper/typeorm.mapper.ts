@@ -1,5 +1,5 @@
-import { AggregateRoot } from '@domain/aggregate-root.abstract';
-import { CreateEntityProps } from '@domain/entity.abstract';
+import { AggregateRoot } from '@domain/aggregates';
+import { CreateEntityProps } from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
 import { TypeOrmModel } from '../model';
 

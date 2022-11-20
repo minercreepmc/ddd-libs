@@ -1,4 +1,4 @@
-import { BaseEntityProps } from '@domain/entity.abstract';
+import { BaseEntityProps } from '@domain/entities';
 import { FindOptionsWhere } from 'typeorm';
 
 export type QueryParams<AggregateProps> = Partial<
