@@ -9,6 +9,6 @@ export type WhereClause<OrmModel> =
   | FindOptionsWhere<OrmModel>
   | FindOptionsWhere<OrmModel>[];
 
-export abstract class QueryMapper<AggregateProps, OrmModel> {
+export abstract class AbstractQueryMapper<AggregateProps, OrmModel> {
   abstract toQuery(params: QueryParams<AggregateProps>): WhereClause<OrmModel>;
 }

@@ -2,25 +2,31 @@ import { AggregateRoot } from '@domain';
 import { RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
 import { Repository } from 'typeorm';
-import { QueryMapper, QueryParams } from '../mapper/query.mapper';
-import { TypeOrmModel } from '../model';
-import { OrmMapper } from '../mapper';
+import {
+  AbstractTypeOrmMapper,
+  AbstractQueryMapper,
+  QueryParams,
+} from '../mappers';
 import { ILogger } from '@driven-adapters/interfaces';
+import { AbstractTypeOrmModel } from '../models';
 
-export abstract class TypeormRepository<
+export abstract class AbstractTypeormRepository<
   Aggregate extends AggregateRoot<unknown>,
   AggregateProps,
-  OrmModel extends TypeOrmModel
+  OrmModel extends AbstractTypeOrmModel
 > implements RepositoryPort<Aggregate, AggregateProps>
 {
   protected constructor(
     protected readonly typeOrmRepository: Repository<OrmModel>,
-    protected readonly typeOrmMapper: OrmMapper<
+    protected readonly typeOrmMapper: AbstractTypeOrmMapper<
       Aggregate,
       AggregateProps,
       OrmModel
     >,
-    protected readonly queryMapper: QueryMapper<AggregateProps, OrmModel>,
+    protected readonly queryMapper: AbstractQueryMapper<
+      AggregateProps,
+      OrmModel
+    >,
     protected readonly logger: ILogger
   ) {}
 
