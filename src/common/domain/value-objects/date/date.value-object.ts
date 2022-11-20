@@ -1,9 +1,9 @@
-import { ValueObject } from '@domain/value-object.abstract';
 import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
+import { AbstractValueObject } from '../value-object.abstract';
 
 export type DateVOValue = Date | string | number;
 
-export class DateVO extends ValueObject<Date> {
+export class DateVO extends AbstractValueObject<Date> {
   public static create(value: DateVOValue): DateVO {
     const dateVo = new DateVO(value);
     return dateVo;
