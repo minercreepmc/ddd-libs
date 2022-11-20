@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@domain/aggregates';
 import { CreateEntityProps } from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
-import { TypeOrmModel } from '../model';
+import { AbstractTypeOrmModel } from '../models';
 
 export type OrmModelProps<OrmModel> = Omit<
   OrmModel,
@@ -14,10 +14,10 @@ export type AggregateConstructor<Aggregate> = new (
 
 export type TypeOrmModelConstructor<OrmModel> = new (props: any) => OrmModel;
 
-export abstract class OrmMapper<
+export abstract class AbstractTypeOrmMapper<
   Aggregate extends AggregateRoot<unknown>,
   AggregateProps,
-  OrmModel extends TypeOrmModel
+  OrmModel extends AbstractTypeOrmModel
 > {
   constructor(
     private readonly aggregateConstructor: AggregateConstructor<Aggregate>,

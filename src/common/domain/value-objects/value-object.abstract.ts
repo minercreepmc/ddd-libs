@@ -13,7 +13,6 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
     this.props = props;
     this.guard();
   }
-
   public equals(vo?: AbstractValueObject<T>): boolean {
     if (vo === null || vo === undefined) return false;
     return JSON.stringify(vo) === JSON.stringify(this);

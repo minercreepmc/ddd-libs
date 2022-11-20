@@ -1,3 +1,3 @@
-export * from './mapper';
-export * from './model';
-export * from './repository';
+export * from './mappers';
+export * from './models';
+export * from './repositories';
