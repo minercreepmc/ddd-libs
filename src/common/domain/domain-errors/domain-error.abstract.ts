@@ -1,4 +1,4 @@
-export abstract class DomainError extends Error {
-  abstract message: string;
-  abstract code: string;
+export abstract class AbstractDomainError extends Error {
+  abstract readonly message: string;
+  abstract readonly code: string;
 }
