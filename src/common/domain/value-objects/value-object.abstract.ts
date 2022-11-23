@@ -11,7 +11,6 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
 
   protected constructor(props: ValueObjectProps<T>) {
     this.props = props;
-    this.guard();
   }
   public equals(vo?: AbstractValueObject<T>): boolean {
     if (vo === null || vo === undefined) return false;
@@ -32,6 +31,4 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
     }
     return false;
   }
-
-  public abstract guard(): void;
 }

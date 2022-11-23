@@ -2655,6 +2655,11 @@ graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.10.tgz"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
+guarder@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/guarder/-/guarder-0.9.0.tgz#5817d63bb7791a0030017caa327b876ff25b14b3"
+  integrity sha512-brZ+2djE1X4Rj7coSs9CcQQVgrhfws5bVSONwkOgbllxHWoZo5y5grR2CexGz44925GFD7P9p3hNsQUyxBJa2g==
+
 gzip-size@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/gzip-size/-/gzip-size-3.0.0.tgz"

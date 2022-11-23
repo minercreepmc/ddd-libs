@@ -4,18 +4,16 @@ import { AbstractValueObject } from '../value-object.abstract';
 export type DateVOValue = Date | string | number;
 
 export class DateVO extends AbstractValueObject<Date> {
-  public static create(value: DateVOValue): DateVO {
+  static create(value: DateVOValue): DateVO {
+    if (!this.isValid(value))
+      throw new ArgumentInvalidExeception(
+        'Cannot create DateVO with invalid state'
+      );
     const dateVo = new DateVO(value);
     return dateVo;
   }
 
-  public guard(): void {
-    if (!DateVO.isValid(this)) {
-      throw new ArgumentInvalidExeception('Incorrect date');
-    }
-  }
-
-  public static isValid(candidate: DateVO | string): boolean {
+  static isValid(candidate: DateVOValue): boolean {
     let parsedCandidate: DateVOValue;
     if (typeof candidate === 'string') {
       parsedCandidate = Date.parse(candidate.trim());
@@ -25,7 +23,7 @@ export class DateVO extends AbstractValueObject<Date> {
     return Boolean(!Number.isNaN(parsedCandidate));
   }
 
-  public static now(): DateVO {
+  static now(): DateVO {
     return new DateVO(Date.now());
   }
 
