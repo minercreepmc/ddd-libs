@@ -1,6 +1,3 @@
-import { AndSpecification } from './and-specification';
-import { NotSpecification } from './not-specification';
-import { OrSpecification } from './or-specification';
 import { ISpecificaton } from './specification.interface';
 
 export abstract class AbstractSpecificaton<T> implements ISpecificaton<T> {
@@ -16,5 +13,45 @@ export abstract class AbstractSpecificaton<T> implements ISpecificaton<T> {
 
   not(): ISpecificaton<T> {
     return new NotSpecification<T>(this);
+  }
+}
+
+export class AndSpecification<T> extends AbstractSpecificaton<T> {
+  constructor(
+    private readonly one: ISpecificaton<T>,
+    private readonly other: ISpecificaton<T>
+  ) {
+    super();
+  }
+
+  override isSatisfiedBy(candidate: T): boolean {
+    return (
+      this.one.isSatisfiedBy(candidate) && this.other.isSatisfiedBy(candidate)
+    );
+  }
+}
+
+export class OrSpecification<T> extends AbstractSpecificaton<T> {
+  constructor(
+    private readonly one: ISpecificaton<T>,
+    private readonly other: ISpecificaton<T>
+  ) {
+    super();
+  }
+
+  override isSatisfiedBy(candidate: T): boolean {
+    return (
+      this.one.isSatisfiedBy(candidate) || this.other.isSatisfiedBy(candidate)
+    );
+  }
+}
+
+export class NotSpecification<T> extends AbstractSpecificaton<T> {
+  constructor(private readonly specification: ISpecificaton<T>) {
+    super();
+  }
+
+  override isSatisfiedBy(candidate: T): boolean {
+    return !this.specification.isSatisfiedBy(candidate);
   }
 }

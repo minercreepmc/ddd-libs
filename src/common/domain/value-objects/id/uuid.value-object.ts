@@ -4,7 +4,7 @@ import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
 
 export class UUID extends ID {
   static create(id?: string): UUID {
-    if(!this.isValid(id)) throw new ArgumentInvalidExeception('Invalid uuid');
+    if (!this.isValid(id)) throw new ArgumentInvalidExeception('Invalid uuid');
     const uuid = new UUID(id ? id : uuidV4());
     return uuid;
   }
