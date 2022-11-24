@@ -2,9 +2,9 @@ import { ID } from '../value-objects/id';
 import { DateVO } from '../value-objects/date';
 import { BaseEntityProps, IEntity } from './entity.interface';
 
-export interface CreateEntityProps<T> {
+export interface ICreateEntity<EntityProps> {
   id: ID;
-  props: T;
+  props: EntityProps;
   createdAt?: DateVO;
   updatedAt?: DateVO;
 }
@@ -16,8 +16,6 @@ export abstract class AbstractEntity<EntityProps>
   private readonly _createdAt: DateVO;
   protected _updatedAt: DateVO;
   protected readonly props: EntityProps;
-
-  public abstract guard(): void;
 
   get id(): ID {
     return this._id;
@@ -35,7 +33,7 @@ export abstract class AbstractEntity<EntityProps>
    *  Check if two entities are the same Entity. Checks using ID field.
    * @param object Entity
    */
-  public equals(object?: AbstractEntity<EntityProps>): boolean {
+  equals(object?: AbstractEntity<EntityProps>): boolean {
     if (object === null || object === undefined) {
       return false;
     }
@@ -74,11 +72,15 @@ export abstract class AbstractEntity<EntityProps>
     return Object.freeze(result);
   }
 
-  protected constructor({ id, props }: CreateEntityProps<EntityProps>) {
+  protected constructor({
+    id,
+    props,
+    createdAt,
+    updatedAt,
+  }: ICreateEntity<EntityProps>) {
     this.setId(id);
-    const now = DateVO.now();
-    this._createdAt = now;
-    this._updatedAt = now;
+    this._createdAt = createdAt || DateVO.now();
+    this._updatedAt = updatedAt || DateVO.now();
     this.props = props;
   }
 

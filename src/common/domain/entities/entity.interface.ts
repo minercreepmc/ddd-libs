@@ -9,7 +9,6 @@ export interface BaseEntityProps {
 
 export interface IEntity<EntityProps> {
   equals(object: IEntity<EntityProps>): boolean;
-  guard(): void;
   getPropsCopy(): EntityProps;
   toObject(): BaseEntityProps & EntityProps;
 }

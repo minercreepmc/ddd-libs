@@ -1,9 +1,9 @@
 import { DomainEvent } from '@domain/domain-events/domain-event.abstract';
 import { AbstractEntity } from '../entities';
 
-export type AggregateType<A> = new (args: any) => AggregateRoot<A>;
+export type AggregateType<A> = new (args: any) => AbstractAggregateRoot<A>;
 
-export abstract class AggregateRoot<
+export abstract class AbstractAggregateRoot<
   EntityProps
 > extends AbstractEntity<EntityProps> {
   private _domainEvents: DomainEvent[] = [];

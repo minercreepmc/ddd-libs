@@ -1,5 +1,5 @@
-import { AggregateRoot } from '@domain/aggregates';
-import { CreateEntityProps } from '@domain/entities';
+import { AbstractAggregateRoot } from '@domain/aggregates';
+import { ICreateEntity } from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
 import { AbstractTypeOrmModel } from '../models';
 
@@ -8,19 +8,19 @@ export type OrmModelProps<OrmModel> = Omit<
   'id' | 'createdAt' | 'updatedAt'
 >;
 
-export type AggregateConstructor<Aggregate> = new (
-  props: CreateEntityProps<any>
+export type AggregateBuilder<Aggregate> = (
+  props: ICreateEntity<any>
 ) => Aggregate;
 
 export type TypeOrmModelConstructor<OrmModel> = new (props: any) => OrmModel;
 
 export abstract class AbstractTypeOrmMapper<
-  Aggregate extends AggregateRoot<unknown>,
+  Aggregate extends AbstractAggregateRoot<unknown>,
   AggregateProps,
   OrmModel extends AbstractTypeOrmModel
 > {
   constructor(
-    private readonly aggregateConstructor: AggregateConstructor<Aggregate>,
+    private readonly aggregateBuilder: AggregateBuilder<Aggregate>,
     private readonly typeOrmModelConstructor: TypeOrmModelConstructor<OrmModel>
   ) {}
 
@@ -46,7 +46,7 @@ export abstract class AbstractTypeOrmMapper<
     const createdAt = DateVO.create(ormModel.createdAt);
     const updatedAt = DateVO.create(ormModel.updatedAt);
 
-    return new this.aggregateConstructor({
+    return this.aggregateBuilder({
       id,
       props,
       createdAt,

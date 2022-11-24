@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@domain/aggregates';
+import { AbstractAggregateRoot } from '@domain/aggregates';
 import { ID } from '@domain/value-objects';
 import { ILogger } from '@driven-adapters/interfaces';
 import { DomainEventHandler } from '../domain-event-handler.abstract';
@@ -7,18 +7,20 @@ import { DomainEvent, DomainEventClass } from '../domain-event.abstract';
 type EventName = string;
 
 export class DomainEventPublisher {
-  private static aggregates: AggregateRoot<unknown>[] = [];
+  private static aggregates: AbstractAggregateRoot<unknown>[] = [];
   private static subscriber: Map<EventName, DomainEventHandler[]> = new Map();
 
   // =====Prepare======
-  static prepareForPublish(aggregate: AggregateRoot<unknown>): void {
+  static prepareForPublish(aggregate: AbstractAggregateRoot<unknown>): void {
     const aggregateFound = Boolean(this.findAggregateById(aggregate.id));
     if (!aggregateFound) {
       this.aggregates.push(aggregate);
     }
   }
 
-  private static findAggregateById(id: ID): AggregateRoot<unknown> | undefined {
+  private static findAggregateById(
+    id: ID
+  ): AbstractAggregateRoot<unknown> | undefined {
     for (const aggregate of this.aggregates) {
       if (aggregate.id.equals(id)) {
         return aggregate;
@@ -43,7 +45,7 @@ export class DomainEventPublisher {
   }
 
   private static async publishAggregateEvents(
-    aggregate: AggregateRoot<unknown>
+    aggregate: AbstractAggregateRoot<unknown>
   ) {
     const domainEventsReadyToPublishAsync = aggregate.domainEvents.map(
       (event) => {
@@ -63,7 +65,7 @@ export class DomainEventPublisher {
   }
 
   private static removeAggregateFromPublishList(
-    aggregate: AggregateRoot<unknown>
+    aggregate: AbstractAggregateRoot<unknown>
   ) {
     const index = this.aggregates.findIndex((a) => a.equals(aggregate));
     this.aggregates.splice(index, 1);

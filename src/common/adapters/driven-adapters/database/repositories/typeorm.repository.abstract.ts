@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@domain';
+import { AbstractAggregateRoot } from '@domain';
 import { RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
 import { Repository } from 'typeorm';
@@ -11,7 +11,7 @@ import { ILogger } from '@driven-adapters/interfaces';
 import { AbstractTypeOrmModel } from '../models';
 
 export abstract class AbstractTypeormRepository<
-  Aggregate extends AggregateRoot<unknown>,
+  Aggregate extends AbstractAggregateRoot<unknown>,
   AggregateProps,
   OrmModel extends AbstractTypeOrmModel
 > implements RepositoryPort<Aggregate, AggregateProps>
