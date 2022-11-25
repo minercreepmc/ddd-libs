@@ -1,9 +1,7 @@
-import { BaseEntityProps } from '@domain/entities';
+import { IBaseEntity } from '@domain/entities';
 import { FindOptionsWhere } from 'typeorm';
 
-export type QueryParams<AggregateProps> = Partial<
-  BaseEntityProps & AggregateProps
->;
+export type QueryParams<AggregateProps> = Partial<IBaseEntity & AggregateProps>;
 
 export type WhereClause<OrmModel> =
   | FindOptionsWhere<OrmModel>

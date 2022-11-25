@@ -1193,10 +1193,10 @@
     magic-string "^0.25.0"
     string.prototype.matchall "^4.0.6"
 
-"@tinphamm/common-exceptions@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@tinphamm/common-exceptions/-/common-exceptions-2.0.1.tgz"
-  integrity sha512-4CFMKkLzV7bAN6tZfKDyJ4LBBRbuCQdU5f08OZVwkG6XFS/w89N/7OwWfg2SZXVYmP2kGaXyAn/xsOZAxMLsYw==
+"@tinphamm/common-exceptions@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@tinphamm/common-exceptions/-/common-exceptions-2.0.2.tgz#3270c157c8b1b8a0b4760848d0a2d51a5fcee252"
+  integrity sha512-bSGKl5lGTIcTzgvRdUyBpCkWnGFeh6R4j05Z1c+f4Qphhkwd3SRCepliaGhwEwRN0f8kHZw2xSSi8JKG603ybg==
   dependencies:
     acorn "^7.4.1"
     acorn-jsx "^5.3.1"

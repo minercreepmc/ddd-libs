@@ -1,6 +1,6 @@
 import { ID } from '../value-objects/id';
 import { DateVO } from '../value-objects/date';
-import { BaseEntityProps, IEntity } from './entity.interface';
+import { IBaseEntity, IEntity } from './entity.interface';
 
 export interface ICreateEntity<EntityProps> {
   id: ID;
@@ -61,7 +61,7 @@ export abstract class AbstractEntity<EntityProps>
     return Object.freeze(propsCopy);
   }
 
-  public toObject(): BaseEntityProps & EntityProps {
+  public toObject(): IBaseEntity & EntityProps {
     const result = {
       id: this._id,
       createdAt: this._createdAt,
