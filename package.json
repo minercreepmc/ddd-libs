@@ -1,6 +1,6 @@
 {
   "name": "common-base-classes",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "exports": {
@@ -24,7 +24,6 @@
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.2.0",
-    "microbundle": "^0.15.1",
     "prettier": "2.3.1",
     "rimraf": "^3.0.2",
     "tsc-alias": "^1.7.1",
