@@ -1,8 +1,8 @@
 export class Notification {
-  private errors: NotificationError[] = [];
+  private errors: Error[] = [];
 
-  addError(message: string, cause?: Error): void {
-    this.errors.push(new NotificationError(message, cause));
+  addError(cause: Error): void {
+    this.errors.push(cause);
   }
 
   hasError(): boolean {
@@ -10,6 +10,3 @@ export class Notification {
   }
 }
 
-class NotificationError {
-  constructor(readonly message: string, readonly cause: Error) {}
-}
