@@ -1,11 +1,11 @@
-export class Notification {
-  private errors: Error[] = [];
+export class Notification<NoteType> {
+  private noteList: NoteType[] = [];
 
-  addError(cause: Error): void {
-    this.errors.push(cause);
+  addError(note: NoteType): void {
+    this.noteList.push(note);
   }
 
   hasError(): boolean {
-    return !(this.errors.length === 0);
+    return !(this.noteList.length === 0);
   }
 }
