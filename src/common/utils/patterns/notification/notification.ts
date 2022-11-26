@@ -9,4 +9,3 @@ export class Notification {
     return !(this.errors.length === 0);
   }
 }
-
