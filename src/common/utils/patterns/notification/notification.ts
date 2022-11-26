@@ -1,11 +1,15 @@
 export class Notification<NoteType> {
   private noteList: NoteType[] = [];
 
-  addError(note: NoteType): void {
+  addNote(note: NoteType): void {
     this.noteList.push(note);
   }
 
-  hasError(): boolean {
+  hasNote(): boolean {
     return !(this.noteList.length === 0);
+  }
+
+  getNote(): NoteType[] {
+    return this.noteList;
   }
 }
