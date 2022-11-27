@@ -1,4 +1,4 @@
-import { AbstractConstructor } from "@types";
+import { AbstractConstructor } from '@types';
 
 export function IsArrayContainInstanceOf<T>(
   array: T[],
