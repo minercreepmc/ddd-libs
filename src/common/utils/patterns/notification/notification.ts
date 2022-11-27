@@ -9,7 +9,7 @@ export class Notification<NoteType> {
     return !(this.noteList.length === 0);
   }
 
-  getNote(): NoteType[] {
+  getNotes(): NoteType[] {
     return this.noteList;
   }
 }
