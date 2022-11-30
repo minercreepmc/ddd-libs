@@ -8,10 +8,9 @@ export type OrmModelProps<OrmModel> = Omit<
   'id' | 'createdAt' | 'updatedAt'
 >;
 
-export type AggregateBuilder<Aggregate> = (
+export type AggregateConstructor<Aggregate> = new (
   props: ICreateEntity<any>
 ) => Aggregate;
-
 export type TypeOrmModelConstructor<OrmModel> = new (props: any) => OrmModel;
 
 export abstract class AbstractTypeOrmMapper<
@@ -20,7 +19,7 @@ export abstract class AbstractTypeOrmMapper<
   OrmModel extends AbstractTypeOrmModel
 > {
   constructor(
-    private readonly aggregateBuilder: AggregateBuilder<Aggregate>,
+    private readonly aggregateConstructor: AggregateConstructor<Aggregate>,
     private readonly typeOrmModelConstructor: TypeOrmModelConstructor<OrmModel>
   ) {}
 
@@ -46,7 +45,7 @@ export abstract class AbstractTypeOrmMapper<
     const createdAt = DateVO.create(ormModel.createdAt);
     const updatedAt = DateVO.create(ormModel.updatedAt);
 
-    return this.aggregateBuilder({
+    return new this.aggregateConstructor({
       id,
       props,
       createdAt,
