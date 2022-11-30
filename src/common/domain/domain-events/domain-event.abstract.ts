@@ -18,6 +18,6 @@ export abstract class DomainEvent {
     }
     this.id = UUID.create().unpack();
     this.aggregateId = props.aggregateId.unpack();
-    this.dateOccurred = props.dateOccurred.unpack() || Date.now();
+    this.dateOccurred = props.dateOccurred?.unpack() || Date.now();
   }
 }
