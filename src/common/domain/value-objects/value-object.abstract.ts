@@ -4,22 +4,20 @@ type Primitive = string | boolean | number;
 export interface DomainPrimitive<T extends Primitive | Date> {
   value: T;
 }
-type ValueObjectProps<T> = T extends Primitive | Date ? DomainPrimitive<T> : T;
+type ValueObjectDetails<T> = T extends Primitive | Date
+  ? DomainPrimitive<T>
+  : T;
 
 export abstract class AbstractValueObject<T> implements IValueObject<T> {
-  protected readonly props: ValueObjectProps<T>;
-
-  protected constructor(props: ValueObjectProps<T>) {
-    this.props = props;
-  }
+  protected constructor(protected readonly details: ValueObjectDetails<T>) {}
   public equals(vo?: AbstractValueObject<T>): boolean {
     if (vo === null || vo === undefined) return false;
     return JSON.stringify(vo) === JSON.stringify(this);
   }
 
   public unpack(): T {
-    if (this.isDomainPrimitive(this.props)) {
-      return this.props.value;
+    if (this.isDomainPrimitive(this.details)) {
+      return this.details.value;
     }
   }
 

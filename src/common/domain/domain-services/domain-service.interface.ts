@@ -1,3 +1,3 @@
-export interface IDomainService<Props, Response> {
-  execute(props: Props): Promise<Response>;
+export interface IDomainService<Details, Response> {
+  execute(details: Details): Promise<Response>;
 }

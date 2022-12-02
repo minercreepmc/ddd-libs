@@ -7,8 +7,15 @@ export interface IBaseEntity {
   updatedAt: DateVO;
 }
 
-export interface IEntity<EntityProps> {
-  equals(object: IEntity<EntityProps>): boolean;
-  getPropsCopy(): EntityProps;
-  toObject(): IBaseEntity & EntityProps;
+export interface IEntity<EntityDetails> {
+  equals(object: any): boolean;
+  getDetailsCopy(): EntityDetails;
+  toObject(): IBaseEntity & EntityDetails;
+}
+
+export interface ICreateEntity<Details> {
+  id: ID;
+  details: Details;
+  createdAt?: DateVO;
+  updatedAt?: DateVO;
 }

@@ -12,19 +12,19 @@ import { AbstractTypeOrmModel } from '../models';
 
 export abstract class AbstractTypeormRepository<
   Aggregate extends AbstractAggregateRoot<unknown>,
-  AggregateProps,
+  AggregateDetails,
   OrmModel extends AbstractTypeOrmModel
-> implements RepositoryPort<Aggregate, AggregateProps>
+> implements RepositoryPort<Aggregate, AggregateDetails>
 {
   protected constructor(
     protected readonly typeOrmRepository: Repository<OrmModel>,
     protected readonly typeOrmMapper: AbstractTypeOrmMapper<
       Aggregate,
-      AggregateProps,
+      AggregateDetails,
       OrmModel
     >,
     protected readonly queryMapper: AbstractQueryMapper<
-      AggregateProps,
+      AggregateDetails,
       OrmModel
     >,
     protected readonly logger: ILogger
@@ -61,7 +61,7 @@ export abstract class AbstractTypeormRepository<
   }
 
   async findOne(
-    params: QueryParams<AggregateProps> = {}
+    params: QueryParams<AggregateDetails> = {}
   ): Promise<Aggregate | undefined> {
     const where = this.queryMapper.toQuery(params);
     const found = await this.typeOrmRepository.findOne({

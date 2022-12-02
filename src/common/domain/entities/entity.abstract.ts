@@ -1,39 +1,20 @@
 import { ID } from '../value-objects/id';
 import { DateVO } from '../value-objects/date';
-import { IBaseEntity, IEntity } from './entity.interface';
+import { IBaseEntity, ICreateEntity, IEntity } from './entity.interface';
 
-export interface ICreateEntity<EntityProps> {
-  id: ID;
-  props: EntityProps;
-  createdAt?: DateVO;
-  updatedAt?: DateVO;
-}
-
-export abstract class AbstractEntity<EntityProps>
-  implements IEntity<EntityProps>
+export abstract class AbstractEntity<EntityDetails>
+  implements IEntity<EntityDetails>
 {
-  protected _id: ID;
-  private readonly _createdAt: DateVO;
-  protected _updatedAt: DateVO;
-  protected readonly props: EntityProps;
-
-  get id(): ID {
-    return this._id;
-  }
-
-  get createdAt(): DateVO {
-    return this._createdAt;
-  }
-
-  get updatedAt(): DateVO {
-    return this._updatedAt;
-  }
+  readonly id: ID;
+  readonly createdAt: DateVO;
+  readonly updatedAt: DateVO;
+  readonly details: EntityDetails;
 
   /**
    *  Check if two entities are the same Entity. Checks using ID field.
    * @param object Entity
    */
-  equals(object?: AbstractEntity<EntityProps>): boolean {
+  equals(object: AbstractEntity<EntityDetails>): boolean {
     if (object === null || object === undefined) {
       return false;
     }
@@ -53,20 +34,20 @@ export abstract class AbstractEntity<EntityProps>
     return entity instanceof AbstractEntity;
   }
 
-  public getPropsCopy(): EntityProps {
-    const propsCopy = {
-      ...this.props,
+  public getDetailsCopy(): EntityDetails {
+    const detailsCopy = {
+      ...this.details,
     };
 
-    return Object.freeze(propsCopy);
+    return Object.freeze(detailsCopy);
   }
 
-  public toObject(): IBaseEntity & EntityProps {
+  public toObject(): IBaseEntity & EntityDetails {
     const result = {
-      id: this._id,
-      createdAt: this._createdAt,
-      updatedAt: this._updatedAt,
-      ...this.props,
+      id: this.id,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      ...this.details,
     };
 
     return Object.freeze(result);
@@ -74,17 +55,13 @@ export abstract class AbstractEntity<EntityProps>
 
   protected constructor({
     id,
-    props,
+    details,
     createdAt,
     updatedAt,
-  }: ICreateEntity<EntityProps>) {
-    this.setId(id);
-    this._createdAt = createdAt || DateVO.now();
-    this._updatedAt = updatedAt || DateVO.now();
-    this.props = props;
-  }
-
-  private setId(id: ID): void {
-    this._id = id;
+  }: ICreateEntity<EntityDetails>) {
+    this.id = id;
+    this.createdAt = createdAt || DateVO.now();
+    this.updatedAt = updatedAt || DateVO.now();
+    this.details = details;
   }
 }

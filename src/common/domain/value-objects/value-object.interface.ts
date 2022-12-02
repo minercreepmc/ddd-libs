@@ -1,4 +1,4 @@
-export interface IValueObject<PropsType> {
-  equals(vo: IValueObject<PropsType>): boolean;
-  unpack(): PropsType;
+export interface IValueObject<Details> {
+  equals(vo: IValueObject<Details>): boolean;
+  unpack(): Details;
 }

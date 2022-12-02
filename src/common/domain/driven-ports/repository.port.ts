@@ -1,8 +1,10 @@
 import { QueryParams } from '@driven-adapters/database';
 import { ID } from '../value-objects';
 
-export interface FindOne<Aggregate, AggregateProps> {
-  findOne(params: QueryParams<AggregateProps>): Promise<Aggregate | undefined>;
+export interface FindOne<Aggregate, AggregateDetails> {
+  findOne(
+    params: QueryParams<AggregateDetails>
+  ): Promise<Aggregate | undefined>;
 }
 
 export interface FindOneById<Aggregate> {
@@ -17,8 +19,8 @@ export interface Delete<Aggregate> {
   delete(entity: Aggregate): Promise<boolean>;
 }
 
-export interface RepositoryPort<Aggregate, AggregateProps>
+export interface RepositoryPort<Aggregate, AggregateDetails>
   extends Save<Aggregate>,
     Delete<Aggregate>,
     FindOneById<Aggregate>,
-    FindOne<Aggregate, AggregateProps> {}
+    FindOne<Aggregate, AggregateDetails> {}
