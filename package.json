@@ -1,6 +1,6 @@
 {
   "name": "common-base-classes",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "exports": {
@@ -44,11 +44,13 @@
     "url": "https://github.com/minercreepmc/ddd-libs/issues"
   },
   "homepage": "https://github.com/minercreepmc/ddd-libs#readme",
-  "dependencies": {
+  "peerDependencies": {
     "@nestjs/common": "^9.2.0",
     "@nestjs/core": "^9.2.0",
     "@nestjs/cqrs": "^9.0.1",
-    "@tinphamm/common-exceptions": "2.0.2",
+    "@tinphamm/common-exceptions": "2.0.2"
+  },
+  "dependencies": {
     "common-errors": "^1.2.0",
     "guarder": "^0.9.0",
     "is-empty": "^1.2.0",
