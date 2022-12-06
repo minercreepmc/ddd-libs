@@ -1,6 +1,6 @@
 {
   "name": "common-base-classes",
-  "version": "0.11.5",
+  "version": "0.11.6",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",
   "exports": {
@@ -54,7 +54,6 @@
     "common-errors": "^1.2.0",
     "guarder": "^0.9.0",
     "is-empty": "^1.2.0",
-    "node-date-utilities": "^1.1.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.7",
     "typeorm": "^0.3.10"
