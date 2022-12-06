@@ -27,7 +27,7 @@ export class DateVO extends AbstractValueObject<Date> {
     return new DateVO(Date.now());
   }
 
-  private constructor(value: DateVOValue) {
+  protected constructor(value: DateVOValue) {
     const date = new Date(value);
     super({ value: date });
   }
