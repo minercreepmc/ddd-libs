@@ -1,4 +1,4 @@
-import { AbstractAggregateRoot } from '@domain';
+import { AbstractEntity } from '@domain';
 import { RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
 import { Repository } from 'typeorm';
@@ -11,26 +11,26 @@ import { ILogger } from '@driven-adapters/interfaces';
 import { AbstractTypeOrmModel } from '../models';
 
 export abstract class AbstractTypeormRepository<
-  Aggregate extends AbstractAggregateRoot<unknown>,
-  AggregateDetails,
+  Entity extends AbstractEntity<unknown>,
+  EntityDetails,
   OrmModel extends AbstractTypeOrmModel
-> implements RepositoryPort<Aggregate, AggregateDetails>
+> implements RepositoryPort<Entity, EntityDetails>
 {
   protected constructor(
     protected readonly typeOrmRepository: Repository<OrmModel>,
     protected readonly typeOrmMapper: AbstractTypeOrmMapper<
-      Aggregate,
-      AggregateDetails,
+      Entity,
+      EntityDetails,
       OrmModel
     >,
     protected readonly queryMapper: AbstractQueryMapper<
-      AggregateDetails,
+      EntityDetails,
       OrmModel
     >,
     protected readonly logger: ILogger
   ) {}
 
-  async save(entity: Aggregate): Promise<Aggregate> {
+  async save(entity: Entity): Promise<Entity> {
     const ormEntity = this.typeOrmMapper.toPersistance(entity);
     const created = await this.typeOrmRepository.save(ormEntity);
 
@@ -38,14 +38,14 @@ export abstract class AbstractTypeormRepository<
     return this.typeOrmMapper.toDomain(created);
   }
 
-  async delete(entity: Aggregate): Promise<boolean> {
+  async delete(entity: Entity): Promise<boolean> {
     const ormEntity = this.typeOrmMapper.toPersistance(entity);
     const deleted = await this.typeOrmRepository.remove(ormEntity);
     this.logger.debug(`[Repository]: deleted ${entity.id.unpack()}`);
     return Boolean(deleted);
   }
 
-  async findOneById(id: ID | string): Promise<Aggregate | undefined> {
+  async findOneById(id: ID | string): Promise<Entity | undefined> {
     const found = await this.typeOrmRepository
       .createQueryBuilder('collections')
       .where('collections.id = :id', {
@@ -61,8 +61,8 @@ export abstract class AbstractTypeormRepository<
   }
 
   async findOne(
-    params: QueryParams<AggregateDetails> = {}
-  ): Promise<Aggregate | undefined> {
+    params: QueryParams<EntityDetails> = {}
+  ): Promise<Entity | undefined> {
     const where = this.queryMapper.toQuery(params);
     const found = await this.typeOrmRepository.findOne({
       where,

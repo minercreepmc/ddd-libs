@@ -1,5 +1,4 @@
-import { AbstractAggregateRoot } from '@domain/aggregates';
-import { ICreateEntity } from '@domain/entities';
+import { AbstractEntity, ICreateEntity } from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
 import { AbstractTypeOrmModel } from '../models';
 
@@ -8,44 +7,44 @@ export type OrmModelDetails<OrmModel> = Omit<
   'id' | 'createdAt' | 'updatedAt'
 >;
 
-export type AggregateConstructor<Aggregate> = new (
+export type EntityConstructor<Entity> = new (
   details: ICreateEntity<any>
-) => Aggregate;
+) => Entity;
 export type TypeOrmModelConstructor<OrmModel> = new (details: any) => OrmModel;
 
 export abstract class AbstractTypeOrmMapper<
-  Aggregate extends AbstractAggregateRoot<unknown>,
-  AggregateDetails,
+  Entity extends AbstractEntity<unknown>,
+  EntityDetails,
   OrmModel extends AbstractTypeOrmModel
 > {
   constructor(
-    private readonly aggregateConstructor: AggregateConstructor<Aggregate>,
+    private readonly entityConstructor: EntityConstructor<Entity>,
     private readonly typeOrmModelConstructor: TypeOrmModelConstructor<OrmModel>
   ) {}
 
   protected abstract toPersistanceDetails(
-    aggregate: Aggregate
+    entity: Entity
   ): OrmModelDetails<OrmModel>;
-  protected abstract toDomainDetails(ormModel: OrmModel): AggregateDetails;
+  protected abstract toDomainDetails(ormModel: OrmModel): EntityDetails;
 
-  toPersistance(aggregate: Aggregate): OrmModel {
-    const details = this.toPersistanceDetails(aggregate);
+  toPersistance(entity: Entity): OrmModel {
+    const details = this.toPersistanceDetails(entity);
 
     return new this.typeOrmModelConstructor({
       ...details,
-      id: aggregate.id.unpack(),
-      createdAt: aggregate.createdAt.unpack(),
-      updatedAt: aggregate.updatedAt.unpack(),
+      id: entity.id.unpack(),
+      createdAt: entity.createdAt.unpack(),
+      updatedAt: entity.updatedAt.unpack(),
     });
   }
 
-  toDomain(ormModel: OrmModel): Aggregate {
+  toDomain(ormModel: OrmModel): Entity {
     const details = this.toDomainDetails(ormModel);
     const id = UUID.create(ormModel.id);
     const createdAt = DateVO.create(ormModel.createdAt);
     const updatedAt = DateVO.create(ormModel.updatedAt);
 
-    return new this.aggregateConstructor({
+    return new this.entityConstructor({
       id,
       details,
       createdAt,
