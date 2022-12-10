@@ -1,3 +1,4 @@
+import { convertPropsToObject } from '@utils/functions';
 import { IValueObject } from './value-object.interface';
 
 type Primitive = string | boolean | number;
@@ -10,15 +11,22 @@ type ValueObjectDetails<T> = T extends Primitive | Date
 
 export abstract class AbstractValueObject<T> implements IValueObject<T> {
   protected constructor(protected readonly details: ValueObjectDetails<T>) {}
-  public equals(vo?: AbstractValueObject<T>): boolean {
+  equals(vo?: AbstractValueObject<T>): boolean {
     if (vo === null || vo === undefined) return false;
     return JSON.stringify(vo) === JSON.stringify(this);
   }
 
-  public unpack(): T {
+  unpack(): T {
     if (this.isDomainPrimitive(this.details)) {
       return this.details.value;
     }
+
+    const detailsCopy = convertPropsToObject(this.details);
+    return Object.freeze(detailsCopy);
+  }
+
+  static isValueObject(obj: unknown): obj is AbstractValueObject<unknown> {
+    return obj instanceof AbstractValueObject;
   }
 
   private isDomainPrimitive(
