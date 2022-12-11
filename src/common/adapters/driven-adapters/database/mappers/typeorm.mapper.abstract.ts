@@ -1,4 +1,4 @@
-import { AbstractEntity, ICreateEntity } from '@domain/entities';
+import { AbstractEntity} from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
 import { AbstractTypeOrmModel } from '../models';
 
@@ -7,9 +7,7 @@ export type OrmModelDetails<OrmModel> = Omit<
   'id' | 'createdAt' | 'updatedAt'
 >;
 
-export type EntityConstructor<Entity> = new (
-  details: ICreateEntity<any>
-) => Entity;
+export type EntityConstructor<Entity> = new (...details: any) => Entity;
 export type TypeOrmModelConstructor<OrmModel> = new (details: any) => OrmModel;
 
 export abstract class AbstractTypeOrmMapper<
