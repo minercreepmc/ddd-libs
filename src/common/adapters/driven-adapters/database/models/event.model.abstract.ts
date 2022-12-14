@@ -1,11 +1,14 @@
-import { Column, CreateDateColumn, PrimaryColumn } from 'typeorm';
+import { Column, PrimaryColumn } from 'typeorm';
 
 export class AbstractEventTypeOrmModel {
   @PrimaryColumn({ update: false })
   eventId: string;
 
-  @Column() 
+  @Column()
   eventName: string;
+
+  @Column()
+  name: string;
 
   @Column()
   entityType: string;

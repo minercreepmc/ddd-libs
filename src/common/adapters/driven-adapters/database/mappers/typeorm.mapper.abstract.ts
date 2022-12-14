@@ -1,13 +1,15 @@
 import { AbstractEntity } from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
-import { EntityConstructor, TypeOrmModelConstructor } from '@utils/patterns/mapper';
+import {
+  EntityConstructor,
+  TypeOrmModelConstructor,
+} from '@utils/patterns/mapper';
 import { AbstractTypeOrmModel } from '../models';
 
 export type OrmModelDetails<OrmModel> = Omit<
   OrmModel,
   'id' | 'createdAt' | 'updatedAt'
 >;
-
 
 export abstract class AbstractTypeOrmMapper<
   Entity extends AbstractEntity<unknown>,
@@ -16,8 +18,7 @@ export abstract class AbstractTypeOrmMapper<
 > {
   constructor(
     private readonly entityConstructor: EntityConstructor<Entity>,
-    private readonly typeOrmModelConstructor: TypeOrmModelConstructor<OrmModel>
-  ) {}
+    private readonly typeOrmModelConstructor: TypeOrmModelConstructor<OrmModel>) {}
 
   protected abstract toPersistanceDetails(
     entity: Entity
