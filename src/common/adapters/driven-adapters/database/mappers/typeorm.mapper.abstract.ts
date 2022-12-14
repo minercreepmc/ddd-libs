@@ -1,5 +1,6 @@
 import { AbstractEntity } from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
+import { EntityConstructor, TypeOrmModelConstructor } from '@utils/patterns/mapper';
 import { AbstractTypeOrmModel } from '../models';
 
 export type OrmModelDetails<OrmModel> = Omit<
@@ -7,8 +8,6 @@ export type OrmModelDetails<OrmModel> = Omit<
   'id' | 'createdAt' | 'updatedAt'
 >;
 
-export type EntityConstructor<Entity> = new (...details: any) => Entity;
-export type TypeOrmModelConstructor<OrmModel> = new (details: any) => OrmModel;
 
 export abstract class AbstractTypeOrmMapper<
   Entity extends AbstractEntity<unknown>,

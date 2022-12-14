@@ -1,9 +1,11 @@
-import { Column } from 'typeorm';
-import { AbstractTypeOrmModel } from './typeorm.model.abstract';
+import { Column, CreateDateColumn, PrimaryColumn } from 'typeorm';
 
-export class AbstractEventModel extends AbstractTypeOrmModel {
-  @Column()
-  name: string;
+export class AbstractEventTypeOrmModel {
+  @PrimaryColumn({ update: false })
+  eventId: string;
+
+  @Column() 
+  eventName: string;
 
   @Column()
   entityType: string;
@@ -13,4 +15,7 @@ export class AbstractEventModel extends AbstractTypeOrmModel {
 
   @Column('simple-json')
   data: string;
+
+  @Column()
+  dateOccurred: Date;
 }
