@@ -1,15 +1,12 @@
 import { Column } from 'typeorm';
 import { AbstractTypeOrmModel } from './typeorm.model.abstract';
 
-export class AbstractEventModel<
-  EventClassName,
-  Entity
-> extends AbstractTypeOrmModel {
+export class AbstractEventModel extends AbstractTypeOrmModel {
   @Column()
-  name: EventClassName;
+  name: string;
 
   @Column()
-  entityType: Entity;
+  entityType: string;
 
   @Column()
   entityId: string;
