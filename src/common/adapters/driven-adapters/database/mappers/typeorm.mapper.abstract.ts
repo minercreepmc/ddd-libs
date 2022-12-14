@@ -1,4 +1,4 @@
-import { AbstractEntity} from '@domain/entities';
+import { AbstractEntity } from '@domain/entities';
 import { DateVO, UUID } from '@domain/value-objects';
 import { AbstractTypeOrmModel } from '../models';
 
