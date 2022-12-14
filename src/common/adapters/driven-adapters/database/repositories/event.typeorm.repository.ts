@@ -3,12 +3,12 @@ import { EventRepositoryPort } from '@domain/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
 import { EventTypeOrmMapperAbstract } from '../mappers/event.typeorm.mapper.abstract';
-import { AbstractEventTypeOrmModel } from '../models';
+import { EventTypeOrmModel } from '../models';
 
 export class EventTypeOrmRepository<
   Event extends DomainEvent<any>,
   EventDetails,
-  OrmModel extends AbstractEventTypeOrmModel
+  OrmModel extends EventTypeOrmModel
 > implements EventRepositoryPort<Event>
 {
   protected constructor(

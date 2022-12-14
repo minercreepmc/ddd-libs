@@ -1,6 +1,6 @@
 import { Column, PrimaryColumn } from 'typeorm';
 
-export class AbstractEventTypeOrmModel {
+export class EventTypeOrmModel {
   @PrimaryColumn({ update: false })
   eventId: string;
 

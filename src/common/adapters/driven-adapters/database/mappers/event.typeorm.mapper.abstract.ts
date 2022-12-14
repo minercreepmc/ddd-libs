@@ -1,16 +1,21 @@
 import { DomainEvent } from '@domain/domain-events';
-import { AbstractEventTypeOrmModel } from '../models';
-import { EventConstructor, PersistentMapper, TypeOrmModelConstructor } from '@utils/patterns/mapper';
+import { EventTypeOrmModel } from '../models';
+import {
+  EventConstructor,
+  PersistentMapper,
+  TypeOrmModelConstructor,
+} from '@utils/patterns/mapper';
 import { DateVO, UUID } from '@domain/value-objects';
 
 export type EventOrmModelDetails<OrmModel> = Omit<
   OrmModel,
-  'entityId' | 'dateOccurred' | 'eventName' >;
+  'entityId' | 'dateOccurred' | 'eventName'
+>;
 
 export abstract class EventTypeOrmMapperAbstract<
   Event extends DomainEvent<any>,
   EventDetails,
-  EventOrmModel extends AbstractEventTypeOrmModel
+  EventOrmModel extends EventTypeOrmModel
 > implements PersistentMapper<Event, EventOrmModel>
 {
   constructor(
