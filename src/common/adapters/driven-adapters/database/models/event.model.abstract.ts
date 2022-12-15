@@ -16,8 +16,8 @@ export class EventTypeOrmModel {
   @Column()
   entityId: string;
 
-  @Column('simple-json')
-  data: string;
+  @Column('jsonb')
+  eventData: object;
 
   @Column()
   dateOccurred: Date;

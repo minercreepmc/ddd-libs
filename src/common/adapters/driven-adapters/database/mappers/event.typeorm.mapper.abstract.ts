@@ -7,11 +7,6 @@ import {
 } from '@utils/patterns/mapper';
 import { DateVO, UUID } from '@domain/value-objects';
 
-export type EventOrmModelDetails<OrmModel> = Omit<
-  OrmModel,
-  'entityId' | 'dateOccurred' | 'eventName'
->;
-
 export abstract class EventTypeOrmMapperAbstract<
   Event extends DomainEvent<any>,
   EventDetails,
@@ -24,9 +19,7 @@ export abstract class EventTypeOrmMapperAbstract<
   ) {}
 
   protected abstract toDomainDetails(ormModel: EventOrmModel): EventDetails;
-  protected abstract toPersistanceDetails(
-    event: Event
-  ): EventOrmModelDetails<EventOrmModel>;
+  protected abstract toPersistanceDetails(event: Event): object;
 
   toPersistent(event: Event): EventOrmModel {
     const details = this.toPersistanceDetails(event);
