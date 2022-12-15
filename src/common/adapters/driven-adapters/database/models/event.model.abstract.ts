@@ -1,6 +1,6 @@
 import { Column, PrimaryColumn } from 'typeorm';
 
-export class EventTypeOrmModel {
+export class EventTypeOrmModel<EventDetails> {
   @PrimaryColumn({ update: false })
   eventId: string;
 
@@ -17,7 +17,7 @@ export class EventTypeOrmModel {
   entityId: string;
 
   @Column('jsonb')
-  eventData: object;
+  eventData: EventDetails;
 
   @Column()
   dateOccurred: Date;

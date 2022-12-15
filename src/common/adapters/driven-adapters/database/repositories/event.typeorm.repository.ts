@@ -2,21 +2,23 @@ import { DomainEvent } from '@domain/domain-events';
 import { EventRepositoryPort } from '@domain/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
-import { EventTypeOrmMapperAbstract } from '../mappers/event.typeorm.mapper.abstract';
+import { AbstractEventTypeOrmMapper } from '../mappers/event.typeorm.mapper.abstract';
 import { EventTypeOrmModel } from '../models';
 
 export class EventTypeOrmRepository<
   Event extends DomainEvent<any>,
   EventDetails,
-  OrmModel extends EventTypeOrmModel
+  OrmModel extends EventTypeOrmModel<OrmModelDetails>,
+  OrmModelDetails
 > implements EventRepositoryPort<Event>
 {
   protected constructor(
     protected readonly typeOrmRepository: Repository<OrmModel>,
-    protected readonly typeOrmMapper: EventTypeOrmMapperAbstract<
+    protected readonly typeOrmMapper: AbstractEventTypeOrmMapper<
       Event,
       EventDetails,
-      OrmModel
+      OrmModel,
+      OrmModelDetails
     >,
     protected readonly logger: ILogger
   ) {}
