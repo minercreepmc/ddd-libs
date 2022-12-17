@@ -42,7 +42,7 @@ export abstract class AbstractEventTypeOrmMapper<
     const dateOccurred = DateVO.create(persistentObject.dateOccurred);
     const details = this.toDomainDetails(persistentObject.eventData);
     return new this.eventConstructor({
-      ...details,
+      details,
       eventId,
       aggregateId: entityId,
       dateOccurred,
