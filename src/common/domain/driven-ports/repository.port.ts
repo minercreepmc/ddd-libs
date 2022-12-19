@@ -13,11 +13,15 @@ export interface Save<Entity> {
   save(entity: Entity): Promise<Entity>;
 }
 
+export interface SaveMany<Entity> {
+  saveMany(entities: Entity[]): Promise<Entity[]>;
+}
+
 export interface Delete<Entity> {
   delete(entity: Entity): Promise<boolean>;
 }
 
-export type EventStorePort<Event> = Save<Event>;
+export interface EventStorePort<Event> extends Save<Event>, SaveMany<Event> {}
 
 export interface RepositoryPort<Entity, EntityDetails>
   extends Save<Entity>,
