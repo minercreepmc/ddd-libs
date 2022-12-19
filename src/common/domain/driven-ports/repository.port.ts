@@ -17,7 +17,7 @@ export interface Delete<Entity> {
   delete(entity: Entity): Promise<boolean>;
 }
 
-export type EventRepositoryPort<Event> = Save<Event>;
+export type EventStorePort<Event> = Save<Event>;
 
 export interface RepositoryPort<Entity, EntityDetails>
   extends Save<Entity>,

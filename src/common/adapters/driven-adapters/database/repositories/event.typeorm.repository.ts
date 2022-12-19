@@ -1,16 +1,16 @@
 import { DomainEvent } from '@domain/domain-events';
-import { EventRepositoryPort } from '@domain/driven-ports';
+import { EventStorePort } from '@domain/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
 import { AbstractEventTypeOrmMapper } from '../mappers/event.typeorm.mapper.abstract';
 import { EventTypeOrmModel } from '../models';
 
-export class EventTypeOrmRepository<
+export class EventStoreTypeOrm<
   Event extends DomainEvent<any>,
   EventDetails,
   OrmModel extends EventTypeOrmModel<OrmModelDetails>,
   OrmModelDetails
-> implements EventRepositoryPort<Event>
+> implements EventStorePort<Event>
 {
   protected constructor(
     protected readonly typeOrmRepository: Repository<OrmModel>,
@@ -25,8 +25,23 @@ export class EventTypeOrmRepository<
 
   async save(event: Event) {
     const eventOrmEntity = this.typeOrmMapper.toPersistent(event);
-    const created = await this.typeOrmRepository.save(eventOrmEntity);
-    this.logger.debug(`[Repository]: created ${created.eventId}`);
-    return this.typeOrmMapper.toDomain(created);
+    const saved = await this.typeOrmRepository.save(eventOrmEntity);
+    this.logger.debug(`[EventStore]: created ${saved.eventId}`);
+    return this.typeOrmMapper.toDomain(saved);
+  }
+
+  async saveMany(events: Event[]) {
+    const eventsOrmEntity = events.map((event) =>
+      this.typeOrmMapper.toPersistent(event)
+    );
+    const eventsSaved = await Promise.all(
+      eventsOrmEntity.map((event) => this.typeOrmRepository.save(event))
+    );
+
+    eventsSaved.forEach((event) => {
+      this.logger.debug(`[EventStore]: created ${event.eventId}`);
+    });
+
+    return eventsSaved.map((event) => this.typeOrmMapper.toDomain(event));
   }
 }
