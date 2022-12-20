@@ -16,6 +16,4 @@ export interface IEntity<EntityDetails> {
 export interface ICreateEntity<Details> {
   id: ID;
   details: Details;
-  createdAt?: DateVO;
-  updatedAt?: DateVO;
 }
