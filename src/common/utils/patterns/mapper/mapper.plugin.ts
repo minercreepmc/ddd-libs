@@ -8,7 +8,7 @@ export namespace MapperPlugin {
   }
 
   export interface FromRequestDTOToDomain<RequestDTO, DomainEntity> {
-    toDomain(dto: RequestDTO): DomainEntity;
+    toDomain(dto: RequestDTO): Promise<DomainEntity>;
   }
 
   export interface FromDomainToResponseDTO<DomainEntity, ResponseDTO> {
