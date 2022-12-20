@@ -7,7 +7,7 @@ export abstract class AbstractEntity<EntityDetails>
 {
   readonly id: ID;
   readonly createdAt: DateVO;
-  readonly updatedAt: DateVO;
+  updatedAt: DateVO;
   readonly details: EntityDetails;
 
   /**
@@ -51,6 +51,10 @@ export abstract class AbstractEntity<EntityDetails>
     };
 
     return Object.freeze(result);
+  }
+
+  protected applyUpdatedAt(date: DateVO) {
+    this.updatedAt = date;
   }
 
   protected constructor({
