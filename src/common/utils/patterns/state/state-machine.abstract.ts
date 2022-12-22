@@ -1,7 +1,9 @@
-export interface IState {
-  process(...args: any): void;
+import { AbstractAggregateRoot } from '@domain/aggregates';
+
+export interface IState<T extends AbstractAggregateRoot<any>> {
+  aggregate: T;
 }
 
-export interface IStateMachine<State> {
-  changeState(newState: State): void;
+export interface IStateMachine<T extends IState<any>> {
+  changeState(newState: T): void;
 }
