@@ -8,7 +8,7 @@ export abstract class AbstractAggregateRoot<
 > extends AbstractEntity<EntityDetails> {
   readonly domainEvents: DomainEvent<any>[] = [];
 
-  protected addEvent(domainEvent: DomainEvent<any>): void {
+  addEvent(domainEvent: DomainEvent<any>): void {
     this.domainEvents.push(domainEvent);
   }
 }

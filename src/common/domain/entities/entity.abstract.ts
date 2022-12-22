@@ -9,7 +9,7 @@ export abstract class AbstractEntity<EntityDetails>
   readonly createdAt: DateVO;
   updatedAt: DateVO;
   readonly details: EntityDetails;
-/**
+  /**
    *  Check if two entities are the same Entity. Checks using ID field.
    * @param object Entity
    */
@@ -50,10 +50,6 @@ export abstract class AbstractEntity<EntityDetails>
     };
 
     return Object.freeze(result);
-  }
-
-  protected applyUpdatedAt(date: DateVO) {
-    this.updatedAt = date;
   }
 
   protected constructor({ id, details }: ICreateEntity<EntityDetails>) {
