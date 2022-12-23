@@ -14,9 +14,6 @@ export class EventTypeOrmModel<EventDetails> {
   eventName: string;
 
   @Column()
-  name: string;
-
-  @Column()
   entityType: string;
 
   @Column()
