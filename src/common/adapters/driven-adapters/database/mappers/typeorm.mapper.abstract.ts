@@ -18,7 +18,8 @@ export abstract class AbstractTypeOrmMapper<
 > {
   constructor(
     private readonly entityConstructor: EntityConstructor<Entity>,
-    private readonly typeOrmModelConstructor: TypeOrmModelConstructor<OrmModel>) {}
+    private readonly typeOrmModelConstructor: TypeOrmModelConstructor<OrmModel>
+  ) {}
 
   protected abstract toPersistanceDetails(
     entity: Entity

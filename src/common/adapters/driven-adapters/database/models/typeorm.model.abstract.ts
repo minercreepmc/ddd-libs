@@ -1,9 +1,9 @@
 import { CreateDateColumn, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
 export abstract class AbstractTypeOrmModel {
-  constructor(details?: unknown) {
-    if (details) {
-      Object.assign(this, details);
+  constructor(props?: unknown) {
+    if (props) {
+      Object.assign(this, props);
     }
   }
 
