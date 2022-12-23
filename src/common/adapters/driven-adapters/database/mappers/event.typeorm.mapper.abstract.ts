@@ -32,7 +32,7 @@ export abstract class AbstractEventTypeOrmMapper<
       dateOccurred: event.dateOccurred.unpack(),
       eventName: event.eventName,
       entityType: event.aggregateType,
-      data: details,
+      eventData: details,
     });
   }
 
