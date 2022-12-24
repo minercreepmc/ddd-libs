@@ -1,3 +1,4 @@
+import { AbstractAggregateRoot } from '@domain/aggregates';
 import { DomainEvent } from '@domain/domain-events';
 import { EventStorePort } from '@domain/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';
@@ -5,7 +6,7 @@ import { Repository } from 'typeorm';
 import { AbstractEventTypeOrmMapper } from '../mappers/event.typeorm.mapper.abstract';
 import { EventTypeOrmModel } from '../models';
 
-export class EventStoreTypeOrm<
+export abstract class EventStoreTypeOrm<
   Event extends DomainEvent<any>,
   EventDetails,
   OrmModel extends EventTypeOrmModel<OrmModelDetails>,
@@ -22,6 +23,17 @@ export class EventStoreTypeOrm<
     >,
     protected readonly logger: ILogger
   ) {}
+
+  protected abstract relations: string[];
+  protected abstract aggregate: AbstractAggregateRoot<any>;
+  abstract rebuild<T extends AbstractAggregateRoot<any>>(): Promise<T[]>;
+
+  async getAllEvents() {
+    const events = await this.typeOrmRepository.find({
+      relations: this.relations,
+    });
+    return events.map((event) => this.typeOrmMapper.toDomain(event));
+  }
 
   async save(event: Event) {
     const eventOrmEntity = this.typeOrmMapper.toPersistent(event);
