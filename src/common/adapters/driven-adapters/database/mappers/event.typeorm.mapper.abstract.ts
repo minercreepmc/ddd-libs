@@ -1,9 +1,10 @@
 import { DomainEvent } from '@domain/domain-events';
 import { EventTypeOrmModel } from '../models';
 import {
-  EventConstructor,
   PersistentMapper,
   TypeOrmModelConstructor,
+  EventConstructorDocuments,
+  EventConstructor,
 } from '@utils/patterns/mapper';
 import { DateVO, UUID } from '@domain/value-objects';
 
@@ -15,7 +16,7 @@ export abstract class AbstractEventTypeOrmMapper<
 > implements PersistentMapper<Event, EventOrmModel>
 {
   constructor(
-    private readonly eventConstructor: EventConstructor<Event>,
+    //private readonly eventConstructor: EventConstructor<Event>,
     private readonly typeOrmModelConstructor: TypeOrmModelConstructor<EventOrmModel>
   ) {}
 
@@ -23,6 +24,10 @@ export abstract class AbstractEventTypeOrmMapper<
     details: EventOrmModelDetails
   ): EventDetails;
   protected abstract toPersistanceDetails(event: EventDetails): object;
+  protected abstract eventConstructorDocuments: EventConstructorDocuments<
+    string,
+    EventConstructor<Event>
+  >;
 
   toPersistent(event: Event): EventOrmModel {
     const details = this.toPersistanceDetails(event.details);
@@ -32,7 +37,7 @@ export abstract class AbstractEventTypeOrmMapper<
       dateOccurred: event.dateOccurred.unpack(),
       eventName: event.eventName,
       entityType: event.aggregateType,
-      eventData: details,
+      Eventdata: details,
     });
   }
 
@@ -41,7 +46,9 @@ export abstract class AbstractEventTypeOrmMapper<
     const entityId = UUID.create(persistentObject.entityId);
     const dateOccurred = DateVO.create(persistentObject.dateOccurred);
     const details = this.toDomainDetails(persistentObject.eventData);
-    return new this.eventConstructor({
+    const eventName = persistentObject.eventName;
+    const eventConstructor = this.eventConstructorDocuments[eventName];
+    return new eventConstructor({
       details,
       eventId,
       aggregateId: entityId,

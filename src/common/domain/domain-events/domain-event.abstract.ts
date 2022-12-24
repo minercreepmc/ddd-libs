@@ -10,7 +10,7 @@ export interface DomainEventProps<DomainEventDetails> {
   details: DomainEventDetails;
 }
 
-export abstract class DomainEvent<DomainEventDetails> {
+export class DomainEvent<DomainEventDetails> {
   readonly eventId: ID;
   readonly dateOccurred: DateVO;
   readonly details: DomainEventDetails;
