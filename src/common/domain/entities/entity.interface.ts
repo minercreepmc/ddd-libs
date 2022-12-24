@@ -13,7 +13,7 @@ export interface IEntity<EntityDetails> {
   toObject(): IBaseEntity & EntityDetails;
 }
 
-export interface ICreateEntity<Details> {
+export interface IEntityData<Details> {
   id: ID;
   details: Details;
 }

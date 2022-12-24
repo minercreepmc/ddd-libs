@@ -1,6 +1,6 @@
 import { ID } from '../value-objects/id';
 import { DateVO } from '../value-objects/date';
-import { IBaseEntity, ICreateEntity, IEntity } from './entity.interface';
+import { IBaseEntity, IEntityData, IEntity } from './entity.interface';
 
 export abstract class AbstractEntity<EntityDetails>
   implements IEntity<EntityDetails>
@@ -52,7 +52,7 @@ export abstract class AbstractEntity<EntityDetails>
     return Object.freeze(result);
   }
 
-  protected constructor({ id, details }: ICreateEntity<EntityDetails>) {
+  protected constructor({ id, details }: IEntityData<EntityDetails>) {
     this.id = id;
     this.createdAt = DateVO.now();
     this.updatedAt = DateVO.now();
