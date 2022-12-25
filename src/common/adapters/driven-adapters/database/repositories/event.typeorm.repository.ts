@@ -25,8 +25,7 @@ export abstract class EventStoreTypeOrm<
   ) {}
 
   protected abstract relations: string[];
-  protected abstract aggregate: AbstractAggregateRoot<any>;
-  abstract rebuild<T>(): Promise<T[]>;
+  abstract rebuild(): Promise<AbstractAggregateRoot<any>[]>;
 
   async getAllEvents() {
     const events = await this.typeOrmRepository.find({
