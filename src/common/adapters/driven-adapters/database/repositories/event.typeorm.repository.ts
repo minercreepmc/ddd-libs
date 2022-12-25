@@ -9,17 +9,17 @@ import { EventTypeOrmModel } from '../models';
 export abstract class EventStoreTypeOrm<
   Event extends DomainEvent<any>,
   EventDetails,
-  OrmModel extends EventTypeOrmModel<OrmModelDetails>,
-  OrmModelDetails
+  EventOrmModel extends EventTypeOrmModel<EventOrmModelDetails>,
+  EventOrmModelDetails
 > implements EventStorePort<Event>
 {
   protected constructor(
-    protected readonly typeOrmRepository: Repository<OrmModel>,
+    protected readonly eventRepository: Repository<EventOrmModel>,
     protected readonly typeOrmMapper: AbstractEventTypeOrmMapper<
       Event,
       EventDetails,
-      OrmModel,
-      OrmModelDetails
+      EventOrmModel,
+      EventOrmModelDetails
     >,
     protected readonly logger: ILogger
   ) {}
@@ -28,15 +28,13 @@ export abstract class EventStoreTypeOrm<
   abstract rebuild(): Promise<AbstractAggregateRoot<any>[]>;
 
   async getAllEvents() {
-    const events = await this.typeOrmRepository.find({
-      relations: this.relations,
-    });
+    const events = await this.eventRepository.find({});
     return events.map((event) => this.typeOrmMapper.toDomain(event));
   }
 
   async save(event: Event) {
     const eventOrmEntity = this.typeOrmMapper.toPersistent(event);
-    const saved = await this.typeOrmRepository.save(eventOrmEntity);
+    const saved = await this.eventRepository.save(eventOrmEntity);
     this.logger.debug(`[EventStore]: created ${saved.eventId}`);
     return this.typeOrmMapper.toDomain(saved);
   }
@@ -46,7 +44,7 @@ export abstract class EventStoreTypeOrm<
       this.typeOrmMapper.toPersistent(event)
     );
     const eventsSaved = await Promise.all(
-      eventsOrmEntity.map((event) => this.typeOrmRepository.save(event))
+      eventsOrmEntity.map((event) => this.eventRepository.save(event))
     );
 
     eventsSaved.forEach((event) => {
