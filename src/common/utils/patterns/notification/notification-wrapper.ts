@@ -1,7 +1,8 @@
 import { Notification } from './notification';
 
 export abstract class AbstractNotificationWrapper<NoteType> {
-  private readonly note = new Notification<NoteType>();
+  protected readonly note = new Notification<NoteType>();
+  abstract check(): void | Promise<void>;
   isValid() {
     return !this.note.hasNote();
   }
