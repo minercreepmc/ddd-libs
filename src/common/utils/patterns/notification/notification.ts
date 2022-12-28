@@ -12,4 +12,8 @@ export class Notification<NoteType> {
   getNotes(): NoteType[] {
     return this.noteList;
   }
+
+  clearNote() {
+    this.noteList = [];
+  }
 }
