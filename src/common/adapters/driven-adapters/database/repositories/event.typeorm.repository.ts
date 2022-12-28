@@ -25,7 +25,7 @@ export abstract class EventStoreTypeOrm<
   ) {}
 
   protected abstract relations: string[];
-  abstract rebuild(): Promise<AbstractAggregateRoot<any>[]>;
+  abstract rebuild(): Promise<any>;
 
   async getAllEvents() {
     const events = await this.eventRepository.find({});
