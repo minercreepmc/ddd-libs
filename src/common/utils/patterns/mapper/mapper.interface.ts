@@ -7,3 +7,6 @@ export interface PersistentMapper<DomainEntity, PersistentObject>
 export interface OrchestrateMapper<DomainEntity, RequestDTO, ResponseDTO>
   extends MapperPlugin.FromRequestDTOToDomain<RequestDTO, DomainEntity>,
     MapperPlugin.FromDomainToResponseDTO<unknown, ResponseDTO> {}
+
+export interface DomainMapper<DomainEntity, ResponseDTO>
+  extends MapperPlugin.FromDomainToResponseDTO<DomainEntity, ResponseDTO> {}
