@@ -3,9 +3,7 @@ import { ID } from '../value-objects/id';
 
 export namespace RepositoryPlugin {
   export interface FindOne<Entity, EntityDetails> {
-    findOne(
-      params: QueryParams<EntityDetails> | WhereClause<Entity>
-    ): Promise<Entity | undefined>;
+    findOne(params: QueryParams<EntityDetails>): Promise<Entity | undefined>;
   }
 
   export interface FindOneById<Entity> {
