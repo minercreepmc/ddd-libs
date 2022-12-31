@@ -1,19 +1,28 @@
 import { RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
+import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
 import { WhereClause } from '../mappers';
+import { AbstractTypeOrmModel } from '../models';
 
-export class AbstractProjectionRepository<OrmEntity>
-  implements RepositoryPort<OrmEntity, OrmEntity>
+export class AbstractProjectionRepository<
+  OrmEntity extends AbstractTypeOrmModel
+> implements RepositoryPort<OrmEntity, OrmEntity>
 {
-  constructor(protected readonly repository: Repository<OrmEntity>) {}
+  constructor(
+    protected readonly repository: Repository<OrmEntity>,
+    protected readonly logger: ILogger
+  ) {}
 
   async save(entity: OrmEntity): Promise<OrmEntity> {
-    return this.repository.save(entity);
+    const created = await this.repository.save(entity);
+    this.logger.debug(`[Repository]: created ${created.id}`);
+    return created;
   }
 
   async delete(entity: OrmEntity): Promise<boolean> {
     const deleted = this.repository.remove(entity);
+    this.logger.debug(`[Repository]: deleted ${entity.id}`);
     return Boolean(deleted);
   }
 
