@@ -14,4 +14,8 @@ export namespace MapperPlugin {
   export interface FromDomainToResponseDTO<DomainEntity, ResponseDTO> {
     toResponseDTO(domain: DomainEntity): ResponseDTO;
   }
+
+  export interface FromDomainEventToMessage<DomainEvent, Message> {
+    toMessage(event: DomainEvent): Message;
+  }
 }
