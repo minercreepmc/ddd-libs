@@ -1,38 +1,32 @@
 import { RepositoryPort } from '@domain/driven-ports';
 import { ID } from '@domain/value-objects';
 import { ILogger } from '@driven-adapters/interfaces';
-import { PersistentMapper } from '@utils/patterns';
 import { Repository } from 'typeorm';
-import { AbstractQueryMapper, QueryParams } from '../mappers';
+import { WhereClause } from '../mappers';
 import { AbstractTypeOrmModel } from '../models';
 
 export class AbstractProjectionRepository<
-  DomainModel,
-  OrmEntity extends AbstractTypeOrmModel
-> implements RepositoryPort<DomainModel, DomainModel>
+  ReadModel extends AbstractTypeOrmModel
+> implements RepositoryPort<ReadModel, ReadModel>
 {
   constructor(
-    protected readonly repository: Repository<OrmEntity>,
-    protected readonly mapper: PersistentMapper<DomainModel, OrmEntity>,
-    protected readonly queryMapper: AbstractQueryMapper<DomainModel, OrmEntity>,
+    protected readonly repository: Repository<ReadModel>,
     protected readonly logger: ILogger
   ) {}
 
-  async save(model: DomainModel): Promise<DomainModel> {
-    const ormModel = this.mapper.toPersistent(model);
-    const created = await this.repository.save(ormModel);
+  async save(model: ReadModel): Promise<ReadModel> {
+    const created = await this.repository.save(model);
     this.logger.debug(`[Repository]: created ${created.id}`);
-    return this.mapper.toDomain(created);
+    return created;
   }
 
-  async delete(model: DomainModel): Promise<boolean> {
-    const ormModel = this.mapper.toPersistent(model);
-    const deleted = await this.repository.remove(ormModel);
+  async delete(model: ReadModel): Promise<boolean> {
+    const deleted = await this.repository.remove(model);
     this.logger.debug(`[Repository]: deleted ${deleted.id}`);
     return Boolean(deleted);
   }
 
-  async findOneById(id: string | ID): Promise<DomainModel> {
+  async findOneById(id: string | ID): Promise<ReadModel | undefined> {
     const found = await this.repository
       .createQueryBuilder('collections')
       .where('collections.id = :id', {
@@ -40,21 +34,16 @@ export class AbstractProjectionRepository<
       })
       .getOne();
 
-    if (found) {
-      return this.mapper.toDomain(found);
-    } else {
-      return undefined;
-    }
+    return found ? found : undefined;
   }
 
   async findOne(
-    params: QueryParams<DomainModel> = {}
-  ): Promise<DomainModel | undefined> {
-    const where = this.queryMapper.toQuery(params);
+    params: WhereClause<ReadModel> = {}
+  ): Promise<ReadModel | undefined> {
     const found = await this.repository.findOne({
-      where,
+      where: params,
     });
 
-    return found ? this.mapper.toDomain(found) : undefined;
+    return found ? found : undefined;
   }
 }

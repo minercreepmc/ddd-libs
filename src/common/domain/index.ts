@@ -5,3 +5,4 @@ export * from './domain-errors';
 export * from './value-objects';
 export * from './aggregates';
 export * from './entities';
+export * from './models';

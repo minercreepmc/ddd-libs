@@ -1,7 +1,7 @@
 export interface IReadModelData {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   details: any;
 }
 
