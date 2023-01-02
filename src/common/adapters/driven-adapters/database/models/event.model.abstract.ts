@@ -1,4 +1,4 @@
-import { Column, PrimaryColumn } from 'typeorm';
+import { Column, Index, PrimaryColumn } from 'typeorm';
 
 export class EventTypeOrmModel<EventDetails> {
   constructor(props?: unknown) {
@@ -17,6 +17,7 @@ export class EventTypeOrmModel<EventDetails> {
   entityType: string;
 
   @Column()
+  @Index()
   entityId: string;
 
   @Column('jsonb')
