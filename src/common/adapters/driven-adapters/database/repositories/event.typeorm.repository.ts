@@ -25,12 +25,7 @@ export abstract class EventStoreTypeOrm<
   ) {}
 
   protected abstract relations: string[];
-  abstract rebuild(): Promise<any>;
-
-  async getAllEvents() {
-    const events = await this.eventRepository.find({});
-    return events.map((event) => this.typeOrmMapper.toDomain(event));
-  }
+  abstract rebuildStream(...args: any): Promise<any>;
 
   async save(event: Event) {
     const eventOrmEntity = this.typeOrmMapper.toPersistent(event);
