@@ -1,4 +1,3 @@
-import { AbstractAggregateRoot } from '@domain/aggregates';
 import { DomainEvent } from '@domain/domain-events';
 import { EventStorePort } from '@domain/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';

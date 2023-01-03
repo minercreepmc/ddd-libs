@@ -9,3 +9,9 @@ export interface RepositoryPort<Entity, EntityDetails>
     RepositoryPlugin.Delete<Entity>,
     RepositoryPlugin.FindOneById<Entity>,
     RepositoryPlugin.FindOne<Entity, EntityDetails> {}
+
+export interface ProjectionRepositoryPort<ReadModel>
+  extends RepositoryPlugin.Save<ReadModel>,
+    RepositoryPlugin.Delete<ReadModel>,
+    RepositoryPlugin.FindOne<ReadModel, ReadModel>,
+    RepositoryPlugin.FindOneById<ReadModel> {}

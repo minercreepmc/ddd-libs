@@ -24,7 +24,7 @@ export abstract class AbstractEventTypeOrmMapper<
     details: EventOrmModelDetails
   ): EventDetails;
   protected abstract toPersistanceDetails(event: EventDetails): object;
-  protected abstract toPersistentChildColumn(event: Event): object;
+  protected abstract toPersistentIndexColumns(event: Event): object;
   protected abstract eventConstructorDocuments: EventConstructorDocuments<
     string,
     EventConstructor<Event>
@@ -32,7 +32,7 @@ export abstract class AbstractEventTypeOrmMapper<
 
   toPersistent(event: Event): EventOrmModel {
     const details = this.toPersistanceDetails(event.details);
-    const childColumn = this.toPersistentChildColumn(event);
+    const childColumn = this.toPersistentIndexColumns(event);
     return new this.typeOrmModelConstructor({
       eventId: event.eventId.unpack(),
       entityId: event.aggregateId.unpack(),
