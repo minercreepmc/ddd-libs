@@ -1,4 +1,4 @@
-import { RepositoryPort } from '@domain/gateway/driven-ports';
+import { ProjectionRepositoryPort } from '@domain/gateway/driven-ports';
 import { ID } from '@domain/value-objects';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
@@ -7,7 +7,7 @@ import { AbstractTypeOrmModel } from '../models';
 
 export class AbstractProjectionRepository<
   ReadModel extends AbstractTypeOrmModel
-> implements RepositoryPort<ReadModel, ReadModel>
+> implements ProjectionRepositoryPort<ReadModel>
 {
   constructor(
     protected readonly repository: Repository<ReadModel>,
@@ -47,7 +47,7 @@ export class AbstractProjectionRepository<
     return found ? found : undefined;
   }
 
-  async update(id: ID, newState: ReadModel): Promise<ReadModel> {
+  async update(id: string, newState: ReadModel): Promise<ReadModel> {
     return this.repository.save({ id, ...newState });
   }
 }

@@ -20,4 +20,5 @@ export interface ProjectionRepositoryPort<ReadModel>
   extends Save<ReadModel>,
     Delete<ReadModel>,
     FindOne<ReadModel, ReadModel>,
-    FindOneById<ReadModel> {}
+    FindOneById<ReadModel>,
+    Update<ReadModel> {}

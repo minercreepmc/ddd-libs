@@ -24,5 +24,5 @@ export interface Delete<Entity> {
 }
 
 export interface Update<Entity> {
-  update(id: ID, newState: Entity): Promise<Entity>;
+  update(id: ID | string, newState: Entity): Promise<Entity>;
 }
