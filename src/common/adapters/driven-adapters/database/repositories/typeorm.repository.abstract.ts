@@ -1,5 +1,5 @@
 import { AbstractEntity } from '@domain';
-import { RepositoryPort } from '@domain/driven-ports';
+import { RepositoryPort } from '@domain/gateway/driven-ports';
 import { ID } from '@domain/value-objects';
 import { Repository } from 'typeorm';
 import {
@@ -69,5 +69,11 @@ export abstract class AbstractTypeormRepository<
     });
 
     return found ? this.typeOrmMapper.toDomain(found) : undefined;
+  }
+
+  async update(id: ID, newState: Entity): Promise<Entity | undefined> {
+    const newStateOrm = this.typeOrmMapper.toPersistance(newState);
+    const updated = await this.typeOrmRepository.save({ id, ...newStateOrm });
+    return updated ? this.typeOrmMapper.toDomain(updated) : undefined;
   }
 }

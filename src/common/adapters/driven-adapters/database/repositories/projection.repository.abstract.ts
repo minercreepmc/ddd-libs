@@ -1,4 +1,4 @@
-import { RepositoryPort } from '@domain/driven-ports';
+import { RepositoryPort } from '@domain/gateway/driven-ports';
 import { ID } from '@domain/value-objects';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
@@ -45,5 +45,9 @@ export class AbstractProjectionRepository<
     });
 
     return found ? found : undefined;
+  }
+
+  async update(id: ID, newState: ReadModel): Promise<ReadModel> {
+    return this.repository.save({ id, ...newState });
   }
 }

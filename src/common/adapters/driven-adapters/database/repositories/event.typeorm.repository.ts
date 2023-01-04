@@ -1,5 +1,5 @@
 import { DomainEvent } from '@domain/domain-events';
-import { EventStorePort } from '@domain/driven-ports';
+import { EventStorePort } from '@domain/gateway/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
 import { AbstractEventTypeOrmMapper } from '../mappers/event.typeorm.mapper.abstract';
