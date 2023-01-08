@@ -16,13 +16,13 @@ export class AbstractProjectionRepository<
 
   async save(model: ReadModel): Promise<ReadModel> {
     const created = await this.repository.save(model);
-    this.logger.debug(`[Repository]: created ${created.id}`);
+    this.logger.debug(`[Projection]: created ${created.id}`);
     return created;
   }
 
   async delete(model: ReadModel): Promise<boolean> {
     const deleted = await this.repository.remove(model);
-    this.logger.debug(`[Repository]: deleted ${deleted.id}`);
+    this.logger.debug(`[Projection]: deleted ${deleted.id}`);
     return Boolean(deleted);
   }
 
@@ -48,6 +48,8 @@ export class AbstractProjectionRepository<
   }
 
   async update(id: string, newState: ReadModel): Promise<ReadModel> {
-    return this.repository.save({ id, ...newState });
+    const updated = await this.repository.save({ id, ...newState });
+    this.logger.debug(`[Projection]: updated ${updated.id}`);
+    return updated;
   }
 }
