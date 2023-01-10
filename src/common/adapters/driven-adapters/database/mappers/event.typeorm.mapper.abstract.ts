@@ -35,10 +35,10 @@ export abstract class AbstractEventTypeOrmMapper<
     const childColumn = this.toPersistentIndexColumns(event);
     return new this.typeOrmModelConstructor({
       eventId: event.eventId.unpack(),
-      entityId: event.aggregateId.unpack(),
+      entityId: event.entityId.unpack(),
       dateOccurred: event.dateOccurred.unpack(),
       eventName: event.eventName,
-      entityType: event.aggregateType,
+      entityType: event.entityType,
       eventData: details,
       ...childColumn,
     });
