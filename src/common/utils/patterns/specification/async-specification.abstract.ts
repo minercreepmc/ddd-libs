@@ -3,7 +3,7 @@ import { IAsyncSpecification } from './specification.interface';
 export abstract class AbstractAsyncSpecification<T>
   implements IAsyncSpecification<T>
 {
-  abstract isSatisfiedBy(candidate: T): Promise<boolean>;
+  abstract isSatisfiedBy(...args: any): Promise<boolean>;
 
   and(other: IAsyncSpecification<T>): IAsyncSpecification<T> {
     return new AsyncAndSpecification<T>(this, other);
@@ -26,10 +26,8 @@ export class AsyncAndSpecification<T> extends AbstractAsyncSpecification<T> {
     super();
   }
 
-  override async isSatisfiedBy(candidate: T): Promise<boolean> {
-    return (
-      this.one.isSatisfiedBy(candidate) && this.other.isSatisfiedBy(candidate)
-    );
+  override async isSatisfiedBy(...args: any): Promise<boolean> {
+    return this.one.isSatisfiedBy(args) && this.other.isSatisfiedBy(args);
   }
 }
 
@@ -41,10 +39,8 @@ export class AsyncOrSpecification<T> extends AbstractAsyncSpecification<T> {
     super();
   }
 
-  override async isSatisfiedBy(candidate: T): Promise<boolean> {
-    return (
-      this.one.isSatisfiedBy(candidate) || this.other.isSatisfiedBy(candidate)
-    );
+  override async isSatisfiedBy(...args: any): Promise<boolean> {
+    return this.one.isSatisfiedBy(args) || this.other.isSatisfiedBy(args);
   }
 }
 
@@ -53,7 +49,7 @@ export class AsyncNotSpecification<T> extends AbstractAsyncSpecification<T> {
     super();
   }
 
-  override async isSatisfiedBy(candidate: T): Promise<boolean> {
-    return !this.specification.isSatisfiedBy(candidate);
+  override async isSatisfiedBy(...args: any): Promise<boolean> {
+    return !this.specification.isSatisfiedBy(args);
   }
 }
