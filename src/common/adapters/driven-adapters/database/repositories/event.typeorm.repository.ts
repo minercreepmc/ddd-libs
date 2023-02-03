@@ -1,7 +1,7 @@
 import { DomainEvent } from '@domain/domain-events';
 import { EventStorePort } from '@domain/gateway/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';
-import { Repository } from 'typeorm';
+import { DataSource, QueryRunner, Repository } from 'typeorm';
 import { AbstractEventTypeOrmMapper } from '../mappers/event.typeorm.mapper.abstract';
 import { EventTypeOrmModel } from '../models';
 
@@ -20,9 +20,13 @@ export abstract class EventStoreTypeOrm<
       EventOrmModel,
       EventOrmModelDetails
     >,
-    protected readonly logger: ILogger
-  ) {}
+    protected readonly logger: ILogger,
+    dataSource: DataSource
+  ) {
+    this.queryRunner = dataSource.createQueryRunner();
+  }
 
+  protected queryRunner: QueryRunner;
   protected abstract relations: string[];
   abstract rebuildStream(...args: any): Promise<any>;
 
@@ -46,5 +50,18 @@ export abstract class EventStoreTypeOrm<
     });
 
     return eventsSaved.map((event) => this.typeOrmMapper.toDomain(event));
+  }
+
+  async startTransaction(): Promise<void> {
+    await this.queryRunner.startTransaction();
+  }
+  async commitTransaction(): Promise<void> {
+    await this.queryRunner.commitTransaction();
+  }
+  async rollbackTransaction(): Promise<void> {
+    await this.queryRunner.rollbackTransaction();
+  }
+  async releaseTransaction(): Promise<void> {
+    await this.queryRunner.release();
   }
 }

@@ -26,3 +26,10 @@ export interface Delete<Entity> {
 export interface Update<Entity> {
   update(id: ID | string, newState: Entity): Promise<Entity>;
 }
+
+export interface Transaction {
+  startTransaction(): Promise<void>;
+  commitTransaction(): Promise<void>;
+  rollbackTransaction(): Promise<void>;
+  releaseTransaction(): Promise<void>;
+}
