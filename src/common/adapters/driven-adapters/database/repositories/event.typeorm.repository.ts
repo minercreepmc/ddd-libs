@@ -27,12 +27,24 @@ export abstract class EventStoreTypeOrm<
   }
 
   protected queryRunner: QueryRunner;
+  protected dataSource: DataSource;
   protected abstract relations: string[];
   abstract rebuildStream(...args: any): Promise<any>;
+  isTransactionStarted = false;
+  abstract modelClass: new (...args: any) => EventOrmModel;
 
   async save(event: Event) {
     const eventOrmEntity = this.typeOrmMapper.toPersistent(event);
-    const saved = await this.eventRepository.save(eventOrmEntity);
+
+    let saved;
+    if (this.isTransactionStarted) {
+      saved = await this.queryRunner.manager
+        .getRepository(this.modelClass)
+        .save(eventOrmEntity);
+    } else {
+      saved = await this.eventRepository.save(eventOrmEntity);
+    }
+
     this.logger.debug(`[EventStore]: created ${saved.eventId}`);
     return this.typeOrmMapper.toDomain(saved);
   }
@@ -41,9 +53,19 @@ export abstract class EventStoreTypeOrm<
     const eventsOrmEntity = events.map((event) =>
       this.typeOrmMapper.toPersistent(event)
     );
-    const eventsSaved = await Promise.all(
-      eventsOrmEntity.map((event) => this.eventRepository.save(event))
-    );
+
+    let eventsSaved;
+    if (this.isTransactionStarted) {
+      eventsSaved = await Promise.all(
+        eventsOrmEntity.map((event) =>
+          this.queryRunner.manager.getRepository(this.modelClass).save(event)
+        )
+      );
+    } else {
+      eventsSaved = await Promise.all(
+        eventsOrmEntity.map((event) => this.eventRepository.save(event))
+      );
+    }
 
     eventsSaved.forEach((event) => {
       this.logger.debug(`[EventStore]: created ${event.eventId}`);
@@ -53,15 +75,19 @@ export abstract class EventStoreTypeOrm<
   }
 
   async startTransaction(): Promise<void> {
+    await this.queryRunner.connect();
     await this.queryRunner.startTransaction();
+    this.isTransactionStarted = true;
   }
+
   async commitTransaction(): Promise<void> {
     await this.queryRunner.commitTransaction();
+    await this.queryRunner.release();
+    this.isTransactionStarted = false;
   }
   async rollbackTransaction(): Promise<void> {
     await this.queryRunner.rollbackTransaction();
-  }
-  async releaseTransaction(): Promise<void> {
     await this.queryRunner.release();
+    this.isTransactionStarted = false;
   }
 }
