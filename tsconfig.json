@@ -43,10 +43,13 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": false,
-    "allowJs": true
+    "allowJs": true,
+    "resolveJsonModule": true
   },
   "include": [
-    "./src",
+    "./src/**/*",
+    "__tests__/**/*",
+    "./jest.config.ts",
     "./global.d.ts"
   ]
 }

@@ -1,6 +1,6 @@
 import { ID } from './id.value-object';
 import { v4 as uuidV4, validate as uuidValidate } from 'uuid';
-import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
+import { ArgumentInvalidExeception } from 'ts-common-exceptions';
 
 export class UUID extends ID {
   static create(id?: string): UUID {

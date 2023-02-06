@@ -1,4 +1,3 @@
-import { convertPropsToObject } from '@utils/functions';
 import { IValueObject } from './value-object.interface';
 
 type Primitive = string | boolean | number;
@@ -21,8 +20,30 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
       return this.details.value;
     }
 
-    const detailsCopy = convertPropsToObject(this.details);
+    const detailsCopy = this.convertDetailsToObject(this.details);
     return Object.freeze(detailsCopy);
+  }
+
+  // Convert details and nested details of value object into flat object
+  private convertDetailsToObject(details: any) {
+    const detailsCopy = { ...details };
+
+    for (const detail in detailsCopy) {
+      if (Array.isArray(detailsCopy[detail])) {
+        detailsCopy[detail] = (detailsCopy[detail] as Array<unknown>).map(
+          (item) => {
+            if (AbstractValueObject.isValueObject(item)) {
+              return item.unpack();
+            }
+          }
+        );
+      }
+      if (AbstractValueObject.isValueObject(detailsCopy[details])) {
+        detailsCopy[detail] = detailsCopy[detail].unpack();
+      }
+    }
+
+    return detailsCopy;
   }
 
   static isValueObject(obj: unknown): obj is AbstractValueObject<unknown> {

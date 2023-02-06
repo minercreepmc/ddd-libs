@@ -1,7 +1,7 @@
 import {
   ArgumentInvalidExeception,
   ArgumentNotProvidedException,
-} from '@tinphamm/common-exceptions';
+} from 'ts-common-exceptions';
 
 export class GuardUtils {
   static isEmptyOrThrow(value: any): void {
