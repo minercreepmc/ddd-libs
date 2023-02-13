@@ -1,4 +1,4 @@
-import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 import { AbstractValueObject } from '../value-object.abstract';
 
 export type DateVOValue = Date | string | number;
@@ -6,7 +6,7 @@ export type DateVOValue = Date | string | number;
 export class DateVO extends AbstractValueObject<Date> {
   static create(value: DateVOValue): DateVO {
     if (!this.isValid(value))
-      throw new ArgumentInvalidExeception(
+      throw new ArgumentInvalidException(
         'Cannot create DateVO with invalid state'
       );
     const dateVo = new DateVO(value);

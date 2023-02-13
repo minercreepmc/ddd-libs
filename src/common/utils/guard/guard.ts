@@ -1,7 +1,7 @@
 import {
-  ArgumentInvalidExeception,
+  ArgumentInvalidException,
   ArgumentNotProvidedException,
-} from '@tinphamm/common-exceptions';
+} from 'ts-common-exceptions';
 
 export class GuardUtils {
   static isEmptyOrThrow(value: any): void {
@@ -34,10 +34,10 @@ export class GuardUtils {
   static notArrayEmptyOrThrow(value: any): void {
     if (Array.isArray(value)) {
       if (this.isEmptyArray(value)) {
-        throw new ArgumentInvalidExeception('Array cannot empty');
+        throw new ArgumentInvalidException('Array cannot empty');
       }
       if (this.isArrayContainEmpty(value)) {
-        throw new ArgumentInvalidExeception(
+        throw new ArgumentInvalidException(
           'Item of array cannot contain null or undefined'
         );
       }
@@ -54,7 +54,7 @@ export class GuardUtils {
 
   static notEmptyStringOrThrow(value: any): void {
     if (this.isEmptyString(value)) {
-      throw new ArgumentInvalidExeception('String cannot empty');
+      throw new ArgumentInvalidException('String cannot empty');
     }
   }
 

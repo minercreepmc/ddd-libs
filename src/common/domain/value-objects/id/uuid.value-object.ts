@@ -1,11 +1,11 @@
 import { ID } from './id.value-object';
 import { v4 as uuidV4, validate as uuidValidate } from 'uuid';
-import { ArgumentInvalidExeception } from '@tinphamm/common-exceptions';
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 export class UUID extends ID {
   static create(id?: string): UUID {
     if (id && !this.isValid(id))
-      throw new ArgumentInvalidExeception('Invalid uuid');
+      throw new ArgumentInvalidException('Invalid uuid');
     const uuid = new UUID(id ? id : uuidV4());
     return uuid;
   }
