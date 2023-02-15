@@ -1,3 +1,4 @@
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 import { AbstractValueObject } from './value-object.abstract';
 
 describe('ValueObjectAbstract', () => {
@@ -6,6 +7,25 @@ describe('ValueObjectAbstract', () => {
       super({ value });
     }
   }
+  describe('isValidOrThrow', () => {
+    test('throws an error if candidate is empty', () => {
+      expect(() => AbstractValueObject.isValidOrThrow(null)).toThrow(
+        ArgumentInvalidException
+      );
+      expect(() => AbstractValueObject.isValidOrThrow(undefined)).toThrow(
+        ArgumentInvalidException
+      );
+      expect(() => AbstractValueObject.isValidOrThrow('')).toThrow(
+        ArgumentInvalidException
+      );
+      expect(() => AbstractValueObject.isValidOrThrow([])).toThrow(
+        ArgumentInvalidException
+      );
+      expect(() => AbstractValueObject.isValidOrThrow({})).not.toThrow();
+      expect(() => AbstractValueObject.isValidOrThrow('foo')).not.toThrow();
+      expect(() => AbstractValueObject.isValidOrThrow(['foo'])).not.toThrow();
+    });
+  });
   describe('equals', () => {
     it('should be able to compare two equal value objects', () => {
       const a = new ConcreteValueObject('test');

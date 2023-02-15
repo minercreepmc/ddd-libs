@@ -46,7 +46,7 @@ describe('DomainEvent', () => {
       details: {},
     };
     const domainEvent2 = new DomainEvent(domainEventData2);
-    expect(domainEvent2.dateOccurred).toEqual(DateVO.now());
+    expect(domainEvent2.dateOccurred.equals(DateVO.now())).toBe(true);
   });
   it('should set entityId, entityType, eventName, and details based on provided eventData', () => {
     const entityId = new ID('456');

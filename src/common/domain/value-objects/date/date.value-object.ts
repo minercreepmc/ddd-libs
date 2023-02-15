@@ -1,4 +1,4 @@
-import { ArgumentInvalidExeception } from 'ts-common-exceptions';
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 import { AbstractValueObject } from '../value-object.abstract';
 
 export type DateVOValue = Date | string | number;

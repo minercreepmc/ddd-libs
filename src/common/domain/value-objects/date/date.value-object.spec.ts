@@ -1,4 +1,4 @@
-import { ArgumentInvalidExeception } from 'ts-common-exceptions';
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 import { DateVO } from './date.value-object';
 
 describe('DateVO', () => {
@@ -20,11 +20,9 @@ describe('DateVO', () => {
       const dateVo = DateVO.create(date);
       expect(dateVo).toBeInstanceOf(DateVO);
     });
-    it('should throw an ArgumentInvalidExeception with an invalid date string', () => {
+    it('should throw an ArgumentInvalidException with an invalid date string', () => {
       const dateString = 'invalid date string';
-      expect(() => DateVO.create(dateString)).toThrow(
-        ArgumentInvalidExeception
-      );
+      expect(() => DateVO.create(dateString)).toThrow(ArgumentInvalidException);
     });
   });
   describe('isValid', () => {
