@@ -13,7 +13,7 @@ export abstract class AbstractEntity<EntityDetails>
    *  Check if two entities are the same Entity. Checks using ID field.
    * @param object Entity
    */
-  equals(object: AbstractEntity<EntityDetails>): boolean {
+  equals(object: any): boolean {
     if (object === null || object === undefined) {
       return false;
     }
@@ -29,8 +29,13 @@ export abstract class AbstractEntity<EntityDetails>
     return this.id ? this.id.equals(object.id) : false;
   }
 
-  static isEntity(entity: unknown): entity is AbstractEntity<unknown> {
-    return entity instanceof AbstractEntity;
+  static isEntity(obj: unknown): obj is AbstractEntity<unknown> {
+    return (
+      obj !== null &&
+      obj !== undefined &&
+      typeof (obj as any).toObject === 'function' &&
+      (obj as any).id !== undefined
+    );
   }
 
   public getDetailsCopy(): EntityDetails {
@@ -52,7 +57,7 @@ export abstract class AbstractEntity<EntityDetails>
     return Object.freeze(result);
   }
 
-  protected constructor({ id, details }: IEntityData<EntityDetails>) {
+  constructor({ id, details }: IEntityData<EntityDetails>) {
     this.id = id;
     this.createdAt = DateVO.now();
     this.updatedAt = DateVO.now();
