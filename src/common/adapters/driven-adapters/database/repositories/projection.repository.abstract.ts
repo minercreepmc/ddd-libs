@@ -2,7 +2,7 @@ import { ProjectionRepositoryPort } from '@domain/gateway/driven-ports';
 import { ID } from '@domain/value-objects';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
-import { WhereClause } from '../mappers';
+import { WhereClause } from './query.mapper.abstract';
 import { AbstractTypeOrmModel } from './typeorm.model.abstract';
 
 export class AbstractProjectionRepository<

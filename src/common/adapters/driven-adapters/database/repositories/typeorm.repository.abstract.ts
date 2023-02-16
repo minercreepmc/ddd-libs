@@ -2,13 +2,10 @@ import { AbstractEntity } from '@domain';
 import { RepositoryPort } from '@domain/gateway/driven-ports';
 import { ID } from '@domain/value-objects';
 import { Repository } from 'typeorm';
-import {
-  AbstractTypeOrmMapper,
-  AbstractQueryMapper,
-  QueryParams,
-} from '../mappers';
 import { ILogger } from '@driven-adapters/interfaces';
 import { AbstractTypeOrmModel } from './typeorm.model.abstract';
+import { AbstractTypeOrmMapper } from './typeorm.mapper.abstract';
+import { AbstractQueryMapper, QueryParams } from './query.mapper.abstract';
 
 export abstract class AbstractTypeormRepository<
   Entity extends AbstractEntity<unknown>,

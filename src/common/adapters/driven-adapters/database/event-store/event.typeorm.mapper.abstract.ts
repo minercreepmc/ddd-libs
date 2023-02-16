@@ -1,5 +1,4 @@
 import { DomainEvent } from '@domain/domain-events';
-import { EventTypeOrmModel } from '../models';
 import {
   PersistentMapper,
   TypeOrmModelConstructor,
@@ -7,6 +6,7 @@ import {
   EventConstructor,
 } from '@utils/patterns/mapper';
 import { DateVO, UUID } from '@domain/value-objects';
+import { EventTypeOrmModel } from './event.model.abstract';
 
 export abstract class AbstractEventTypeOrmMapper<
   Event extends DomainEvent<any>,

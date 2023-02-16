@@ -2,8 +2,8 @@ import { DomainEvent } from '@domain/domain-events';
 import { EventStorePort } from '@domain/gateway/driven-ports';
 import { ILogger } from '@driven-adapters/interfaces';
 import { DataSource, QueryRunner, Repository } from 'typeorm';
-import { AbstractEventTypeOrmMapper } from '../mappers/event.typeorm.mapper.abstract';
 import { EventTypeOrmModel } from './event.model.abstract';
+import { AbstractEventTypeOrmMapper } from './event.typeorm.mapper.abstract';
 
 /**
  * An abstract class representing a TypeORM implementation of an event store.

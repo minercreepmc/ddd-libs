@@ -4,7 +4,7 @@ import {
   EntityConstructor,
   TypeOrmModelConstructor,
 } from '@utils/patterns/mapper';
-import { AbstractTypeOrmModel } from '../models';
+import { AbstractTypeOrmModel } from './typeorm.model.abstract';
 
 export type OrmModelDetails<OrmModel> = Omit<
   OrmModel,
