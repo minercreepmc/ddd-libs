@@ -1,7 +1,28 @@
 import { DateVO, ID, UUID } from '@domain/value-objects';
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 import { DomainEvent, DomainEventData } from './domain-event.abstract';
 
 describe('DomainEvent', () => {
+  describe('isValidEventData', () => {
+    it('should throw an exception if eventData is empty', () => {
+      const eventData: DomainEventData<unknown> = {} as any;
+      expect(() => {
+        DomainEvent.isValidEventData(eventData);
+      }).toThrow(ArgumentInvalidException);
+    });
+
+    it('should not throw an exception if eventData is not empty', () => {
+      const eventData: DomainEventData<unknown> = {
+        entityId: new ID('123'),
+        entityType: 'TestEntity',
+        eventName: 'TestEvent',
+        details: { foo: 'bar' },
+      };
+      expect(() => {
+        DomainEvent.isValidEventData(eventData);
+      }).not.toThrow();
+    });
+  });
   it('should set eventId to provided eventId or generate a new UUID', () => {
     const eventId = new ID('123');
     const domainEventData: DomainEventData<any> = {

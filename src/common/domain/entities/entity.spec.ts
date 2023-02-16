@@ -1,3 +1,4 @@
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 import { ID } from '../value-objects/id';
 import { AbstractEntity } from './entity.abstract';
 
@@ -16,6 +17,18 @@ describe('AbstractEntity', () => {
     anotherTestEntity = new TestEntity({
       id: new ID('another-test-id'),
       details: { name: 'another-test' },
+    });
+  });
+  describe('isValidDetails', () => {
+    it('should throw an ArgumentInvalidException if the details object is empty', () => {
+      expect(() => AbstractEntity.isValidDetails({})).not.toThrow(
+        ArgumentInvalidException
+      );
+    });
+
+    it('should not throw an error if the details object is not empty', () => {
+      const details = { name: 'John Doe', age: 30 };
+      expect(() => AbstractEntity.isValidDetails(details)).not.toThrow();
     });
   });
 

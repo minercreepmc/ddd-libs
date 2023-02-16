@@ -1,6 +1,8 @@
 import { ID } from '../value-objects/id';
 import { DateVO } from '../value-objects/date';
 import { IBaseEntity, IEntityData, IEntity } from './entity.interface';
+import { GuardUtils } from '@utils/guard';
+import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 export abstract class AbstractEntity<EntityDetails>
   implements IEntity<EntityDetails>
@@ -9,6 +11,24 @@ export abstract class AbstractEntity<EntityDetails>
   readonly createdAt: DateVO;
   updatedAt: DateVO;
   readonly details: EntityDetails;
+
+  constructor({ id, details }: IEntityData<EntityDetails>) {
+    AbstractEntity.isValidDetails(details);
+    this.id = id;
+    this.createdAt = DateVO.now();
+    this.updatedAt = DateVO.now();
+    this.details = details;
+  }
+
+  static isValidDetails(candidate: unknown) {
+    if (
+      GuardUtils.isNullOrUndefined(candidate) ||
+      (Array.isArray(candidate) && GuardUtils.isArrayContainNull(candidate))
+    ) {
+      throw new ArgumentInvalidException('Entity details cannot be empty');
+    }
+  }
+
   /**
    *  Check if two entities are the same Entity. Checks using ID field.
    * @param object Entity
@@ -55,12 +75,5 @@ export abstract class AbstractEntity<EntityDetails>
     };
 
     return Object.freeze(result);
-  }
-
-  constructor({ id, details }: IEntityData<EntityDetails>) {
-    this.id = id;
-    this.createdAt = DateVO.now();
-    this.updatedAt = DateVO.now();
-    this.details = details;
   }
 }

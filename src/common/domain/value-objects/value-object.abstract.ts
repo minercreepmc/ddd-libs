@@ -48,7 +48,11 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
    * @throws ArgumentInvalidException if the candidate is empty.
    */
   static isValidOrThrow(candidate: unknown) {
-    if (GuardUtils.isEmpty(candidate)) {
+    if (
+      GuardUtils.isNullOrUndefined(candidate) ||
+      GuardUtils.isEmptyObject(candidate) ||
+      (Array.isArray(candidate) && GuardUtils.isArrayContainNull(candidate))
+    ) {
       throw new ArgumentInvalidException('Value object cannot be empty');
     }
   }

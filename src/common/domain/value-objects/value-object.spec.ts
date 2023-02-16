@@ -15,13 +15,13 @@ describe('ValueObjectAbstract', () => {
       expect(() => AbstractValueObject.isValidOrThrow(undefined)).toThrow(
         ArgumentInvalidException
       );
-      expect(() => AbstractValueObject.isValidOrThrow('')).toThrow(
+      expect(() => AbstractValueObject.isValidOrThrow({})).toThrow();
+      expect(() => AbstractValueObject.isValidOrThrow([])).not.toThrow(
         ArgumentInvalidException
       );
-      expect(() => AbstractValueObject.isValidOrThrow([])).toThrow(
+      expect(() => AbstractValueObject.isValidOrThrow('')).not.toThrow(
         ArgumentInvalidException
       );
-      expect(() => AbstractValueObject.isValidOrThrow({})).not.toThrow();
       expect(() => AbstractValueObject.isValidOrThrow('foo')).not.toThrow();
       expect(() => AbstractValueObject.isValidOrThrow(['foo'])).not.toThrow();
     });
