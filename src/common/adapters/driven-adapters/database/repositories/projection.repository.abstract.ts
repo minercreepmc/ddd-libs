@@ -3,7 +3,7 @@ import { ID } from '@domain/value-objects';
 import { ILogger } from '@driven-adapters/interfaces';
 import { Repository } from 'typeorm';
 import { WhereClause } from '../mappers';
-import { AbstractTypeOrmModel } from '../models';
+import { AbstractTypeOrmModel } from './typeorm.model.abstract';
 
 export class AbstractProjectionRepository<
   ReadModel extends AbstractTypeOrmModel

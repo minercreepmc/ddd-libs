@@ -8,7 +8,7 @@ import {
   QueryParams,
 } from '../mappers';
 import { ILogger } from '@driven-adapters/interfaces';
-import { AbstractTypeOrmModel } from '../models';
+import { AbstractTypeOrmModel } from './typeorm.model.abstract';
 
 export abstract class AbstractTypeormRepository<
   Entity extends AbstractEntity<unknown>,

@@ -31,4 +31,5 @@ export interface Transaction {
   startTransaction(): Promise<void>;
   commitTransaction(): Promise<void>;
   rollbackTransaction(): Promise<void>;
+  runInTransaction<T>(fn: () => Promise<T>): Promise<T>;
 }
