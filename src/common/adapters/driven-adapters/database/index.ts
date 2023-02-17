@@ -1,2 +1,2 @@
-export * from './models';
+export * from './event-store';
 export * from './repositories';
