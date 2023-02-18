@@ -20,6 +20,6 @@ jobs:
           scope: 'tinphamm'
       - run: yarn install --frozen-lockfile
       - run: yarn test
-      - run: yarn deploy
+      - run: npm run deploy
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
