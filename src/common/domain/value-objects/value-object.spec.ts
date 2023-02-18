@@ -7,6 +7,12 @@ describe('ValueObjectAbstract', () => {
       super({ value });
     }
   }
+
+  class ConcreteValueObject2 extends AbstractValueObject<object> {
+    constructor(details: object) {
+      super(details);
+    }
+  }
   describe('isValidOrThrow', () => {
     test('throws an error if candidate is empty', () => {
       expect(() => AbstractValueObject.isValidOrThrow(null)).toThrow(
@@ -42,11 +48,23 @@ describe('ValueObjectAbstract', () => {
     });
   });
   describe('unpack', () => {
-    it('should return the internal value if it is a domain primitive', () => {
-      const valueObject = new ConcreteValueObject('value');
-      expect(valueObject.unpack()).toBe('value');
+    it('should return the underlying value if the details are a domain primitive', () => {
+      const vo = new ConcreteValueObject2({ value: 'abc' });
+      expect(vo.unpack()).toBe('abc');
+    });
+
+    it('should return a plain object with any nested value objects unpacked', () => {
+      const vo = new ConcreteValueObject2({
+        prop1: new ConcreteValueObject('abc'),
+        prop2: [{ prop3: new ConcreteValueObject('def') }],
+      });
+      expect(vo.unpack()).toEqual({
+        prop1: 'abc',
+        prop2: [{ prop3: 'def' }],
+      });
     });
   });
+
   describe('isValueObject', () => {
     it('should return true if the object is a value object', () => {
       class ConcreteValueObject extends AbstractValueObject<string> {

@@ -87,33 +87,34 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
    * @returns A plain object representing the given details, with any nested value objects unpacked.
    */
   private convertDetailsToObject(details: any) {
-    const detailsCopy = { ...details };
+    const convertedDetails = { ...details };
 
-    for (const detail in detailsCopy) {
-      if (Array.isArray(detailsCopy[detail])) {
-        detailsCopy[detail] = (detailsCopy[detail] as Array<unknown>).map(
-          (item) => {
-            if (AbstractValueObject.isValueObject(item)) {
-              return item.unpack();
-            }
+    for (const [key, value] of Object.entries(convertedDetails)) {
+      if (Array.isArray(value)) {
+        convertedDetails[key] = (value as Array<unknown>).map((item) => {
+          if (AbstractValueObject.isValueObject(item)) {
+            return item.unpack();
+          } else if (typeof item === 'object') {
+            return this.convertDetailsToObject(item);
+          } else {
+            return item;
           }
-        );
-      }
-      if (AbstractValueObject.isValueObject(detailsCopy[details])) {
-        detailsCopy[detail] = detailsCopy[detail].unpack();
+        });
+      } else if (AbstractValueObject.isValueObject(value)) {
+        convertedDetails[key] = value.unpack();
       }
     }
 
-    return detailsCopy;
+    return convertedDetails;
   }
 
   /**
    * Determines whether an object is a value object.
-   * @param obj The object to check.
+   * @param value The object to check.
    * @returns true if the object is a value object; otherwise, false.
    */
-  static isValueObject(obj: unknown): obj is AbstractValueObject<unknown> {
-    return obj instanceof AbstractValueObject;
+  static isValueObject(value: unknown): value is AbstractValueObject<unknown> {
+    return value instanceof AbstractValueObject;
   }
 
   /**
