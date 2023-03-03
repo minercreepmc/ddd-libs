@@ -1,6 +1,6 @@
 import { ID } from '../value-objects/id';
 import { DateVO } from '../value-objects/date';
-import { IBaseEntity, IEntityData, IEntity } from './entity.interface';
+import { IBaseEntity, EntityOptions, IEntity } from './entity.interface';
 import { GuardUtils } from '@utils/guard';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
 
@@ -12,7 +12,7 @@ export abstract class AbstractEntity<EntityDetails>
   updatedAt: DateVO;
   readonly details: EntityDetails;
 
-  constructor({ id, details }: IEntityData<EntityDetails>) {
+  constructor({ id, details }: EntityOptions<EntityDetails>) {
     AbstractEntity.isValidDetails(details);
     this.id = id;
     this.createdAt = DateVO.now();

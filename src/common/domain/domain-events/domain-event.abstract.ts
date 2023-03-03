@@ -3,7 +3,7 @@ import { GuardUtils } from '@utils/guard';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 export type DomainEventClass<T> = new (args: any) => DomainEvent<T>;
-export interface DomainEventData<DomainEventDetails> {
+export interface DomainEventOptions<DomainEventDetails> {
   eventId?: ID;
   dateOccurred?: DateVO;
   entityId: ID;
@@ -20,17 +20,17 @@ export class DomainEvent<DomainEventDetails> {
   readonly entityType: string;
   readonly eventName: string;
 
-  constructor(eventData: DomainEventData<DomainEventDetails>) {
-    DomainEvent.isValidEventData(eventData);
-    this.eventId = eventData.eventId || UUID.create();
-    this.dateOccurred = eventData.dateOccurred || DateVO.now();
-    this.entityId = eventData.entityId;
-    this.entityType = eventData.entityType;
-    this.eventName = eventData.eventName;
-    this.details = eventData.details;
+  constructor(eventOptions: DomainEventOptions<DomainEventDetails>) {
+    DomainEvent.isValidEventOptions(eventOptions);
+    this.eventId = eventOptions.eventId || UUID.create();
+    this.dateOccurred = eventOptions.dateOccurred || DateVO.now();
+    this.entityId = eventOptions.entityId;
+    this.entityType = eventOptions.entityType;
+    this.eventName = eventOptions.eventName;
+    this.details = eventOptions.details;
   }
 
-  static isValidEventData(candidate: unknown) {
+  static isValidEventOptions(candidate: unknown) {
     if (
       GuardUtils.isNullOrUndefined(candidate) ||
       GuardUtils.isEmptyString(candidate) ||
@@ -39,7 +39,7 @@ export class DomainEvent<DomainEventDetails> {
       GuardUtils.isEmptyArray(candidate) ||
       Array.isArray(candidate)
     ) {
-      throw new ArgumentInvalidException('eventData cannot be empty');
+      throw new ArgumentInvalidException('eventOptions cannot be empty');
     }
   }
 }
