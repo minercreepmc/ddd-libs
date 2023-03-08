@@ -16,15 +16,17 @@ describe('DomainEvent', () => {
 
   describe('isValidEventOptions', () => {
     it('should throw an exception if eventOptions is empty', () => {
-      const eventOptions: DomainEventOptions = {} as any;
+      const eventOptions: DomainEventOptions<any> = {} as any;
       expect(() => {
         DomainEvent.isValidEventOptions(eventOptions);
       }).toThrow(ArgumentInvalidException);
     });
 
     it('should not throw an exception if eventOptions is not empty', () => {
-      const eventOptions: DomainEventOptions = {
-        entity: validEntity,
+      const eventOptions: DomainEventOptions<any> = {
+        entityId: validEntity.id,
+        entityDetails: validEntity.details,
+        entityType: validEntity.constructor.name,
         eventName: 'eventName',
       };
       expect(() => {
@@ -33,8 +35,10 @@ describe('DomainEvent', () => {
     });
   });
   it('should set dateOccurred to the current date', () => {
-    const domainEventOptions: DomainEventOptions = {
-      entity: validEntity,
+    const domainEventOptions: DomainEventOptions<any> = {
+      entityId: validEntity.id,
+      entityDetails: validEntity.details,
+      entityType: validEntity.constructor.name,
       eventName: 'eventName',
     };
     const domainEvent = new DomainEvent(domainEventOptions);
@@ -42,8 +46,10 @@ describe('DomainEvent', () => {
   });
   it('should set eventName based on provided eventOptions', () => {
     const eventName = 'testEvent';
-    const domainEventOptions: DomainEventOptions = {
-      entity: validEntity,
+    const domainEventOptions: DomainEventOptions<any> = {
+      entityId: validEntity.id,
+      entityDetails: validEntity.details,
+      entityType: validEntity.constructor.name,
       eventName: 'testEvent',
     };
     const domainEvent = new DomainEvent(domainEventOptions);
