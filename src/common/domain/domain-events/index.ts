@@ -1,1 +1,1 @@
-export * from './domain-event.abstract';
+export * from './domain-event.base';

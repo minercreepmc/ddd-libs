@@ -1,6 +1,6 @@
 import { DomainEvent } from '@domain/domain-events';
 import { ID } from '@domain/value-objects';
-import { AbstractAggregateRoot } from './aggregate-root.abstract';
+import { AbstractAggregateRoot } from './aggregate-root.base';
 
 class TestAggregateRoot extends AbstractAggregateRoot<object> {}
 
@@ -26,10 +26,8 @@ describe('AbstractAggregateRoot', () => {
   describe('addEvent', () => {
     it('should add a domain event to the `domainEvents` array', () => {
       const domainEvent = new DomainEvent({
-        entityId: new ID('entityId'),
-        entityType: 'entityType',
-        eventName: 'eventName',
-        details: {},
+        entity: testAggregateRoot,
+        eventName: 'testEvent',
       });
 
       testAggregateRoot.addEvent(domainEvent);

@@ -4,11 +4,11 @@
       "@application/*": [
         "./src/common/application/*"
       ],
-      "@domain/*": [
-        "./src/common/domain/*"
-      ],
       "@domain": [
         "./src/common/domain"
+      ],
+      "@domain/*": [
+        "./src/common/domain/*"
       ],
       "@driven-adapters/*": [
         "./src/common/adapters/driven-adapters/*"

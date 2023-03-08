@@ -1,4 +1,4 @@
-import { DomainEvent } from '@domain/domain-events/domain-event.abstract';
+import { DomainEvent } from '@domain/domain-events/domain-event.base';
 import { AbstractEntity } from '../entities';
 
 export type AggregateType<A> = new (args: any) => AbstractAggregateRoot<A>;

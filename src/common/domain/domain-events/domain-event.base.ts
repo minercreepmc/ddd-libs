@@ -1,15 +1,12 @@
 import { DateVO, ID, UUID } from '@domain/value-objects';
 import { GuardUtils } from '@utils/guard';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
+import { AbstractEntity } from '../entities';
 
 export type DomainEventClass<T> = new (args: any) => DomainEvent<T>;
-export interface DomainEventOptions<DomainEventDetails> {
-  eventId?: ID;
-  dateOccurred?: DateVO;
-  entityId: ID;
-  entityType: string;
+export interface DomainEventOptions {
+  entity: AbstractEntity<any>;
   eventName: string;
-  details: DomainEventDetails;
 }
 
 export class DomainEvent<DomainEventDetails> {
@@ -20,14 +17,15 @@ export class DomainEvent<DomainEventDetails> {
   readonly entityType: string;
   readonly eventName: string;
 
-  constructor(eventOptions: DomainEventOptions<DomainEventDetails>) {
-    DomainEvent.isValidEventOptions(eventOptions);
-    this.eventId = eventOptions.eventId || UUID.create();
-    this.dateOccurred = eventOptions.dateOccurred || DateVO.now();
-    this.entityId = eventOptions.entityId;
-    this.entityType = eventOptions.entityType;
-    this.eventName = eventOptions.eventName;
-    this.details = eventOptions.details;
+  constructor(options: DomainEventOptions) {
+    DomainEvent.isValidEventOptions(options);
+    const { entity, eventName } = options;
+    this.eventId = UUID.create();
+    this.dateOccurred = DateVO.now();
+    this.entityId = entity.id;
+    this.entityType = entity.constructor.name;
+    this.eventName = eventName;
+    this.details = entity.details;
   }
 
   static isValidEventOptions(candidate: unknown) {
