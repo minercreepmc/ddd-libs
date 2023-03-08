@@ -25,9 +25,10 @@ describe('AbstractAggregateRoot', () => {
 
   describe('addEvent', () => {
     it('should add a domain event to the `domainEvents` array', () => {
+      const eventDetails = {};
       const domainEvent = new DomainEvent({
         entityType: testAggregateRoot.constructor.name,
-        entityDetails: testAggregateRoot.details,
+        eventDetails,
         entityId: testAggregateRoot.id,
         eventName: 'TestEvent',
       });

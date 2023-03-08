@@ -25,7 +25,7 @@ describe('DomainEvent', () => {
     it('should not throw an exception if eventOptions is not empty', () => {
       const eventOptions: DomainEventOptions<any> = {
         entityId: validEntity.id,
-        entityDetails: validEntity.details,
+        eventDetails: {},
         entityType: validEntity.constructor.name,
         eventName: 'eventName',
       };
@@ -37,7 +37,7 @@ describe('DomainEvent', () => {
   it('should set dateOccurred to the current date', () => {
     const domainEventOptions: DomainEventOptions<any> = {
       entityId: validEntity.id,
-      entityDetails: validEntity.details,
+      eventDetails: {},
       entityType: validEntity.constructor.name,
       eventName: 'eventName',
     };
@@ -48,7 +48,7 @@ describe('DomainEvent', () => {
     const eventName = 'testEvent';
     const domainEventOptions: DomainEventOptions<any> = {
       entityId: validEntity.id,
-      entityDetails: validEntity.details,
+      eventDetails: {},
       entityType: validEntity.constructor.name,
       eventName: 'testEvent',
     };

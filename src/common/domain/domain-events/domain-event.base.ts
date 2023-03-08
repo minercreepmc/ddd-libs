@@ -3,8 +3,8 @@ import { GuardUtils } from '@utils/guard';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 export type DomainEventClass<T> = new (args: any) => DomainEvent<T>;
-export interface DomainEventOptions<EntityDetails> {
-  entityDetails: EntityDetails;
+export interface DomainEventOptions<DomainEventDetails> {
+  eventDetails: DomainEventDetails;
   entityId: ID;
   entityType: string;
   eventName: string;
@@ -20,13 +20,13 @@ export class DomainEvent<DomainEventDetails> {
 
   constructor(options: DomainEventOptions<DomainEventDetails>) {
     DomainEvent.isValidEventOptions(options);
-    const { eventName, entityId, entityType, entityDetails } = options;
+    const { eventName, entityId, entityType, eventDetails } = options;
     this.eventId = UUID.create();
     this.dateOccurred = DateVO.now();
     this.entityId = entityId;
     this.entityType = entityType;
     this.eventName = eventName;
-    this.details = entityDetails;
+    this.details = eventDetails;
   }
 
   static isValidEventOptions(candidate: unknown) {
