@@ -1,5 +1,5 @@
+import { AbstractValueObject } from '@domain/value-objects';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
-import { AbstractValueObject } from './value-object.abstract';
 
 describe('ValueObjectAbstract', () => {
   class ConcreteValueObject extends AbstractValueObject<string> {

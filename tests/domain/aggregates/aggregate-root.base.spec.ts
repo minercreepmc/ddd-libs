@@ -1,6 +1,6 @@
+import { AbstractAggregateRoot } from '@domain/aggregates';
 import { DomainEvent } from '@domain/domain-events';
 import { ID } from '@domain/value-objects';
-import { AbstractAggregateRoot } from './aggregate-root.base';
 
 class TestAggregateRoot extends AbstractAggregateRoot<object> {}
 

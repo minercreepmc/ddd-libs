@@ -1,6 +1,6 @@
+import { AbstractEntity } from '@domain/entities';
+import { ID } from '@domain/value-objects/id';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
-import { ID } from '../value-objects/id';
-import { AbstractEntity } from './entity.abstract';
 
 class TestEntity extends AbstractEntity<{ name: string }> {}
 

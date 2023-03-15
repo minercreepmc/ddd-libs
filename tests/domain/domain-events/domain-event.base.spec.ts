@@ -1,7 +1,7 @@
+import { DomainEvent, DomainEventOptions } from '@domain/domain-events';
+import { AbstractEntity } from '@domain/entities';
 import { DateVO, ID } from '@domain/value-objects';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
-import { AbstractEntity } from '..';
-import { DomainEvent, DomainEventOptions } from './domain-event.base';
 
 describe('DomainEvent', () => {
   class CustomEntity extends AbstractEntity<any> {}

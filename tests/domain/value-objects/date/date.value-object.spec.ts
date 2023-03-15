@@ -1,5 +1,5 @@
+import { DateVO } from '@domain/value-objects/date';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
-import { DateVO } from './date.value-object';
 
 describe('DateVO', () => {
   describe('create', () => {

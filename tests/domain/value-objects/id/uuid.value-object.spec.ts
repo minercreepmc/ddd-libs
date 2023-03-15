@@ -1,4 +1,4 @@
-import { UUID } from './uuid.value-object';
+import { UUID } from '@domain/value-objects/id';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 describe('UUID class', () => {
