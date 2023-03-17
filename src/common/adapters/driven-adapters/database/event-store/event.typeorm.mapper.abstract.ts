@@ -45,8 +45,8 @@ export abstract class AbstractEventTypeOrmMapper<
   }
 
   toDomain(persistentObject: EventOrmModel): Event {
-    const eventId = UUID.create(persistentObject.eventId);
-    const entityId = UUID.create(persistentObject.entityId);
+    const eventId = new UUID(persistentObject.eventId);
+    const entityId = new UUID(persistentObject.entityId);
     const dateOccurred = DateVO.create(persistentObject.dateOccurred);
     const details = this.toDomainDetails(persistentObject.eventData);
     const eventName = persistentObject.eventName;

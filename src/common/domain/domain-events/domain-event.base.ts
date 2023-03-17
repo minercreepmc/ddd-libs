@@ -21,7 +21,7 @@ export class DomainEvent<DomainEventDetails> {
   constructor(options: DomainEventOptions<DomainEventDetails>) {
     DomainEvent.isValidEventOptions(options);
     const { eventName, entityId, entityType, eventDetails } = options;
-    this.eventId = UUID.create();
+    this.eventId = new UUID();
     this.dateOccurred = DateVO.now();
     this.entityId = entityId;
     this.entityType = entityType;

@@ -39,7 +39,7 @@ export abstract class AbstractTypeOrmMapper<
 
   toDomain(ormModel: OrmModel): Entity {
     const details = this.toDomainDetails(ormModel);
-    const id = UUID.create(ormModel.id);
+    const id = new UUID(ormModel.id);
     const createdAt = DateVO.create(ormModel.createdAt);
     const updatedAt = DateVO.create(ormModel.updatedAt);
 

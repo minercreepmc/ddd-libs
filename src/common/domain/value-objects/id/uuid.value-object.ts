@@ -3,11 +3,10 @@ import { v4 as uuidV4, validate as uuidValidate } from 'uuid';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 export class UUID extends ID {
-  static create(id?: string): UUID {
-    if (id && !this.isValid(id))
+  constructor(id?: string) {
+    if (id && !UUID.isValid(id))
       throw new ArgumentInvalidException('Invalid uuid');
-    const uuid = new UUID(id ? id : uuidV4());
-    return uuid;
+    super(id ? id : uuidV4());
   }
 
   static isValid(candidate: string | UUID): boolean {
