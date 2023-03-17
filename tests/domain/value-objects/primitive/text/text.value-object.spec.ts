@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
-import { ArgumentContainsSymbolException, MultipleExceptions } from "@domain";
-import { TextValueObject } from "@domain/value-objects";
+import { ArgumentContainsSymbolException, MultipleExceptions } from '@domain';
+import { IsMatchingRegexOptions, TextValueObject } from '@domain/value-objects';
 
 describe('TextValueObject', () => {
   describe('isAllowLength', () => {
@@ -324,6 +324,33 @@ describe('TextValueObject', () => {
     it('should return true when the string does not contain a number and allowNumber is true', () => {
       expect(
         TextValueObject.isAllowToContainsNumbers('abc', { allowNumber: true })
+      ).toBe(true);
+    });
+  });
+
+  describe('isMatchingRegex()', () => {
+    it('should return true when the string matches the provided regex', () => {
+      expect(
+        TextValueObject.isMatchingRegex('abc123', {
+          regex: /^[a-zA-Z0-9]+$/,
+        })
+      ).toBe(true);
+    });
+
+    it('should return false when the string does not match the provided regex', () => {
+      expect(
+        TextValueObject.isMatchingRegex('abc 123', {
+          regex: /^[a-zA-Z0-9]+$/,
+        })
+      ).toBe(false);
+    });
+
+    it('should return true when the regex is not provided', () => {
+      expect(
+        TextValueObject.isMatchingRegex(
+          'abc123',
+          {} as unknown as IsMatchingRegexOptions
+        )
       ).toBe(true);
     });
   });

@@ -7,6 +7,7 @@ export interface TextValueObjectOptions {
   allowLowercase?: boolean;
   allowNumber?: boolean;
   allowEmpty?: boolean;
+  regex?: RegExp;
 }
 
 // METHODS
@@ -45,4 +46,8 @@ export interface IsAllowedToContainsSymbolsOptions {
 
 export interface IsAllowdToContainsWhitespaceOptions {
   allowWhitespace: boolean;
+}
+
+export interface IsMatchingRegexOptions {
+  regex: RegExp;
 }

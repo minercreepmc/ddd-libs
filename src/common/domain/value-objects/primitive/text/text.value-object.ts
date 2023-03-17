@@ -8,6 +8,7 @@ import {
   IsAllowLengthOptions,
   IsHigherEqualThanMinLengthOptions,
   IsLowerEqualThanMaxLengthOptions,
+  IsMatchingRegexOptions,
   TextValueObjectOptions,
 } from './text.interface';
 import { TextOptionsIsNotValidException } from './text.exception';
@@ -20,6 +21,7 @@ import {
   ArgumentContainsSymbolException,
   ArgumentContainsUppercaseException,
   ArgumentContainsWhitespaceException,
+  ArgumentDoesNotMatchRegexException,
   ArgumentTooLongException,
   ArgumentTooShortException,
   MultipleExceptions,
@@ -105,6 +107,7 @@ export class TextValueObject extends AbstractValueObject<string> {
       allowLowercase,
       allowUppercase,
       allowWhitespace,
+      regex,
     } = opts;
 
     if (
@@ -155,6 +158,10 @@ export class TextValueObject extends AbstractValueObject<string> {
 
     if (!TextValueObject.isLowerEqualThanMaxLength(value, { maxLength })) {
       errors.push(new ArgumentTooLongException());
+    }
+
+    if (!TextValueObject.isMatchingRegex(value, { regex })) {
+      errors.push(new ArgumentDoesNotMatchRegexException());
     }
 
     if (errors.length === 0) {
@@ -303,5 +310,22 @@ export class TextValueObject extends AbstractValueObject<string> {
     const { allowNumber = TextValueObject.DEFAULT_OPTIONS.allowNumber } =
       options;
     return allowNumber || !this.isContainsNumber(value);
+  }
+  /**
+   * Checks if the given string value matches the provided regex pattern.
+   * If no regex is provided, the method returns true.
+   * @param value - The string value to be checked against the regex pattern.
+   * @param options - An object containing the regex pattern.
+   * @returns A boolean value indicating if the string matches the regex pattern, or if no regex is provided.
+   */
+  static isMatchingRegex(
+    value: string,
+    options: IsMatchingRegexOptions
+  ): boolean {
+    if (!TextValueObject.isValidOptions) {
+      throw new TextOptionsIsNotValidException();
+    }
+    const { regex = TextValueObject.DEFAULT_OPTIONS.regex } = options;
+    return regex ? regex.test(value) : true;
   }
 }
