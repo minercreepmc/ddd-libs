@@ -1,6 +1,10 @@
 /* eslint-disable jest/no-conditional-expect */
 import { ArgumentContainsSymbolException, MultipleExceptions } from '@domain';
-import { IsMatchingRegexOptions, TextValueObject } from '@domain/value-objects';
+import {
+  IsMatchingRegexOptions,
+  IsValueIncludedInAllowedValuesOptions,
+  TextValueObject,
+} from '@domain/value-objects';
 
 describe('TextValueObject', () => {
   describe('isAllowLength', () => {
@@ -352,6 +356,47 @@ describe('TextValueObject', () => {
           {} as unknown as IsMatchingRegexOptions
         )
       ).toBe(true);
+    });
+  });
+
+  describe('TextValueObject', () => {
+    describe('isValueIncludedInAllowedValues', () => {
+      it('should return true if the value is included in the allowedValues', () => {
+        const value = 'blue';
+        const options = {
+          allowedValues: ['red', 'green', 'blue'],
+        };
+
+        const result = TextValueObject.isValueIncludedInAllowedValues(
+          value,
+          options
+        );
+        expect(result).toBe(true);
+      });
+
+      it('should return false if the value is not included in the allowedValues', () => {
+        const value = 'purple';
+        const options = {
+          allowedValues: ['red', 'green', 'blue'],
+        };
+
+        const result = TextValueObject.isValueIncludedInAllowedValues(
+          value,
+          options
+        );
+        expect(result).toBe(false);
+      });
+
+      it('should return true if the allowedValues is not provided', () => {
+        const value = 'yellow';
+        const options = {} as unknown as IsValueIncludedInAllowedValuesOptions;
+
+        const result = TextValueObject.isValueIncludedInAllowedValues(
+          value,
+          options
+        );
+        expect(result).toBe(true);
+      });
     });
   });
 

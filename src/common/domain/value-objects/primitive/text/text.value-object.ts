@@ -9,6 +9,7 @@ import {
   IsHigherEqualThanMinLengthOptions,
   IsLowerEqualThanMaxLengthOptions,
   IsMatchingRegexOptions,
+  IsValueIncludedInAllowedValuesOptions,
   TextValueObjectOptions,
 } from './text.interface';
 import { TextOptionsIsNotValidException } from './text.exception';
@@ -22,6 +23,7 @@ import {
   ArgumentContainsUppercaseException,
   ArgumentContainsWhitespaceException,
   ArgumentDoesNotMatchRegexException,
+  ArgumentDoestNotIncludeInAllowedValues,
   ArgumentTooLongException,
   ArgumentTooShortException,
   MultipleExceptions,
@@ -108,6 +110,7 @@ export class TextValueObject extends AbstractValueObject<string> {
       allowUppercase,
       allowWhitespace,
       regex,
+      allowedValues,
     } = opts;
 
     if (
@@ -162,6 +165,12 @@ export class TextValueObject extends AbstractValueObject<string> {
 
     if (!TextValueObject.isMatchingRegex(value, { regex })) {
       errors.push(new ArgumentDoesNotMatchRegexException());
+    }
+
+    if (
+      !TextValueObject.isValueIncludedInAllowedValues(value, { allowedValues })
+    ) {
+      errors.push(new ArgumentDoestNotIncludeInAllowedValues());
     }
 
     if (errors.length === 0) {
@@ -327,5 +336,19 @@ export class TextValueObject extends AbstractValueObject<string> {
     }
     const { regex = TextValueObject.DEFAULT_OPTIONS.regex } = options;
     return regex ? regex.test(value) : true;
+  }
+
+  static isValueIncludedInAllowedValues(
+    value: any,
+    options: IsValueIncludedInAllowedValuesOptions
+  ) {
+    if (!TextValueObject.isValidOptions) {
+      throw new TextOptionsIsNotValidException();
+    }
+    const { allowedValues } = options;
+    if (!allowedValues) {
+      return true;
+    }
+    return allowedValues.includes(value);
   }
 }

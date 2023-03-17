@@ -21,3 +21,5 @@ export class ArgumentContainsUppercaseException extends ValidationException {}
 export class ArgumentContainsLowercaseException extends ValidationException {}
 
 export class ArgumentDoesNotMatchRegexException extends ValidationException {}
+
+export class ArgumentDoestNotIncludeInAllowedValues extends ValidationException {}

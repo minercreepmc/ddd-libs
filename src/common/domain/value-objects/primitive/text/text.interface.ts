@@ -8,6 +8,7 @@ export interface TextValueObjectOptions {
   allowNumber?: boolean;
   allowEmpty?: boolean;
   regex?: RegExp;
+  allowedValues?: any[];
 }
 
 // METHODS
@@ -50,4 +51,8 @@ export interface IsAllowdToContainsWhitespaceOptions {
 
 export interface IsMatchingRegexOptions {
   regex: RegExp;
+}
+
+export interface IsValueIncludedInAllowedValuesOptions {
+  allowedValues: any[];
 }
