@@ -98,9 +98,9 @@ export class NumericValueObject<
     candidate: unknown,
     options: NumericValueObjectOptions
   ): ValidationResponse {
-    const errors: Error[] = [];
+    const exceptions: Error[] = [];
     if (typeof candidate !== 'number') {
-      errors.push(new ArgumentNotANumberException());
+      exceptions.push(new ArgumentNotANumberException());
     }
 
     const value = candidate as number;
@@ -120,7 +120,7 @@ export class NumericValueObject<
       !containsFloat &&
       !NumericValueObject.isInteger(value)
     ) {
-      errors.push(new ArgumentContainsFloatException());
+      exceptions.push(new ArgumentContainsFloatException());
     }
 
     if (
@@ -128,35 +128,29 @@ export class NumericValueObject<
       !containsInteger &&
       !NumericValueObject.isFloat(value)
     ) {
-      errors.push(new ArgumentContainsIntegerException());
+      exceptions.push(new ArgumentContainsIntegerException());
     }
 
     if (!NumericValueObject.isWithinBounds(value, minValue, maxValue)) {
-      errors.push(new ArgumentOutofBoundsException());
+      exceptions.push(new ArgumentOutofBoundsException());
     }
 
     if (!NumericValueObject.isAllowPositive(value, { containsPositive })) {
-      errors.push(new ArgumentContainsPositiveException());
+      exceptions.push(new ArgumentContainsPositiveException());
     }
 
     if (!NumericValueObject.isAllowNegative(value, { containsNegative })) {
-      errors.push(new ArgumentContainsNegativeException());
+      exceptions.push(new ArgumentContainsNegativeException());
     }
 
     if (!NumericValueObject.isAllowedZero(value, { containsZero })) {
-      errors.push(new ArgumentContainsZeroException());
+      exceptions.push(new ArgumentContainsZeroException());
     }
 
-    if (errors.length === 0) {
-      return {
-        isValid: true,
-        exceptions: [],
-      };
+    if (exceptions.length === 0) {
+      return ValidationResponse.success();
     } else {
-      return {
-        isValid: false,
-        exceptions: errors,
-      };
+      return ValidationResponse.fail(exceptions);
     }
   }
 
