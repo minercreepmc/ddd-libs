@@ -42,7 +42,13 @@ describe('DomainEvent', () => {
       eventName: 'eventName',
     };
     const domainEvent = new DomainEvent(domainEventOptions);
-    expect(domainEvent.dateOccurred.equals(DateVO.now())).toBe(true);
+    const currentDate = DateVO.now();
+    const timeDifference = Math.abs(
+      currentDate.unpack().getTime() -
+        domainEvent.dateOccurred.unpack().getTime()
+    );
+
+    expect(timeDifference).toBeLessThan(100); // You can adjust the acceptable range as needed
   });
   it('should set eventName based on provided eventOptions', () => {
     const eventName = 'testEvent';
