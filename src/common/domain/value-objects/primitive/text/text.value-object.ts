@@ -28,6 +28,7 @@ import {
   ArgumentTooShortException,
   MultipleExceptions,
 } from '@domain/domain-exceptions';
+import { ValidationError } from 'common-errors';
 
 export class TextValueObject extends AbstractValueObject<string> {
   constructor(
@@ -93,7 +94,7 @@ export class TextValueObject extends AbstractValueObject<string> {
     value: string,
     options: TextValueObjectOptions
   ): ValidationResponse {
-    const errors = [];
+    const exceptions = [];
     const opts = Object.assign({}, TextValueObject.DEFAULT_OPTIONS, options);
 
     if (!TextValueObject.isValidOptions(opts)) {
@@ -117,72 +118,66 @@ export class TextValueObject extends AbstractValueObject<string> {
       TextValueObject.isEmpty(value) &&
       !TextValueObject.isAllowedToBeEmpty(value, { allowEmpty })
     ) {
-      errors.push(new ArgumentContainsEmptyStringException());
+      exceptions.push(new ArgumentContainsEmptyStringException());
     }
 
     if (
       TextValueObject.isContainsNumber(value) &&
       !TextValueObject.isAllowToContainsNumbers(value, { allowNumber })
     ) {
-      errors.push(new ArgumentContainsNumberException());
+      exceptions.push(new ArgumentContainsNumberException());
     }
 
     if (
       TextValueObject.isContainsSymbol(value) &&
       !TextValueObject.isAllowedToContainsSymbols(value, { allowSymbols })
     ) {
-      errors.push(new ArgumentContainsSymbolException());
+      exceptions.push(new ArgumentContainsSymbolException());
     }
 
     if (
       TextValueObject.isContainsWhitespace(value) &&
       !TextValueObject.isAllowToContainsWhitespace(value, { allowWhitespace })
     ) {
-      errors.push(new ArgumentContainsWhitespaceException());
+      exceptions.push(new ArgumentContainsWhitespaceException());
     }
 
     if (
       TextValueObject.isContainsUppercase(value) &&
       !TextValueObject.isAllowToContainsUppercase(value, { allowUppercase })
     ) {
-      errors.push(new ArgumentContainsUppercaseException());
+      exceptions.push(new ArgumentContainsUppercaseException());
     }
 
     if (
       TextValueObject.isContainsLowercase(value) &&
       !TextValueObject.isAllowToContainsLowercase(value, { allowLowercase })
     ) {
-      errors.push(new ArgumentContainsLowercaseException());
+      exceptions.push(new ArgumentContainsLowercaseException());
     }
 
     if (!TextValueObject.isHigherEqualThanMinLength(value, { minLength })) {
-      errors.push(new ArgumentTooShortException());
+      exceptions.push(new ArgumentTooShortException());
     }
 
     if (!TextValueObject.isLowerEqualThanMaxLength(value, { maxLength })) {
-      errors.push(new ArgumentTooLongException());
+      exceptions.push(new ArgumentTooLongException());
     }
 
     if (!TextValueObject.isMatchingRegex(value, { regex })) {
-      errors.push(new ArgumentDoesNotMatchRegexException());
+      exceptions.push(new ArgumentDoesNotMatchRegexException());
     }
 
     if (
       !TextValueObject.isValueIncludedInAllowedValues(value, { allowedValues })
     ) {
-      errors.push(new ArgumentDoestNotIncludeInAllowedValues());
+      exceptions.push(new ArgumentDoestNotIncludeInAllowedValues());
     }
 
-    if (errors.length === 0) {
-      return {
-        isValid: true,
-        exceptions: [],
-      };
+    if (exceptions.length === 0) {
+      return ValidationResponse.success();
     } else {
-      return {
-        isValid: false,
-        exceptions: errors,
-      };
+      return ValidationResponse.fail(exceptions);
     }
   }
 
