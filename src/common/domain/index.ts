@@ -1,5 +1,4 @@
 export * from './domain-events';
-export * from './domain-errors';
 export * from './value-objects';
 export * from './aggregates';
 export * from './entities';
