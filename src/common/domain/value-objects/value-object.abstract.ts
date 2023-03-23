@@ -1,18 +1,19 @@
 import { GuardUtils } from '@utils/guard';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
 
+// Type mapping to convert value objects to their primitive types
+type Unpacked<T> = {
+  [K in keyof T]: T[K] extends AbstractValueObject<infer U>
+    ? U
+    : T[K] extends Array<AbstractValueObject<infer V>>
+    ? Array<V>
+    : T[K];
+};
+
 /**
  * Represents a primitive value in the domain model.
  */
 type Primitive = string | boolean | number;
-
-type Unpacked<T> = {
-  [K in keyof T]: T[K] extends AbstractValueObject<infer U>
-    ? Unpacked<U>
-    : T[K] extends DomainPrimitive<infer P>
-    ? P
-    : T[K];
-};
 
 /**
  * Represents a domain primitive value, which is a value that is guaranteed to be valid in the domain.
@@ -78,13 +79,13 @@ export abstract class AbstractValueObject<T> {
    * Unpacks the value object into its underlying value.
    * @returns The underlying value of the value object.
    */
-  unpack(): (T & (Primitive | Date)) | Unpacked<T> {
+  unpack(): Unpacked<T> {
     if (this.isDomainPrimitive(this.details)) {
-      return this.details.value;
+      return this.details.value as Unpacked<T>;
     }
 
     const detailsCopy = this.convertDetailsToObject(this.details);
-    return Object.freeze(detailsCopy);
+    return Object.freeze(detailsCopy) as Unpacked<T>;
   }
 
   /**
@@ -93,7 +94,7 @@ export abstract class AbstractValueObject<T> {
    * @param details - The details to convert.
    * @returns A plain object representing the given details, with any nested value objects unpacked.
    */
-  private convertDetailsToObject(details: any): Unpacked<T> {
+  private convertDetailsToObject(details: any): T {
     const convertedDetails = { ...details };
 
     for (const [key, value] of Object.entries(convertedDetails)) {
