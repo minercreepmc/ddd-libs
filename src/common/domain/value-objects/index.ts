@@ -3,4 +3,3 @@ export * from './date';
 export * from './location';
 export * from './primitive';
 export * from './value-object.abstract';
-export * from './value-object.interface';

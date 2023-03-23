@@ -63,6 +63,26 @@ describe('ValueObjectAbstract', () => {
         prop2: [{ prop3: 'def' }],
       });
     });
+    it('should return the correct type for nested value objects', () => {
+      interface ConcreteValueObject3Details {
+        prop1: ConcreteValueObject;
+        prop2: [{ prop3: ConcreteValueObject }];
+      }
+      class ConcreteValueObject3 extends AbstractValueObject<ConcreteValueObject3Details> {
+        constructor(details: ConcreteValueObject3Details) {
+          super(details);
+        }
+      }
+      const vo = new ConcreteValueObject3({
+        prop1: new ConcreteValueObject('abc'),
+        prop2: [{ prop3: new ConcreteValueObject('def') }],
+      });
+
+      const unpacked = vo.unpack();
+      // Here we can use TypeScript's type assertion to check the type of `unpacked.prop1`
+      expect(unpacked.prop1).toBe('abc');
+      expect(unpacked.prop2).toStrictEqual([{ prop3: 'def' }]);
+    });
   });
 
   describe('isValueObject', () => {

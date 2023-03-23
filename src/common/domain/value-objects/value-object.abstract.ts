@@ -1,11 +1,18 @@
 import { GuardUtils } from '@utils/guard';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
-import { IValueObject } from './value-object.interface';
 
 /**
  * Represents a primitive value in the domain model.
  */
 type Primitive = string | boolean | number;
+
+type Unpacked<T> = {
+  [K in keyof T]: T[K] extends AbstractValueObject<infer U>
+    ? Unpacked<U>
+    : T[K] extends DomainPrimitive<infer P>
+    ? P
+    : T[K];
+};
 
 /**
  * Represents a domain primitive value, which is a value that is guaranteed to be valid in the domain.
@@ -30,13 +37,13 @@ type ValueObjectDetails<T> = T extends Primitive | Date
  * Represents an abstract value object.
  * @typeparam T The type of the value object.
  */
-export abstract class AbstractValueObject<T> implements IValueObject<T> {
+export abstract class AbstractValueObject<T> {
   /**
    * Creates a new instance of the AbstractValueObject class.
    * @param details The details of the value object.
    * @throws ArgumentInvalidException if the details are empty.
    */
-  protected constructor(protected readonly details: ValueObjectDetails<T>) {
+  protected constructor(readonly details: ValueObjectDetails<T>) {
     AbstractValueObject.isValidOrThrow(details);
     this.details = details;
   }
@@ -71,7 +78,7 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
    * Unpacks the value object into its underlying value.
    * @returns The underlying value of the value object.
    */
-  unpack(): T {
+  unpack(): (T & (Primitive | Date)) | Unpacked<T> {
     if (this.isDomainPrimitive(this.details)) {
       return this.details.value;
     }
@@ -86,7 +93,7 @@ export abstract class AbstractValueObject<T> implements IValueObject<T> {
    * @param details - The details to convert.
    * @returns A plain object representing the given details, with any nested value objects unpacked.
    */
-  private convertDetailsToObject(details: any) {
+  private convertDetailsToObject(details: any): Unpacked<T> {
     const convertedDetails = { ...details };
 
     for (const [key, value] of Object.entries(convertedDetails)) {
