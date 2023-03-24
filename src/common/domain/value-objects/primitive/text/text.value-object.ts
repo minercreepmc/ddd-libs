@@ -28,7 +28,6 @@ import {
   ArgumentTooShortException,
   MultipleExceptions,
 } from '@domain/domain-exceptions';
-import { ValidationError } from 'common-errors';
 
 export class TextValueObject extends AbstractValueObject<string> {
   constructor(

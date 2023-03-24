@@ -1,10 +1,10 @@
+import { IBaseEntity } from '@domain/entities';
 import { ID } from '@domain/value-objects/id';
-import { QueryParams, WhereClause } from '@driven-adapters/database';
+
+export type QueryParams<EntityDetails> = Partial<IBaseEntity & EntityDetails>;
 
 export interface FindOne<Entity, EntityDetails> {
-  findOne(
-    params: QueryParams<EntityDetails> | WhereClause<Entity>
-  ): Promise<Entity | undefined>;
+  findOne(params: QueryParams<EntityDetails>): Promise<Entity | undefined>;
 }
 
 export interface FindOneById<Entity> {
