@@ -2,13 +2,13 @@ import { GuardUtils } from '@utils/guard';
 import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 // Type mapping to convert value objects to their primitive types
-type Unpacked<T> = {
-  [K in keyof T]: T[K] extends AbstractValueObject<infer U>
-    ? U
-    : T[K] extends Array<AbstractValueObject<infer V>>
-    ? Array<V>
-    : T[K];
-};
+type Unpacked<T> = T extends AbstractValueObject<infer U>
+  ? U
+  : T extends Array<infer V>
+  ? Array<Unpacked<V>>
+  : T extends Record<string, any>
+  ? { [K in keyof T]: Unpacked<T[K]> }
+  : T;
 
 /**
  * Represents a primitive value in the domain model.
