@@ -3,7 +3,7 @@ import { ArgumentInvalidException } from 'ts-common-exceptions';
 
 // Type mapping to convert value objects to their primitive types
 type Unpacked<T> = T extends AbstractValueObject<infer U>
-  ? U
+  ? Unpacked<U>
   : T extends Array<infer V>
   ? Array<Unpacked<V>>
   : T extends Record<string, any>
@@ -88,29 +88,30 @@ export abstract class AbstractValueObject<T> {
     return Object.freeze(detailsCopy) as Unpacked<T>;
   }
 
+  private convertValue(value: unknown): unknown {
+    if (AbstractValueObject.isValueObject(value)) {
+      return value.unpack();
+    } else if (Array.isArray(value)) {
+      return value.map((item) => this.convertValue(item));
+    } else if (typeof value === 'object') {
+      return this.convertDetailsToObject(value);
+    } else {
+      return value;
+    }
+  }
+
   /**
    * Converts the given details to a plain object, recursively unpacking any nested value objects.
    *
    * @param details - The details to convert.
    * @returns A plain object representing the given details, with any nested value objects unpacked.
    */
+
   private convertDetailsToObject(details: any): T {
     const convertedDetails = { ...details };
 
     for (const [key, value] of Object.entries(convertedDetails)) {
-      if (Array.isArray(value)) {
-        convertedDetails[key] = (value as Array<unknown>).map((item) => {
-          if (AbstractValueObject.isValueObject(item)) {
-            return item.unpack();
-          } else if (typeof item === 'object') {
-            return this.convertDetailsToObject(item);
-          } else {
-            return item;
-          }
-        });
-      } else if (AbstractValueObject.isValueObject(value)) {
-        convertedDetails[key] = value.unpack();
-      }
+      convertedDetails[key] = this.convertValue(value);
     }
 
     return convertedDetails;

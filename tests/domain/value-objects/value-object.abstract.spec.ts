@@ -27,6 +27,19 @@ describe('ValueObjectAbstract', () => {
       super(details);
     }
   }
+
+  interface DeepNestedValueObjectDetails {
+    prop1: {
+      prop2: {
+        prop3: SimpleValueObject;
+      };
+    };
+  }
+  class DeepNestedValueObject extends AbstractValueObject<DeepNestedValueObjectDetails> {
+    constructor(details: DeepNestedValueObjectDetails) {
+      super(details);
+    }
+  }
   describe('isValidOrThrow', () => {
     test('throws an error if candidate is empty', () => {
       expect(() => AbstractValueObject.isValidOrThrow(null)).toThrow(
@@ -75,6 +88,22 @@ describe('ValueObjectAbstract', () => {
       expect(vo.unpack()).toEqual({
         prop1: 'abc',
         prop2: [{ prop3: 'def' }],
+      });
+    });
+    it('should return plain object with super nested value object', () => {
+      const vo = new DeepNestedValueObject({
+        prop1: {
+          prop2: {
+            prop3: new SimpleValueObject('abc'),
+          },
+        },
+      });
+      expect(vo.unpack()).toEqual({
+        prop1: {
+          prop2: {
+            prop3: 'abc',
+          },
+        },
       });
     });
   });
