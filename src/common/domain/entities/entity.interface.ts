@@ -16,4 +16,6 @@ export interface IEntity<EntityDetails> {
 export interface EntityOptions<Details> {
   id: ID;
   details: Details;
+  createdAt?: DateVO;
+  updatedAt?: DateVO;
 }

@@ -12,11 +12,16 @@ export abstract class AbstractEntity<EntityDetails>
   updatedAt: DateVO;
   readonly details: EntityDetails;
 
-  constructor({ id, details }: EntityOptions<EntityDetails>) {
+  constructor({
+    id,
+    details,
+    createdAt,
+    updatedAt,
+  }: EntityOptions<EntityDetails>) {
     AbstractEntity.isValidDetails(details);
     this.id = id;
-    this.createdAt = DateVO.now();
-    this.updatedAt = DateVO.now();
+    this.createdAt = createdAt || DateVO.now();
+    this.updatedAt = updatedAt || DateVO.now();
     this.details = details;
   }
 
