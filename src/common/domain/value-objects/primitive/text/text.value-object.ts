@@ -225,7 +225,15 @@ export class TextValueObject extends AbstractValueObject<string> {
   }
 
   static isEmpty(value: string): boolean {
-    return value.trim().length === 0;
+    if (value === null || typeof value === 'undefined') {
+      return true;
+    }
+
+    if (typeof value === 'string' && value.trim() === '') {
+      return true;
+    }
+
+    return false;
   }
 
   static isAllowedToBeEmpty(value: string, options: IsAllowedToBeEmptyOptions) {

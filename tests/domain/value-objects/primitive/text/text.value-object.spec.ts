@@ -95,6 +95,16 @@ describe('TextValueObject', () => {
       const value = 'hello world';
       expect(TextValueObject.isEmpty(value)).toBe(false);
     });
+
+    it('should return true for null value', () => {
+      const value: any = null;
+      expect(TextValueObject.isEmpty(value)).toBe(true);
+    });
+
+    it('should return true for undefined value', () => {
+      const value: any = undefined;
+      expect(TextValueObject.isEmpty(value)).toBe(true);
+    });
   });
 
   describe('isAllowedToBeEmpty', () => {
