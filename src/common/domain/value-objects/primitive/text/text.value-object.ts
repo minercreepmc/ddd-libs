@@ -118,6 +118,7 @@ export class TextValueObject extends AbstractValueObject<string> {
       !TextValueObject.isAllowedToBeEmpty(value, { allowEmpty })
     ) {
       exceptions.push(new ArgumentContainsEmptyStringException());
+      return ValidationResponse.fail(exceptions);
     }
 
     if (
