@@ -11,6 +11,13 @@ export class MultipleExceptions extends Error {
   exceptions: Error[];
 }
 
-export class ValidationException extends Error {}
+export class ValidationException extends Error {
+  readonly code: string;
+
+  constructor(message: string, code?: string) {
+    super(message);
+    this.code = code;
+  }
+}
 
 export class InvalidOperationException extends Error {}
