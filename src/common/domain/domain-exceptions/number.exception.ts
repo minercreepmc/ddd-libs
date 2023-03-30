@@ -1,4 +1,4 @@
-import { ValidationException } from './exception.base';
+import { ValidationExceptionBase } from './exception.base';
 
 export enum NumberExceptionCodes {
   containsFloat = 'NUMBER.EXCEPTION.CONTAINS_FLOAT',
@@ -9,38 +9,32 @@ export enum NumberExceptionCodes {
   containsZero = 'NUMBER.EXCEPTION.CONTAINS_ZERO',
 }
 
-export class ArgumentContainsFloatException extends ValidationException {
-  constructor(message = 'Argument contains float') {
-    super(message, NumberExceptionCodes.containsFloat);
-  }
+export class ArgumentContainsFloatException extends ValidationExceptionBase {
+  readonly code = NumberExceptionCodes.containsFloat;
+  readonly message = 'Argument contains float';
 }
 
-export class ArgumentContainsIntegerException extends ValidationException {
-  constructor(message = 'Argument contains integer') {
-    super(message, NumberExceptionCodes.containsInteger);
-  }
+export class ArgumentContainsIntegerException extends ValidationExceptionBase {
+  readonly code = NumberExceptionCodes.containsInteger;
+  readonly message = 'Argument contains integer';
 }
 
-export class ArgumentOutofBoundsException extends ValidationException {
-  constructor(message = 'Argument out of bounds') {
-    super(message, NumberExceptionCodes.outofBounds);
-  }
+export class ArgumentOutofBoundsException extends ValidationExceptionBase {
+  readonly code = NumberExceptionCodes.outofBounds;
+  readonly message = 'Argument out of bounds';
 }
 
-export class ArgumentContainsPositiveException extends ValidationException {
-  constructor(message = 'Argument contains positive') {
-    super(message, NumberExceptionCodes.containsPositive);
-  }
+export class ArgumentContainsPositiveException extends ValidationExceptionBase {
+  readonly code = NumberExceptionCodes.containsPositive;
+  readonly message = 'Argument contains positive';
 }
 
-export class ArgumentContainsNegativeException extends ValidationException {
-  constructor(message = 'Argument contains negative') {
-    super(message, NumberExceptionCodes.containsNegative);
-  }
+export class ArgumentContainsNegativeException extends ValidationExceptionBase {
+  readonly code = NumberExceptionCodes.containsNegative;
+  readonly message = 'Argument contains negative';
 }
 
-export class ArgumentContainsZeroException extends ValidationException {
-  constructor(message = 'Argument contains zero') {
-    super(message, NumberExceptionCodes.containsZero);
-  }
+export class ArgumentContainsZeroException extends ValidationExceptionBase {
+  readonly code = NumberExceptionCodes.containsZero;
+  readonly message = 'Argument contains zero';
 }

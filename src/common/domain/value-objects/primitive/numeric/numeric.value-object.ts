@@ -7,7 +7,7 @@ import {
   ArgumentNotANumberException,
   ArgumentOutofBoundsException,
   MultipleExceptions,
-  ValidationException,
+  ValidationExceptionBase,
 } from '@domain/domain-exceptions';
 import { ValidationResponse } from '@domain/interfaces';
 import { AbstractValueObject } from '@domain/value-objects/value-object.abstract';
@@ -99,7 +99,7 @@ export class NumericValueObject<
     candidate: unknown,
     options: NumericValueObjectOptions
   ): ValidationResponse {
-    const exceptions: ValidationException[] = [];
+    const exceptions: ValidationExceptionBase[] = [];
     if (typeof candidate !== 'number') {
       exceptions.push(new ArgumentNotANumberException());
     }
