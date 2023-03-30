@@ -13,10 +13,12 @@ export class MultipleExceptions extends Error {
 
 export class ValidationException extends Error {
   readonly code: string;
+  readonly message: string;
 
   constructor(message: string, code?: string) {
     super(message);
     this.code = code;
+    this.message = message;
   }
 }
 
