@@ -10,31 +10,37 @@ export enum NumberExceptionCodes {
 }
 
 export class ArgumentContainsFloatException extends ValidationExceptionBase {
-  readonly code = NumberExceptionCodes.containsFloat;
-  readonly message = 'Argument contains float';
+  readonly name = ArgumentContainsFloatException.name;
+  code = NumberExceptionCodes.containsFloat;
+  message = 'Argument contains float';
 }
 
 export class ArgumentContainsIntegerException extends ValidationExceptionBase {
-  readonly code = NumberExceptionCodes.containsInteger;
-  readonly message = 'Argument contains integer';
+  readonly name = ArgumentContainsIntegerException.name;
+  code = NumberExceptionCodes.containsInteger;
+  message = 'Argument contains integer';
 }
 
 export class ArgumentOutofBoundsException extends ValidationExceptionBase {
-  readonly code = NumberExceptionCodes.outofBounds;
-  readonly message = 'Argument out of bounds';
+  readonly name = ArgumentOutofBoundsException.name;
+  code = NumberExceptionCodes.outofBounds;
+  message = 'Argument out of bounds';
 }
 
 export class ArgumentContainsPositiveException extends ValidationExceptionBase {
-  readonly code = NumberExceptionCodes.containsPositive;
-  readonly message = 'Argument contains positive';
+  readonly name = ArgumentContainsPositiveException.name;
+  code = NumberExceptionCodes.containsPositive;
+  message = 'Argument contains positive';
 }
 
 export class ArgumentContainsNegativeException extends ValidationExceptionBase {
-  readonly code = NumberExceptionCodes.containsNegative;
-  readonly message = 'Argument contains negative';
+  readonly name = ArgumentContainsNegativeException.name;
+  code = NumberExceptionCodes.containsNegative;
+  message = 'Argument contains negative';
 }
 
 export class ArgumentContainsZeroException extends ValidationExceptionBase {
-  readonly code = NumberExceptionCodes.containsZero;
-  readonly message = 'Argument contains zero';
+  readonly name = ArgumentContainsZeroException.name;
+  code = NumberExceptionCodes.containsZero;
+  message = 'Argument contains zero';
 }

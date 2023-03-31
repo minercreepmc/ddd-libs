@@ -16,61 +16,73 @@ export enum StringExceptionCodes {
 }
 
 export class ArgumentTooShortException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.tooShort;
-  readonly message = 'Argument too short';
+  readonly name = ArgumentTooShortException.name;
+  code = StringExceptionCodes.tooShort;
+  message = 'Argument too short';
 }
 
 export class ArgumentTooLongException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.tooLong;
-  readonly message = 'Argument too long';
+  readonly name = ArgumentTooLongException.name;
+  code = StringExceptionCodes.tooLong;
+  message = 'Argument too long';
 }
 
 export class ArgumentContainsInvalidCharactersException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.containsInvalidCharacters;
-  readonly message = 'Argument contains invalid characters';
+  readonly name = ArgumentContainsInvalidCharactersException.name;
+  code = StringExceptionCodes.containsInvalidCharacters;
+  message = 'Argument contains invalid characters';
 }
 
 export class ArgumentDoesNotMeetRequirementsException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.doesNotMeetRequirements;
-  readonly message = 'Argument does not meet requirements';
+  readonly name = ArgumentDoesNotMeetRequirementsException.name;
+  code = StringExceptionCodes.doesNotMeetRequirements;
+  message = 'Argument does not meet requirements';
 }
 
 export class ArgumentContainsWhitespaceException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.containsWhitespace;
-  readonly message = 'Argument contains whitespace';
+  readonly name = ArgumentContainsWhitespaceException.name;
+  code = StringExceptionCodes.containsWhitespace;
+  message = 'Argument contains whitespace';
 }
 
 export class ArgumentContainsEmptyStringException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.containsEmptyString;
-  readonly message = 'Argument contains empty string';
+  readonly name = ArgumentContainsEmptyStringException.name;
+  code = StringExceptionCodes.containsEmptyString;
+  message = 'Argument contains empty string';
 }
 
 export class ArgumentContainsNumberException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.containsNumber;
-  readonly message = 'Argument contains number';
+  readonly name = ArgumentContainsNumberException.name;
+  code = StringExceptionCodes.containsNumber;
+  message = 'Argument contains number';
 }
 
 export class ArgumentContainsSymbolException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.containsSymbol;
-  readonly message = 'Argument contains symbol';
+  readonly name = ArgumentContainsSymbolException.name;
+  code = StringExceptionCodes.containsSymbol;
+  message = 'Argument contains symbol';
 }
 
 export class ArgumentContainsUppercaseException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.containsUppercase;
-  readonly message = 'Argument contains uppercase';
+  readonly name = ArgumentContainsUppercaseException.name;
+  code = StringExceptionCodes.containsUppercase;
+  message = 'Argument contains uppercase';
 }
 
 export class ArgumentContainsLowercaseException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.containsLowercase;
-  readonly message = 'Argument contains lowercase';
+  readonly name = ArgumentContainsLowercaseException.name;
+  code = StringExceptionCodes.containsLowercase;
+  message = 'Argument contains lowercase';
 }
 
 export class ArgumentDoesNotMatchRegexException extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.doesNotMatchRegex;
-  readonly message = 'Argument does not match regex';
+  readonly name = ArgumentDoesNotMatchRegexException.name;
+  code = StringExceptionCodes.doesNotMatchRegex;
+  message = 'Argument does not match regex';
 }
 
 export class ArgumentDoestNotIncludeInAllowedValues extends ValidationExceptionBase {
-  readonly code = StringExceptionCodes.doesNotIncludeInAllowedValues;
-  readonly message = 'Argument does not include in allowed values';
+  readonly name = ArgumentDoestNotIncludeInAllowedValues.name;
+  code = StringExceptionCodes.doesNotIncludeInAllowedValues;
+  message = 'Argument does not include in allowed values';
 }

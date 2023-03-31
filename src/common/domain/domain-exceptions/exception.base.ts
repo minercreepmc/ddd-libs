@@ -12,8 +12,14 @@ export class MultipleExceptions extends Error {
 }
 
 export abstract class ValidationExceptionBase extends Error {
-  readonly code: string;
-  readonly message: string;
+  readonly name: string;
+  code: string;
+  message: string;
 }
 
 export class InvalidOperationException extends Error {}
+
+export abstract class DomainExceptionBase extends Error {
+  readonly message: string;
+  readonly code: string;
+}

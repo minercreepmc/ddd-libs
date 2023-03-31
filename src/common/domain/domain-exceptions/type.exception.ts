@@ -6,11 +6,13 @@ export enum TypeExceptionCodes {
 }
 
 export class ArgumentNotANumberException extends ValidationExceptionBase {
-  readonly code = TypeExceptionCodes.argumentNotANumberException;
-  readonly message = 'Argument not a number';
+  readonly name = ArgumentNotANumberException.name;
+  code = TypeExceptionCodes.argumentNotANumberException;
+  message = 'Argument not a number';
 }
 
 export class ArgumentNotAStringException extends ValidationExceptionBase {
-  readonly code = TypeExceptionCodes.argumentNotAStringException;
-  readonly message = 'Argument not a string';
+  readonly name = ArgumentNotAStringException.name;
+  code = TypeExceptionCodes.argumentNotAStringException;
+  message = 'Argument not a string';
 }
