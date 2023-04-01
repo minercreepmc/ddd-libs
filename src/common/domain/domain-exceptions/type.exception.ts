@@ -3,6 +3,7 @@ import { ValidationExceptionBase } from './exception.base';
 export enum TypeExceptionCodes {
   argumentNotANumberException = 'TYPE.EXCEPTION.ARGUMENT_NOT_A_NUMBER_EXCEPTION',
   argumentNotAStringException = 'TYPE.EXCEPTION.ARGUMENT_NOT_A_STRING_EXCEPTION',
+  argumentIsEmptyException = 'TYPE.EXCEPTION.ARGUMENT_IS_EMPTY_EXCEPTION',
 }
 
 export class ArgumentNotANumberException extends ValidationExceptionBase {
@@ -15,4 +16,10 @@ export class ArgumentNotAStringException extends ValidationExceptionBase {
   readonly name = ArgumentNotAStringException.name;
   code = TypeExceptionCodes.argumentNotAStringException;
   message = 'Argument not a string';
+}
+
+export class ArgumentIsEmptyException extends ValidationExceptionBase {
+  readonly name = ArgumentIsEmptyException.name;
+  code = TypeExceptionCodes.argumentIsEmptyException;
+  message = 'Argument is empty';
 }
