@@ -2,6 +2,7 @@
 import {
   ArgumentContainsSymbolException,
   ArgumentInvalidException,
+  ArgumentNotAStringException,
   MultipleExceptions,
 } from '@domain';
 import {
@@ -103,14 +104,14 @@ describe('TextValueObject', () => {
     it('should return true for null value', () => {
       const value: any = null;
       expect(() => TextValueObject.isEmpty(value)).toThrow(
-        ArgumentInvalidException
+        ArgumentNotAStringException
       );
     });
 
     it('should return true for undefined value', () => {
       const value: any = undefined;
       expect(() => TextValueObject.isEmpty(value)).toThrow(
-        ArgumentInvalidException
+        ArgumentNotAStringException
       );
     });
   });

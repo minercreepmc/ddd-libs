@@ -26,8 +26,8 @@ import {
   ArgumentDoestNotIncludeInAllowedValues,
   ArgumentTooLongException,
   ArgumentTooShortException,
-  ArgumentInvalidException,
   MultipleExceptions,
+  ArgumentNotAStringException,
 } from '@domain/domain-exceptions';
 
 export class TextValueObject extends AbstractValueObject<string> {
@@ -115,7 +115,7 @@ export class TextValueObject extends AbstractValueObject<string> {
     } = opts;
 
     if (typeof value !== 'string') {
-      return ValidationResponse.fail([new ArgumentInvalidException()]);
+      return ValidationResponse.fail([new ArgumentNotAStringException()]);
     }
 
     if (
@@ -232,7 +232,7 @@ export class TextValueObject extends AbstractValueObject<string> {
 
   static isEmpty(value: string): boolean {
     if (typeof value !== 'string') {
-      throw new ArgumentInvalidException();
+      throw new ArgumentNotAStringException();
     }
     if (typeof value === 'string' && value.trim() === '') {
       return true;
