@@ -1,5 +1,9 @@
 /* eslint-disable jest/no-conditional-expect */
-import { ArgumentContainsSymbolException, MultipleExceptions } from '@domain';
+import {
+  ArgumentContainsSymbolException,
+  ArgumentInvalidException,
+  MultipleExceptions,
+} from '@domain';
 import {
   IsMatchingRegexOptions,
   IsValueIncludedInAllowedValuesOptions,
@@ -98,12 +102,16 @@ describe('TextValueObject', () => {
 
     it('should return true for null value', () => {
       const value: any = null;
-      expect(TextValueObject.isEmpty(value)).toBe(true);
+      expect(() => TextValueObject.isEmpty(value)).toThrow(
+        ArgumentInvalidException
+      );
     });
 
     it('should return true for undefined value', () => {
       const value: any = undefined;
-      expect(TextValueObject.isEmpty(value)).toBe(true);
+      expect(() => TextValueObject.isEmpty(value)).toThrow(
+        ArgumentInvalidException
+      );
     });
   });
 

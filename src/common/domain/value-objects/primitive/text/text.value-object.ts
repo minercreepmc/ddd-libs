@@ -26,6 +26,7 @@ import {
   ArgumentDoestNotIncludeInAllowedValues,
   ArgumentTooLongException,
   ArgumentTooShortException,
+  ArgumentInvalidException,
   MultipleExceptions,
 } from '@domain/domain-exceptions';
 
@@ -112,6 +113,10 @@ export class TextValueObject extends AbstractValueObject<string> {
       regex,
       allowedValues,
     } = opts;
+
+    if (typeof value !== 'string') {
+      return ValidationResponse.fail([new ArgumentInvalidException()]);
+    }
 
     if (
       TextValueObject.isEmpty(value) &&
@@ -226,10 +231,9 @@ export class TextValueObject extends AbstractValueObject<string> {
   }
 
   static isEmpty(value: string): boolean {
-    if (value === null || typeof value === 'undefined') {
-      return true;
+    if (typeof value !== 'string') {
+      throw new ArgumentInvalidException();
     }
-
     if (typeof value === 'string' && value.trim() === '') {
       return true;
     }
