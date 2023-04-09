@@ -1,16 +1,14 @@
 import { ValidationExceptionBase } from '@domain/domain-exceptions';
 
 export class ValidationResponse {
-  isValid: boolean;
-  exceptions: ValidationExceptionBase[];
+  constructor(
+    public isValid: boolean,
+    public exceptions: ValidationExceptionBase[],
+    public value?: any
+  ) {}
 
-  constructor(isValid: boolean, exceptions: ValidationExceptionBase[]) {
-    this.isValid = isValid;
-    this.exceptions = exceptions;
-  }
-
-  static success(): ValidationResponse {
-    return new ValidationResponse(true, []);
+  static success(value?: any): ValidationResponse {
+    return new ValidationResponse(true, [], value);
   }
 
   static fail(exceptions: ValidationExceptionBase[]): ValidationResponse {
