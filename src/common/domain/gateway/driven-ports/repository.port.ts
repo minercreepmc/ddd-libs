@@ -18,7 +18,8 @@ export interface RepositoryPort<Entity, EntityDetails>
     Delete<Entity>,
     FindOneById<Entity>,
     FindOne<Entity, EntityDetails>,
-    Update<Entity> {}
+    Update<Entity>,
+    Transaction {}
 
 export interface ProjectionRepositoryPort<ReadModel>
   extends Save<ReadModel>,
