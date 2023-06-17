@@ -1,7 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 import {
   ArgumentContainsSymbolException,
-  ArgumentInvalidException,
   ArgumentNotAStringException,
   MultipleExceptions,
 } from '@domain';

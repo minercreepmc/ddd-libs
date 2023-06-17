@@ -189,7 +189,7 @@ export class TextValueObject extends AbstractValueObject<string> {
   static readonly DEFAULT_OPTIONS: TextValueObjectOptions = {
     minLength: 0,
     maxLength: Number.MAX_SAFE_INTEGER,
-    allowSymbols: false,
+    allowSymbols: true,
     allowWhitespace: true,
     allowUppercase: true,
     allowLowercase: true,
