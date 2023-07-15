@@ -126,4 +126,72 @@ describe('ValueObjectAbstract', () => {
       );
     });
   });
+  describe('includes', () => {
+    it('should return true if all given values exist in the value objects', () => {
+      const valueObjects = [
+        new SimpleValueObject('a'),
+        new SimpleValueObject('b'),
+        new SimpleValueObject('c'),
+      ];
+      const values = ['a', 'b'];
+
+      expect(AbstractValueObject.includes(valueObjects, values)).toBe(true);
+    });
+
+    it('should return false if not all given values exist in the value objects', () => {
+      const valueObjects = [
+        new SimpleValueObject('a'),
+        new SimpleValueObject('b'),
+        new SimpleValueObject('c'),
+      ];
+      const values = ['a', 'd'];
+
+      expect(AbstractValueObject.includes(valueObjects, values)).toBe(false);
+    });
+  });
+
+  describe('filter', () => {
+    it('should correctly filter the value objects based on the filter function', () => {
+      const valueObjects = [
+        new SimpleValueObject('a'),
+        new SimpleValueObject('b'),
+        new SimpleValueObject('c'),
+      ];
+
+      const result = AbstractValueObject.filter(
+        valueObjects,
+        (vo: SimpleValueObject) => vo.unpack() === 'a'
+      );
+
+      expect(result[0].unpack()).toBe('a');
+    });
+
+    it('should return an empty array if no value objects pass the filter function', () => {
+      const valueObjects = [
+        new SimpleValueObject('a'),
+        new SimpleValueObject('b'),
+        new SimpleValueObject('c'),
+      ];
+      const filterFn = (vo: SimpleValueObject) => vo.unpack() === 'd'; // 'd' is not present in the values
+      const result = AbstractValueObject.filter(valueObjects, filterFn);
+
+      expect(result.length).toBe(0);
+    });
+
+    it('should return the same array if all value objects pass the filter function', () => {
+      const valueObjects = [
+        new SimpleValueObject('a'),
+        new SimpleValueObject('b'),
+        new SimpleValueObject('c'),
+      ];
+      const filterFn = (vo: SimpleValueObject) => vo.unpack() !== 'd';
+
+      const result = AbstractValueObject.filter(valueObjects, filterFn);
+
+      expect(result.length).toBe(3);
+      expect(result[0].unpack()).toBe('a');
+      expect(result[1].unpack()).toBe('b');
+      expect(result[2].unpack()).toBe('c');
+    });
+  });
 });

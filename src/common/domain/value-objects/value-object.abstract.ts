@@ -88,6 +88,25 @@ export abstract class AbstractValueObject<T> {
     return Object.freeze(detailsCopy) as Unpacked<T>;
   }
 
+  static includes(
+    valueObjects: AbstractValueObject<any>[],
+    values: string[]
+  ): boolean {
+    const unpackedIds = valueObjects.map((valueObject) => valueObject.unpack());
+    return values.every((value) => unpackedIds.includes(value));
+  }
+
+  static filter<T extends AbstractValueObject<any>>(
+    values: T[],
+    filterFn: (value: T) => boolean
+  ): T[] {
+    const filtered = values.filter(filterFn);
+    const unpackedFiltered = filtered.map((v) => v.unpack());
+    return unpackedFiltered.map(
+      (value) => new (filtered[0].constructor as any)(value)
+    );
+  }
+
   private convertValue(value: unknown): unknown {
     if (AbstractValueObject.isValueObject(value)) {
       return value.unpack();
