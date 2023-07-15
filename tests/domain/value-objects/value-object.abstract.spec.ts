@@ -194,4 +194,27 @@ describe('ValueObjectAbstract', () => {
       expect(result[2].unpack()).toBe('c');
     });
   });
+  describe('isIncludedIn', () => {
+    it('should return true if the value object is included in the array', () => {
+      const a = new SimpleValueObject('a');
+      const array = [
+        new SimpleValueObject('a'),
+        new SimpleValueObject('b'),
+        new SimpleValueObject('c'),
+      ];
+
+      expect(a.isIncludedIn(array)).toBe(true);
+    });
+
+    it('should return false if the value object is not included in the array', () => {
+      const d = new SimpleValueObject('d');
+      const array = [
+        new SimpleValueObject('a'),
+        new SimpleValueObject('b'),
+        new SimpleValueObject('c'),
+      ];
+
+      expect(d.isIncludedIn(array)).toBe(false);
+    });
+  });
 });

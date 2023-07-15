@@ -88,6 +88,11 @@ export abstract class AbstractValueObject<T> {
     return Object.freeze(detailsCopy) as Unpacked<T>;
   }
 
+  isIncludedIn(array: AbstractValueObject<T>[]): boolean {
+    const unpackedValues = array.map((valueObject) => valueObject.unpack());
+    return unpackedValues.includes(this.unpack());
+  }
+
   static includes(
     valueObjects: AbstractValueObject<any>[],
     values: AbstractValueObject<any>[]
