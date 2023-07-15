@@ -90,10 +90,10 @@ export abstract class AbstractValueObject<T> {
 
   static includes(
     valueObjects: AbstractValueObject<any>[],
-    values: string[]
+    values: AbstractValueObject<any>[]
   ): boolean {
     const unpackedIds = valueObjects.map((valueObject) => valueObject.unpack());
-    return values.every((value) => unpackedIds.includes(value));
+    return values.every((value) => unpackedIds.includes(value.unpack()));
   }
 
   static filter<T extends AbstractValueObject<any>>(

@@ -133,7 +133,7 @@ describe('ValueObjectAbstract', () => {
         new SimpleValueObject('b'),
         new SimpleValueObject('c'),
       ];
-      const values = ['a', 'b'];
+      const values = [new SimpleValueObject('a'), new SimpleValueObject('b')];
 
       expect(AbstractValueObject.includes(valueObjects, values)).toBe(true);
     });
@@ -144,7 +144,7 @@ describe('ValueObjectAbstract', () => {
         new SimpleValueObject('b'),
         new SimpleValueObject('c'),
       ];
-      const values = ['a', 'd'];
+      const values = [new SimpleValueObject('a'), new SimpleValueObject('d')];
 
       expect(AbstractValueObject.includes(valueObjects, values)).toBe(false);
     });
